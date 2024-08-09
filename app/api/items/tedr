@@ -1,0 +1,12 @@
+    val.name, 
+    val.group, 
+val.alias, 
+    val.unit, 
+    val.conversion, 
+    val.opening_qty, 
+    val.opening_rate, 
+    val. opening_value, 
+    val. is_full, 
+    val.salesprice, 
+    val.has_open_bal,
+    val. warning_limit

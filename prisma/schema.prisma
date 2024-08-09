@@ -1,0 +1,253 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model config {
+  name  String  @id @db.VarChar(64)
+  value String? @db.VarChar(1024)
+}
+
+model mst_cost_category {
+  guid                 String @id @db.VarChar(64)
+  name                 String @default("") @db.VarChar(1024)
+  allocate_revenue     Int?   @db.TinyInt
+  allocate_non_revenue Int?   @db.TinyInt
+}
+
+model mst_cost_centre {
+  guid     String @id @db.VarChar(64)
+  name     String @default("") @db.VarChar(1024)
+  parent   String @default("") @db.VarChar(1024)
+  category String @default("") @db.VarChar(1024)
+}
+
+model mst_godown {
+  guid    String @id @db.VarChar(64)
+  name    String @default("") @db.VarChar(1024)
+  parent  String @default("") @db.VarChar(1024)
+  address String @default("") @db.VarChar(1024)
+}
+
+model mst_group {
+  guid                 String @id @db.VarChar(64)
+  name                 String @default("") @db.VarChar(1024)
+  parent               String @default("") @db.VarChar(1024)
+  primary_group        String @default("") @db.VarChar(1024)
+  is_revenue           Int?   @db.TinyInt
+  is_deemedpositive    Int?   @db.TinyInt
+  is_reserved          Int?   @db.TinyInt
+  affects_gross_profit Int?   @db.TinyInt
+  sort_position        Int?
+}
+
+model mst_gst_effective_rate {
+  item                  String    @default("") @db.VarChar(1024)
+  applicable_from       DateTime? @db.Date
+  hsn_description       String    @default("") @db.VarChar(256)
+  hsn_code              String    @default("") @db.VarChar(64)
+  rate                  Decimal   @default(0.00) @db.Decimal(17, 2)
+  is_rcm_applicable     Int?      @db.TinyInt
+  nature_of_transaction String    @default("") @db.VarChar(64)
+  nature_of_goods       String    @default("") @db.VarChar(64)
+  supply_type           String    @default("") @db.VarChar(64)
+  taxability            String    @default("") @db.VarChar(64)
+  id                    Int       @id @default(autoincrement())
+}
+
+model mst_ledger {
+  guid                  String   @id @db.VarChar(64)
+  name                  String   @default("") @db.VarChar(1024)
+  parent                String   @default("") @db.VarChar(1024)
+  alias                 String   @default("") @db.VarChar(256)
+  is_revenue            Int?     @db.TinyInt
+  is_deemedpositive     Int?     @db.TinyInt
+  opening_balance       Decimal? @default(0.00) @db.Decimal(17, 2)
+  description           String   @default("") @db.VarChar(256)
+  mailing_name          String   @default("") @db.VarChar(256)
+  mailing_address       String   @default("") @db.VarChar(1024)
+  mailing_state         String   @default("") @db.VarChar(256)
+  mailing_country       String   @default("") @db.VarChar(256)
+  mailing_pincode       String   @default("") @db.VarChar(64)
+  email                 String   @default("") @db.VarChar(256)
+  it_pan                String   @default("") @db.VarChar(64)
+  gstn                  String   @default("") @db.VarChar(64)
+  gst_registration_type String   @default("") @db.VarChar(64)
+  gst_supply_type       String   @default("") @db.VarChar(64)
+  gst_duty_head         String   @default("") @db.VarChar(16)
+  tax_rate              Decimal? @default(0.0000) @db.Decimal(9, 4)
+  bank_account_holder   String   @default("") @db.VarChar(256)
+  bank_account_number   String   @default("") @db.VarChar(64)
+  bank_ifsc             String   @default("") @db.VarChar(64)
+  bank_swift            String   @default("") @db.VarChar(64)
+  bank_name             String   @default("") @db.VarChar(64)
+  bank_branch           String   @default("") @db.VarChar(64)
+}
+
+model mst_opening_batch_allocation {
+  id              Int       @id @default(autoincrement())
+  item            String    @default("") @db.VarChar(1024)
+  opening_balance Decimal?  @default(0.0000) @db.Decimal(15, 4)
+  opening_rate    Decimal?  @default(0.0000) @db.Decimal(15, 4)
+  opening_value   Decimal?  @default(0.00) @db.Decimal(17, 2)
+  godown          String    @default("") @db.VarChar(1024)
+  manufactured_on DateTime? @db.Date
+}
+
+model mst_opening_bill_allocation {
+  id              Int       @id @default(autoincrement())
+  ledger          String    @default("") @db.VarChar(1024)
+  opening_balance Decimal?  @default(0.0000) @db.Decimal(17, 4)
+  bill_date       DateTime? @db.Date
+  name            String    @default("") @db.VarChar(1024)
+}
+
+model mst_stock_group {
+  guid   String @id @db.VarChar(64)
+  name   String @default("") @db.VarChar(1024)
+  parent String @default("") @db.VarChar(1024)
+}
+
+model mst_stock_item {
+  guid                String   @id @db.VarChar(64)
+  name                String   @default("") @db.VarChar(1024)
+  parent              String   @default("") @db.VarChar(1024)
+  alias               String   @default("") @db.VarChar(256)
+  part_number         String   @default("") @db.VarChar(256)
+  uom                 String   @default("") @db.VarChar(32)
+  alternate_uom       String   @default("") @db.VarChar(32)
+  conversion          Int      @default(0)
+  opening_balance     Decimal? @default(0.0000) @db.Decimal(15, 4)
+  opening_rate        Decimal? @default(0.0000) @db.Decimal(15, 4)
+  opening_value       Decimal? @default(0.00) @db.Decimal(17, 2)
+  gst_type_of_supply  String?  @default("") @db.VarChar(32)
+  gst_hsn_code        String?  @default("") @db.VarChar(64)
+  gst_hsn_description String?  @default("") @db.VarChar(256)
+  gst_rate            String?  @db.VarChar(11)
+  gst_taxability      String?  @default("") @db.VarChar(32)
+}
+
+model mst_stockitem_standard_cost {
+  id   Int       @id @default(autoincrement())
+  item String    @default("") @db.VarChar(1024)
+  date DateTime? @db.Date
+  rate Decimal?  @default(0.0000) @db.Decimal(15, 4)
+}
+
+model mst_stockitem_standard_price {
+  id   Int       @id @default(autoincrement())
+  item String    @default("") @db.VarChar(1024)
+  date DateTime? @db.Date
+  rate Decimal?  @default(0.0000) @db.Decimal(15, 4)
+}
+
+model mst_uom {
+  guid             String @id @db.VarChar(64)
+  name             String @default("") @db.VarChar(1024)
+  formalname       String @default("") @db.VarChar(256)
+  is_simple_unit   Int    @db.TinyInt
+  base_units       String @db.VarChar(1024)
+  additional_units String @db.VarChar(1024)
+  conversion       Int
+}
+
+model mst_vouchertype {
+  guid              String @id @db.VarChar(64)
+  name              String @default("") @db.VarChar(1024)
+  parent            String @default("") @db.VarChar(1024)
+  numbering_method  String @default("") @db.VarChar(64)
+  is_deemedpositive Int?   @db.TinyInt
+  affects_stock     Int?   @db.TinyInt
+}
+
+model trn_accounting {
+  id           Int     @id @default(autoincrement())
+  guid         String  @default("") @db.VarChar(64)
+  ledger       String  @default("") @db.VarChar(1024)
+  amount       Decimal @default(0.00) @db.Decimal(17, 2)
+  amount_forex Decimal @default(0.00) @db.Decimal(17, 2)
+  currency     String  @default("") @db.VarChar(16)
+}
+
+model trn_bank {
+  id                Int       @id @default(autoincrement())
+  guid              String    @default("") @db.VarChar(64)
+  ledger            String    @default("") @db.VarChar(1024)
+  transaction_type  String    @default("") @db.VarChar(32)
+  instrument_date   DateTime? @db.Date
+  instrument_number String    @default("") @db.VarChar(1024)
+  bank_name         String    @default("") @db.VarChar(64)
+  amount            Decimal   @default(0.00) @db.Decimal(17, 2)
+  bankers_date      DateTime? @db.Date
+}
+
+model trn_batch {
+  id                 Int     @id @default(autoincrement())
+  guid               String  @default("") @db.VarChar(64)
+  item               String  @default("") @db.VarChar(1024)
+  name               String  @default("") @db.VarChar(1024)
+  quantity           Decimal @default(0.0000) @db.Decimal(15, 4)
+  amount             Decimal @default(0.00) @db.Decimal(17, 2)
+  godown             String? @db.VarChar(1024)
+  destination_godown String? @db.VarChar(1024)
+  tracking_number    String? @db.VarChar(1024)
+}
+
+model trn_bill {
+  id       Int     @id @default(autoincrement())
+  guid     String  @default("") @db.VarChar(64)
+  ledger   String  @default("") @db.VarChar(1024)
+  name     String  @default("") @db.VarChar(1024)
+  amount   Decimal @default(0.00) @db.Decimal(17, 2)
+  billtype String  @default("") @db.VarChar(256)
+}
+
+model trn_closingstock_ledger {
+  id          Int       @id @default(autoincrement())
+  ledger      String    @default("") @db.VarChar(1024)
+  stock_date  DateTime? @db.Date
+  stock_value Decimal   @default(0.00) @db.Decimal(17, 2)
+}
+
+model trn_cost_centre {
+  id         Int     @id @default(autoincrement())
+  guid       String  @default("") @db.VarChar(64)
+  ledger     String  @default("") @db.VarChar(1024)
+  costcentre String  @default("") @db.VarChar(1024)
+  amount     Decimal @default(0.00) @db.Decimal(17, 2)
+}
+
+model trn_inventory {
+  id                Int       @id @default(autoincrement())
+  guid              String    @default("") @db.VarChar(64)
+  item              String    @default("") @db.VarChar(1024)
+  quantity          Decimal   @default(0.0000) @db.Decimal(15, 4)
+  rate              Decimal   @default(0.0000) @db.Decimal(15, 4)
+  amount            Decimal   @default(0.00) @db.Decimal(17, 2)
+  additional_amount Decimal   @default(0.00) @db.Decimal(17, 2)
+  discount_amount   Decimal   @default(0.00) @db.Decimal(17, 2)
+  godown            String?   @db.VarChar(1024)
+  tracking_number   String?   @db.VarChar(256)
+  order_number      String?   @db.VarChar(256)
+  order_duedate     DateTime? @db.Date
+}
+
+model trn_voucher {
+  guid                  String    @id @db.VarChar(64)
+  date                  DateTime  @db.Date
+  voucher_type          String    @db.VarChar(1024)
+  voucher_number        String    @default("") @db.VarChar(64)
+  reference_number      String    @default("") @db.VarChar(64)
+  reference_date        DateTime? @db.Date
+  narration             String    @default("") @db.VarChar(4000)
+  party_name            String    @db.VarChar(256)
+  place_of_supply       String    @db.VarChar(256)
+  is_invoice            Int?      @db.TinyInt
+  is_accounting_voucher Int?      @db.TinyInt
+  is_inventory_voucher  Int?      @db.TinyInt
+  is_order_voucher      Int?      @db.TinyInt
+}
