@@ -7,6 +7,7 @@ import React, { useState } from "react";
 
 import "@/app/globals.css";
 
+
 var size = 25;
 
 var theSidemenu = [
@@ -33,7 +34,7 @@ var theSidemenu = [
         'icon': <MdInventory size={size}/>,
         'hasItems': false,
         'url': "/items"
-    }
+    },
     // ,
     // {
     //     'title': "Financial Report",
@@ -53,64 +54,39 @@ var theSidemenu = [
     //     'hasItems': false,
     //     'url': "/dashboard"
     // },
-    // {
-    //     'title': "Voucher",
-    //     'icon': <MdNote size={size}/>,
-    //     'hasItems': true,
-    //     'url':'',
-    //     'items': [
-    //         { 'name': "Sales", 'url': '/voucher/sales' },
-    //         { 'name': "Purchases", 'url': '/voucher/purchases' },
-    //         { 'name': "Receipt", 'url': '/voucher/receipt' }]
-    // }
+     {
+        'title': "Voucher",
+        'icon': <MdNote size={size}/>,
+        'hasItems': true,
+        'url':'',
+        'items': [
+            { 'name': "Sales", 'url': '/voucher/sales' },
+            { 'name': "Purchases", 'url': '/voucher/purchases' },
+            { 'name': "Receipt", 'url': '/voucher/receipt' }]
+    }
 ];
 
 export default function SideBar() {
     const [isexpanded, setExpanded] = useState(true);
-    // return (
-    //     <Navbar>
-    //       <NavbarBrand>
-    //         {/* <AcmeLogo /> */}
-    //         <p className="font-bold text-inherit">ACME</p>
-    //       </NavbarBrand>
-    //       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-    //         <NavbarItem>
-    //           <Link color="foreground" href="#">
-    //             Features
-    //           </Link>
-    //         </NavbarItem>
-    //         <NavbarItem isActive>
-    //           <Link href="#" aria-current="page">
-    //             Customers
-    //           </Link>
-    //         </NavbarItem>
-    //         <NavbarItem>
-    //           <Link color="foreground" href="#">
-    //             Integrations
-    //           </Link>
-    //         </NavbarItem>
-    //       </NavbarContent>
-    //       <NavbarContent justify="end">
-    //         <NavbarItem className="hidden lg:flex">
-    //           <Link href="#">Login</Link>
-    //         </NavbarItem>
-    //         <NavbarItem>
-    //           <Button as={Link} color="primary" href="#" variant="flat">
-    //             Sign Up
-    //           </Button>
-    //         </NavbarItem>
-    //       </NavbarContent>
-    //     </Navbar>
-    //   );
-    return (
+    
+  return (
         <div className=" bg-slate-800 .sidebar max-w-sm">
             <div className="bg-slate-900 text-white p-4">
-                <MdMenu size={30} />
+                <MdMenu size={30} onClick={()=>setExpanded(!isexpanded)}/>
             </div >
-            <div className="p-4 bg-slate-800 text-white">
-
+            {
+              !isexpanded && 
+            (<div className="p-4 bg-slate-800 text-white">
                 {theSidemenu.map((a) => <SideBarItemExpanded item={a} key={a['title']} />)}
-            </div>
+            </div>)
+            }
+
+            {isexpanded && 
+            
+           ( <div className="p-4 bg-slate-800 text-white">
+                {theSidemenu.map((a) => <SideBarItemMini item={a} key={a['title']} />)}
+            </div>)
+            }
 
 
 
@@ -153,46 +129,44 @@ export function SideBarItemExpanded({ item }) {
     );
 }
 
+export function SideBarItemMini({ item }) {
+  const [isopen, setidopened] = useState(false);
 
-
-
-
-
-
-export  function App() {
+  function toggleDrop() {
+      item['hasItems'] && setidopened(!isopen);
+  }
   return (
-    <Navbar>
-      <NavbarBrand>
-        {/* <AcmeLogo /> */}
-        <p className="font-bold text-inherit">ACME</p>
-      </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Customers
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
-    </Navbar>
+      <div className="flex">
+      
+<Link href= {item['url']}>
+
+          <div className="hover:bg-slate-700 flex p-2.5 items-center rounded-lg justify-between" onClick={toggleDrop}>
+              <div className="flex justify-between items-center ">
+                  {item['icon']}
+              </div>
+          </div>
+</Link>
+          <div className="fixed bg-black w-300 rounded">
+              {isopen && item['items'].map((a) => (
+                  <Link key={a['title']}href={a['url']}>
+                      <div className="p-2 hover:bg-slate-700 rounded-lg flex justify-between">
+                          <h1 className="ml-5 flex"> {a['name']}</h1>
+                          <MdChevronRight />
+                      </div>
+                  </Link>
+              ))}
+
+          </div>
+      </div>
+
   );
 }
+
+
+
+
+
+
+
+
+
