@@ -9,7 +9,7 @@ export async function VoucherTable(prop) {
 
   return (
       <div className="">
-        <HeaderTile title='Voucher List' subtitle='All Vouchers are listed here' bname="Add Voucher" ontap="items/addItem"/>
+        <Headerlisttile title='Voucher List' subtitle='All Vouchers are listed here' bname="Add Voucher" ontap="items/addItem"/>
         <Table>
           <TableHeader>
             <TableRow>
@@ -51,7 +51,7 @@ export async function VoucherTable(prop) {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-import HeaderTile from "../../../../components/HeaderTile";
+import Headerlisttile from "../../../../components/headerlisttile";
 import {getVoucherList} from "@/app/store/_actions/voucher";
   
 

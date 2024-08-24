@@ -39,6 +39,17 @@ var theSidemenu = [
         'url': "/store/dashboard"
     },
     {
+        'title': "Accounts",
+        'icon': <MdAccountBox size={size}/>,
+        'hasItems': true,
+        'url': "/store/account",
+        'items': [
+            {'name': "Groups", 'url': '/store/account/groups'},
+            {'name': "Ledgers", 'url': '/store/account/ledgers'}
+
+        ]
+    },
+    {
         'title': "Sales",
         'icon': <MdReport size={size}/>,
         'hasItems': false,
@@ -102,7 +113,7 @@ export default function SideBar() {
 
             <div className=" p-4 border-b flex flex-row items-center ">
                 {/*<MdMenu size={30}/>*/}
-                <span className="text-xs uppercase pl-4 font-semibold text-gray-600 ">My Store</span>
+                <span className="text-3xl uppercase pl-4 font-semibold text-gray-600 ">My Store</span>
             </div>
 
             <ul className="p-4 mb-auto overflow-y-auto ">
@@ -123,30 +134,6 @@ export default function SideBar() {
         </nav>
     );
 
-    // return (
-    //
-    //     <div className=" bg-slate-800  max-w-sm h-screen fixed">
-    //         <div className="bg-slate-900 text-white p-4">
-    //             <MdMenu size={30} onClick={() => setExpanded(!isexpanded)}/>
-    //         </div>
-    //         {
-    //             !isexpanded &&
-    //             (<div className="p-4 bg-slate-800 text-white">
-    //                 {theSidemenu.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}
-    //             </div>)
-    //         }
-    //
-    //         {isexpanded &&
-    //
-    //             (<div className="p-4 bg-slate-800 text-white">
-    //                 {theSidemenu.map((a) => <SideBarItemMini item={a} key={a['title']}/>)}
-    //             </div>)
-    //         }
-    //
-    //
-    //
-    //     </div>
-    // );
 }
 
 
@@ -162,9 +149,9 @@ export function SideBarItemExpanded({item,}) {
 
     return (
         <div className="flex flex-col py-2">
+            <div className={pathName === item['url'] ? " py-2 rounded bg-blue-700 flex-row flex justify-between items-center" : "py-2 hover:bg-blue-200 rounded flex flex-row justify-between items-center"}>
             <Link href={item['url']}>
-                <div
-                    className={pathName === item['url'] ? " py-2 rounded bg-blue-700" : " py-2  hover:bg-blue-200 rounded"}>
+                <div className="w-[12rem]">
                     <li>
                         <div
                             className={pathName === item['url'] ? "transition-colors  pl-4 text-white font-medium bg-blue-700 " :
@@ -184,6 +171,11 @@ export function SideBarItemExpanded({item,}) {
                     </li>
                 </div>
             </Link>
+                { item['hasItems'] && <div onClick={toggleDrop} className=" hover:bg-blue-700 rounded-lg p-2 mr-2">
+                    {isopen ?<MdArrowDownward />:<MdChevronRight />}
+
+                </div>}
+            </div>
 
             <div className="ml-6">
                 {isopen && item['items'].map((a) => (
@@ -201,76 +193,6 @@ export function SideBarItemExpanded({item,}) {
     );
 }
 
-// export function SideBarItemMini({ item }) {
-//   const [isopen, setidopened] = useState(false);
-//   const [title, showtitle] = useState(false);
-//
-//   function toggleDrop() {
-//       item['hasItems'] && setidopened(!isopen);
-//   }
-//   return (
-//       <div className="flex">
-//
-// <Link href= {item['url']}>
-//
-//           <div className="hover:bg-slate-700 flex p-2.5 items-center rounded-lg justify-between" onMouseLeave={()=>showtitle(false)} onClick={toggleDrop} onMouseEnter={()=>showtitle(true)} >
-//               <div className="flex justify-between items-center ">
-//                   {item['icon']}
-//                  {title && <h1  className="pl-5 rounded bg-black fixed"> {item['title']}</h1>}
-//               </div>
-//           </div>
-// </Link>
-//           <div className="fixed bg-black w-300 rounded">
-//               {isopen && item['items'].map((a) => (
-//                   <Link key={a['title']} href={a['url']}>
-//                       <div className="p-2 hover:bg-slate-700 rounded-lg flex justify-between">
-//                           <h1 className="ml-5 flex"> {a['name']}</h1>
-//                           <MdChevronRight />
-//                       </div>
-//                   </Link>
-//               ))}
-//
-//           </div>
-//       </div>
-//
-//   );
-// }
-//
-// export function SideBarItemExpanded({ item }) {
-//     const [isopen, setidopened] = useState(false);
-//
-//     function toggleDrop() {
-//         item['hasItems'] && setidopened(!isopen);
-//     }
-//     return (
-//         <div>
-//
-//             <Link href= {item['url']}>
-//
-//                 <div className="hover:bg-slate-700 flex p-2.5 items-center rounded-lg justify-between" onClick={toggleDrop}>
-//                     <div className="flex justify-between items-center ">
-//                         {item['icon']}
-//                         <h1  className="ml-3"> {item['title']}</h1>
-//
-//                     </div>
-//                     {/* {isopen ? <MdArrowDownward /> : <MdChevronRight />} */}
-//                 </div>
-//             </Link>
-//             <div className="ml-6">
-//                 {isopen && item['items'].map((a) => (
-//                     <Link key={a['title']}href={a['url']}>
-//                         <div className="p-2 hover:bg-slate-700 rounded-lg flex justify-between">
-//                             <h1 className="ml-5 flex"> {a['name']}</h1>
-//                             <MdChevronRight />
-//                         </div>
-//                     </Link>
-//                 ))}
-//
-//             </div>
-//         </div>
-//
-//     );
-// }
 
 
 

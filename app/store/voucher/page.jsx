@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderTile from "@/components/HeaderTile";
+import Headerlisttile from "@/components/headerlisttile";
 import {VoucherTable} from "@/app/store/voucher/_component/voucher_table";
 import {getVoucherList} from "@/app/store/_actions/voucher";
 
