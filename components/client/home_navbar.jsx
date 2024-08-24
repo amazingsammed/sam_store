@@ -18,6 +18,10 @@ export default function HomeNav(){
     'title': "Contact",
     'url': "/contact"
 },
+{
+  'title': "Items",
+  'url': "/store/items"
+},
     
 ];
   function handleClick(){
@@ -33,12 +37,12 @@ export default function HomeNav(){
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">My Store</span>
           </a>
           <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" >
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
-              
-              {header.map((a) => <li key={a['title']} className='dark:text-black'>
+          <ul className="flex flex-col font-medium  md:p-0 mt-4 border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
+
+              {header.map((a) => <li key={a['title']} className='dark:text-black hover:text-white px-3 py-2 rounded hover:bg-black'>
                 <Link href={a['url']} className="hover:text-blue-90 font-bold">{a['title']}</Link>
               </li>)}
-             
+
             </ul>
           </div>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">

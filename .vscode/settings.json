@@ -1,4 +1,6 @@
 {
     "debug.allowBreakpointsEverywhere": true,
-    "files.autoGuessEncoding": true
+    "files.autoGuessEncoding": true,
+    "WillLuke.nextjs.addTypesOnSave": true,
+    "WillLuke.nextjs.hasPrompted": true
 }

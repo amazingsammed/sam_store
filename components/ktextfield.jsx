@@ -1,16 +1,17 @@
-
+// 'use client'
 import React from 'react'
 
 const CTextfield = (prop) => {
     return (
         <div>
-            <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{prop.label}</label>
+            <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{prop.label}</label>
+
             <input
                 type="text"
                 name={prop.name}
                 value={prop.value}
                 onChange={prop.onchange}
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={prop.label} />
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={prop.label} />
         </div>
     )
 }
@@ -18,28 +19,28 @@ const CTextfield = (prop) => {
 export function CTextfieldR(prop) {
         return (
             <div>
-                <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{prop.label}</label>
+                <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{prop.label}</label>
                 <input
                 required
                     type="text"
                     name={prop.name}
-                    value={prop.value}
-                    onChange={prop.onchange}
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={prop.label} />
+                    // value={prop.value}
+                    // onChange={prop.onchange}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={prop.label} />
             </div>
         )
 }
 export function CTextfieldNum(prop) {
     return (
         <div>
-        <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{prop.label}</label>
+        <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{prop.label}</label>
         <input
         required
             type="number"
             name={prop.name}
-            value={prop.value}
-            onChange={prop.onchange}
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={prop.label} />
+            // value={prop.value}
+            // onChange={prop.onchange}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={prop.label} />
     </div>
     )
 }
@@ -47,11 +48,11 @@ export function CTextfieldNum(prop) {
 
 export function CCheckBox(prop){
     return (
-        <div class="flex items-center mb-4">
-        <input id={prop.name + "checkbox"} name={prop.name} type="checkbox" onChange={prop.onChange} checked={prop.value} 
-        
-        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-        <label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{prop.label}</label>
+        <div className="flex items-center mb-4">
+        <input id={prop.name + "checkbox"} name={prop.name} type="checkbox" onChange={prop.onChange} checked={prop.value}
+
+               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+        <label form="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{prop.label}</label>
     </div>
     )
 }
@@ -59,17 +60,17 @@ export function CCheckBox(prop){
 
 export function CDropDown  (prop)  {
   return (
-    <div class="max-w-sm ">
-    <label for={prop.label + "checkbox"} class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{"Select "+ prop.label}</label>
+    <div className="max-w-sm ">
+    <label form={prop.label + "checkbox"} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white ">{"Select "+ prop.label}</label>
     <select id={prop.label + "checkbox"} 
-     onChange={prop.onchange}
+     // onChange={prop.onchange}
      name={prop.name}
      value={prop.value}
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
         <option value="">{"Choose a "+prop.label}</option>
-        {prop.items.map((val)=>{
+        {prop.items.map((val,i)=>{
             return(
-             <option value={val.value}>{val.name}</option>
+             <option value={val.value} key={i}>{val.name}</option>
             );
 })}
     
