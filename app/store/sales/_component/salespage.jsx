@@ -18,7 +18,7 @@ export  function SalesPage(prop) {
 
     return (
         <div className="">
-            <Headerlisttile title='Sales List' subtitle='All Sales Vouchers are listed here' bname="New Item" ontap = "items/addItem"/>
+            <Headerlisttile title='Sales List' subtitle='All Sales Vouchers are listed here' bname="New Item" ontap = "sales/cashsales"/>
             <Table>
                 <TableHeader>
                     <TableRow>

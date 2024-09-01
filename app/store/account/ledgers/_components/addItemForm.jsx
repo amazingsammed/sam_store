@@ -143,8 +143,8 @@ export function AddLedgerDialog() {
     useEffect(() => {
             const fetcher = async () => {
                 var a = await getGroupNames();
-                if (a.length === 0) {
-                } else {
+
+                if (a.length >0) {
                     setGroups(a);
                 }
 
