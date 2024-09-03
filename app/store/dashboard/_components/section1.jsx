@@ -1,0 +1,251 @@
+import React from 'react'
+import Link from "next/link"
+import {
+    Card, CardDescription, CardContent, CardTitle, CardHeader, CardFooter
+} from "@/components/ui/card"
+
+export const Section1 = () => {
+    return (
+        <div className=" h-screen pt-10 px-10">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">
+                            Total Revenue
+                        </CardTitle>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            className="h-4 w-4 text-muted-foreground"
+                        >
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">$45,231.89</div>
+                        <p className="text-xs text-muted-foreground">
+                            +20.1% from last month
+                        </p>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">
+                            Subscriptions
+                        </CardTitle>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            className="h-4 w-4 text-muted-foreground"
+                        >
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">+2350</div>
+                        <p className="text-xs text-muted-foreground">
+                            +180.1% from last month
+                        </p>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Sales</CardTitle>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            className="h-4 w-4 text-muted-foreground"
+                        >
+                            <rect width="20" height="14" x="2" y="5" rx="2"/>
+                            <path d="M2 10h20"/>
+                        </svg>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">+12,234</div>
+                        <p className="text-xs text-muted-foreground">
+                            +19% from last month
+                        </p>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">
+                            Active Now
+                        </CardTitle>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            className="h-4 w-4 text-muted-foreground"
+                        >
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">+573</div>
+                        <p className="text-xs text-muted-foreground">
+                            +201 since last hour
+                        </p>
+                    </CardContent>
+                </Card>
+            </div>
+            {/*<h1 className="text-4xl font-bold pb-5">*/}
+            {/*    Dashboard*/}
+            {/*</h1>*/}
+
+            {/*<div className=' grid gap-6 mb-6 md:grid-cols-3 '>*/}
+            {/*    {summary.map((a) => (*/}
+            {/*        <Link key={a['title']} href={a['url']}>*/}
+            {/*            <Card>*/}
+            {/*                <CardHeader>*/}
+            {/*                    <CardTitle>*/}
+
+            {/*                        {a['title']}*/}
+            {/*                    </CardTitle>*/}
+            {/*                    <CardDescription>*/}
+            {/*                    </CardDescription>*/}
+            {/*                </CardHeader>*/}
+            {/*            </Card>*/}
+            {/*        </Link>*/}
+            {/*    ))}*/}
+            {/*</div>*/}
+            {/*<h1 className="text-4xl font-bold py-5">*/}
+            {/*    Sales Options*/}
+            {/*</h1>*/}
+
+            {/*<div className=' grid gap-6 mb-6 md:grid-cols-3 '>*/}
+            {/*    {salessection.map((a) => (*/}
+            {/*        <Link key={a['title']} href={a['url']}>*/}
+            {/*            <Card>*/}
+            {/*                <CardHeader>*/}
+            {/*                    <CardTitle>*/}
+
+            {/*                        {a['title']}*/}
+            {/*                    </CardTitle>*/}
+            {/*                    <CardDescription>*/}
+            {/*                    </CardDescription>*/}
+            {/*                </CardHeader>*/}
+            {/*            </Card>*/}
+            {/*        </Link>*/}
+            {/*    ))}*/}
+            {/*</div>*/}
+            {/*<h1 className="text-4xl font-bold py-5" id='sammed'>*/}
+            {/*    Purchases Options*/}
+            {/*</h1>*/}
+
+            {/*<div className=' grid gap-6 mb-6 md:grid-cols-3 '>*/}
+            {/*    {purchasesection.map((a) => (*/}
+            {/*        <Link key={a['title']} href={a['url']}>*/}
+            {/*            <Card>*/}
+            {/*                <CardHeader>*/}
+            {/*                    <CardTitle>*/}
+
+            {/*                        {a['title']}*/}
+            {/*                    </CardTitle>*/}
+            {/*                    <CardDescription>*/}
+            {/*                    </CardDescription>*/}
+            {/*                </CardHeader>*/}
+            {/*            </Card>*/}
+            {/*        </Link>*/}
+            {/*    ))}*/}
+            {/*</div>*/}
+        </div>
+    )
+}
+
+var summary = [
+    {
+        'title': "Chart of Accounts",
+        "url": ""
+    },
+    {
+        'title': "Journals",
+        "url": ""
+    },
+    {
+        'title': "Sales",
+        "url": ""
+    },
+    {
+        'title': "Purchases",
+        "url": ""
+    },
+    {
+        'title': "Others",
+        "url": ""
+    }
+]
+
+var salessection = [
+    {
+        'title': "Cash Sales",
+        "url": ""
+    },
+    {
+        'title': "Quotes List",
+        "url": ""
+    },
+    {
+        'title': "Invoice List",
+        "url": ""
+    },
+    {
+        'title': "Sales Orders",
+        "url": ""
+    },
+    {
+        'title': "Payments",
+        "url": ""
+    },
+    {
+        'title': "Customers",
+        "url": ""
+    }
+
+]
+
+var purchasesection = [
+    {
+        'title': "Cash Purchases",
+        "url": ""
+    },
+    {
+        'title': "Purchases order",
+        "url": ""
+    },
+    {
+        'title': "Accounts Payables",
+        "url": ""
+    },
+    {
+        'title': "Bills",
+        "url": ""
+    },
+    {
+        'title': "Suppliers",
+        "url": ""
+    }
+
+]
+

@@ -38,8 +38,8 @@ export function CTextfieldNum(prop) {
         required
             type="number"
             name={prop.name}
-            // value={prop.value}
-            // onChange={prop.onchange}
+            value={prop.value}
+            onChange={prop.onchange}
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={prop.label} />
     </div>
     )
@@ -77,6 +77,27 @@ export function CDropDown  (prop)  {
     </select>
 </div>
   )
+}
+
+export function CDropDownWithOnChange  (prop)  {
+    return (
+        <div className="max-w-sm ">
+            <label form={prop.label + "checkbox"} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white ">{"Select "+ prop.label}</label>
+            <select id={prop.label + "checkbox"} required
+                onChange={prop.onchange}
+                    name={prop.name}
+                    value={prop.value}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="">{"Choose a "+prop.label}</option>
+                {prop.items.map((val,i)=>{
+                    return(
+                        <option value={val.id?val.id:val.name} key={i}>{val.name}</option>
+                    );
+                })}
+
+            </select>
+        </div>
+    )
 }
 
 export default CTextfield

@@ -31,11 +31,11 @@ function Cashsalepage() {
         return list.reduce((total, itemx) =>total + itemx['qty'] * itemx['rate'],0);
     }
     return (
-        <div >
-            <div className="gap-4 grid grid-cols-1 w-full h-full ">
+        <div className='flex h-[80dvh] flex-col justify-between'>
                 <Headerlisttile title='Cash Sales' subtitle='Account Name : Cash' bname="Date" ontap=""/>
+            <div className="p-4 mb-auto overflow-y-auto ">
                 <form action={handlesubmit}>
-                    <div>
+                    <div className="overflow-y-auto ">
 
                         <Table>
                             <TableHeader>
@@ -105,10 +105,10 @@ function Cashsalepage() {
                     </div>
                 </form>
 
-
             </div>
-            <div>
-                <h1 className="">Sammed</h1>
+            <div className="grid grid-cols-13">
+                <h1 className="col-span-11">Sammed</h1>
+                <h1 className="">{calculateTotal()}</h1>
             </div>
         </div>
     );

@@ -11,23 +11,26 @@ import {
 } from "@/components/ui/table"
 import Headerlisttile, {HeaderListTileDialog} from "@/components/headerlisttile";
 import {AddGroupDialog} from "@/app/store/account/groups/_components/group_form";
+import {AddChartofAccount} from "@/app/store/account/chartofaccount/_components/coa_form";
 
 
-export  function GroupPage(prop) {
+export  function Cartofaccount(prop) {
  
     const TableData = prop.data;
   
     return (
       <div className="">
-      <HeaderListTileDialog title='Group List' subtitle='All Account Group are listed here' buttonx={
-        <AddGroupDialog/>
+      <HeaderListTileDialog title='Chart of Accounts' subtitle='All Account in current store' buttonx={
+        <AddChartofAccount/>
       } ontap = "items/addItem"/>
         <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[300px]">Name</TableHead>
-            <TableHead>Primary Group</TableHead>
-            <TableHead>Parent</TableHead>
+            <TableHead>Account Code</TableHead>
+            <TableHead>Account Name</TableHead>
+            <TableHead>Account Group</TableHead>
+            <TableHead>Account Type</TableHead>
+            <TableHead>Opening Balance</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

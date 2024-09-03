@@ -44,8 +44,9 @@ var theSidemenu = [
         'hasItems': true,
         'url': "/store/account",
         'items': [
+            {'name': "Chart of Accounts", 'url': '/store/account/chartofaccount'},
             {'name': "Groups", 'url': '/store/account/groups'},
-            {'name': "Ledgers", 'url': '/store/account/ledgers'}
+            // {'name': "Ledgers", 'url': '/store/account/ledgers'}
 
         ]
     },
@@ -118,7 +119,7 @@ export default function SideBar() {
     return (
         <nav className="bg-slate-950 hidden fixed lg:flex flex-col top-0 left-0 h-dvh w-[18rem] border-r ">
 
-            <div className=" p-4 border-b flex flex-row items-center bg-purple-800 ">
+            <div className=" p-4 flex flex-row items-center bg-purple-800 ">
                 {/*<MdMenu size={30}/>*/}
                 <span className="text-3xl uppercase pl-4  text-white">My Store</span>
             </div>
@@ -132,10 +133,10 @@ export default function SideBar() {
                 {configurationlist.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}
             </ul>
 
-            <div className=" p-4 border-b flex flex-row items-center ">
-                {/*<MdMenu size={30}/>*/}
+            {/*<div className=" p-4 border-b flex flex-row items-center  text-white">*/}
+            {/*    <MdMenu size={30}/>*/}
 
-            </div>
+            {/*</div>*/}
 
 
         </nav>
@@ -147,7 +148,6 @@ export default function SideBar() {
 export function SideBarItemExpanded({item,}) {
     const [isopen, setidopened] = useState(false);
     const pathName = usePathname();
-    console.log(pathName);
 
 
     function toggleDrop() {

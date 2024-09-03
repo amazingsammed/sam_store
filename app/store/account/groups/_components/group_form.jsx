@@ -12,96 +12,30 @@ import {
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 
-const accountprimarygroups = [
-    {
-        "name": "Bank Accounts"
-    },
-    {
-        "name": "Bank OD A/c"
-    },
-    {
-        "name": "Branch / Divisions"
-    },
-    {
-        "name": "Capital Account"
-    },
-    {
-        "name": "Cash-in-Hand"
-    },
-    {
-        "name": "Fixed Assets"
-    },
-    {
-        "name": "Current Assets"
-    },
-    {
-        "name": "Current Liabilities"
-    },
-    {
-        "name": "Deposits (Asset)"
-    },
-    {
-        "name": "Direct Expenses"
-    },
-    {
-        "name": "Direct Incomes"
-    },
-    {
-        "name": "Duties & Taxes"
-    },
-    {
-        "name": "Indirect Expenses"
-    },
-    {
-        "name": "Indirect Incomes"
-    },
-    {
-        "name": "Investments"
-    },
-    {
-        "name": "Loans & Advances (Asset)"
-    },
-    {
-        "name": "Loans (Liability)"
-    },
-    {
-        "name": "Misc. Expenses (ASSET)"
-    },
-    {
-        "name": "Provisions"
-    },
-    {
-        "name": "Purchase Accounts"
-    },
-    {
-        "name": "Reserves & Surplus"
-    },
-    {
-        "name": "Sales Accounts"
-    },
-    {
-        "name": "Secured Loans"
-    },
-    {
-        "name": "Stock-in-Hand"
-    },
-    {
-        "name": "Sundry Creditors"
-    },
-    {
-        "name": "Sundry Debtors"
-    },
-    {
-        "name": "Suspense A/c"
-    },
-    {
-        "name": "Unsecured Loans"
-    },
-    {
-        "name": "Vat Levies Clearing"
-    }
-];
 
+const accounts = [
+    {
+        "id": 1,
+        "name": "Assets"
+    },
+    {
+        "id": 2,
+        "name": "Liability"
+    },
+    {
+        "id": 3,
+        "name": "Equity"
+    },
+    {
+        "id": 4,
+        "name": "Income"
+    },
+    {
+        "id": 5,
+        "name": "Expense"
+    }
+
+];
 export function AddGroupDialog() {
 
     return (
@@ -120,9 +54,9 @@ export function AddGroupDialog() {
                     <div className="grid gap-4 py-4">
                         <CTextfieldR label="Group Name" value=''  name="lname"/>
                         <CDropDown
-                            label="Parent"
+                            label="Account Type"
                             name='group'
-                            items={accountprimarygroups}
+                            items={accounts}
                         />
                     </div>
                     <DialogFooter>
