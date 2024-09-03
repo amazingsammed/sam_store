@@ -32,6 +32,7 @@ export const SignupFormSchema = z.object({
 
 
 export function SignupForm() {
+    const [error,setError] = React.useState("");
     const router =useRouter();
    async function signupAction(a ,element ){
         const validatedFields = SignupFormSchema.safeParse({
@@ -58,8 +59,14 @@ export function SignupForm() {
            body: JSON.stringify(fm)
 
        });
+        if (response.status===409){
+            setError(await response.json().then((a)=>a.message));
+            return {};
+        }
         if(response.ok){
             await router.push('/auth/login');
+        }else {
+            setError("something went wrong, Try Again");
         }
     }
 
@@ -71,6 +78,7 @@ export function SignupForm() {
           <h1 className="text-3xl font-bold">Create an account</h1>
           <p className="text-gray-500">Enter your information to get started</p>
         </div>
+          {error && (<p className="text-destructive">{error}</p>)}
         <form action={action}>
           <div className="flex flex-col gap-2">
             <div>
