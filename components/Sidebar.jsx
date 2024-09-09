@@ -13,19 +13,20 @@ import {
     MdPerson2,
     MdPerson3,
     MdReport,
-    MdSettings
+    MdSettings, MdShare
 } from "react-icons/md";
 import React, {useState} from "react";
 
 
 import "@/app/globals.css";
 
-import {usePathname} from "next/navigation";
+import {useParams, usePathname} from "next/navigation";
+import {IoMdCash} from "react-icons/io";
 
 
-var size = 23;
+const size = 24;
 
-var theSidemenu = [
+const theSidemenu = [
     // {
     //     'title': "Home",
     //     'icon': <MdHome size={size}/>,
@@ -36,61 +37,97 @@ var theSidemenu = [
         'title': "Dashboard",
         'icon': <MdDashboard size={size}/>,
         'hasItems': false,
-        'url': "/store/dashboard"
+        'url': "/dashboard"
     },
     {
-        'title': "Accounts",
+        'title': "Chart of Accounts",
         'icon': <MdAccountBox size={size}/>,
         'hasItems': true,
-        'url': "/store/account",
+        'url': "/chartofaccount",
         'items': [
-            {'name': "Chart of Accounts", 'url': '/store/account/chartofaccount'},
-            {'name': "Groups", 'url': '/store/account/groups'},
-            // {'name': "Ledgers", 'url': '/store/account/ledgers'}
+            {'name': "Groups", 'url': '/account/groups'},
+            // {'name': "Ledgers", 'url': '/[storeid]/account/ledgers'}
 
         ]
     },
     {
-        'title': "Sales",
-        'icon': <MdReport size={size}/>,
-        'hasItems': false,
-        'url': "/store/sales",
-        'items':[
+        'title': "Cash Sales",
+        'icon': <MdNote size={size}/>,
+        'hasItems': true,
+        'url': "/sales",
+        'items': [
             {
-                'title': "Customer",
-                'icon': <MdPerson2 size={size}/>,
-                'hasItems': false,
-                'url': "/store/customer"
+                'name': "Quote",
+                'url': "/sales/quote"
             },
-
+            {
+                'name': "Sales Order",
+                'url': "/sales/order"
+            },
+            {
+                'name': "Invoice",
+                'url': "/sales/invoice"
+            },
+            {
+                'name': "Refund",
+                'url': "/sales/refund"
+            },
+            {
+                'name': "Customers",
+                'url': "/customers"
+            },
         ]
     },
     {
-        'title': "Purchases",
+        'title': "Cash Purchases",
         'icon': <MdReport size={size}/>,
-        'hasItems': false,
-        'url': "/store/purchases",
-        'items':[
+        'hasItems': true,
+        'url': "/purchases",
+        'items': [
             {
-                'title': "Suppliers",
-                'icon': <MdPerson3 size={size}/>,
-                'hasItems': false,
-                'url': "/store/suppliers"
+                'name': "Purchases order",
+                'url': "/purchases/purchaseorder"
+            },
+            {
+                'name': "Accounts Payables",
+                'url': "/purchases/accountspayables"
+            },
+            {
+                'name': "Payments",
+                'url': "/purchases/payments"
+            },
+            {
+                'name': "Suppliers",
+                'url': "/purchases/suppliers"
             },
         ]
     },
     {
         'title': "Items",
         'icon': <MdInventory size={size}/>,
-        'hasItems': false,
-        'url': "/store/items"
+        'hasItems': true,
+        'url': "/items",
+        'items': [
+            {
+                'name': "Category",
+                'url': "/items/category"
+            },
+            {
+                'name': "Groups",
+                'url': "/items/group"
+            },
+            {
+                'name': "Units",
+                'url': "/items/units"
+            },
+        ]
     },
     // ,
     {
         'title': "Reports",
         'icon': <MdReport size={size}/>,
         'hasItems': false,
-        'url': "/store/reports"
+        'url': "/reports"
     },
 
 
@@ -98,24 +135,26 @@ var theSidemenu = [
         'title': "Voucher",
         'icon': <MdNote size={size}/>,
         'hasItems': true,
-        'url': '/store/voucher',
+        'url': '/voucher',
         'items': [
-            {'name': "Sales", 'url': '/store/voucher/sales'},
-            {'name': "Purchases", 'url': '/store/voucher/purchases'},
-            {'name': "Receipt", 'url': '/store/voucher/receipt'}]
+            {'name': "Sales", 'url': '/voucher/sales'},
+            {'name': "Purchases", 'url': '/voucher/purchases'},
+            {'name': "Receipt", 'url': '/voucher/receipt'}]
     }
 ];
-var configurationlist = [
+const configurationlist = [
 
     {
         'title': "Settings",
         'icon': <MdSettings size={size}/>,
         'hasItems': false,
-        'url': "/store/settings"
+        'url': "/settings"
     }
 ];
 
 export default function SideBar() {
+
+
     return (
         <nav className="bg-slate-950 hidden fixed lg:flex flex-col top-0 left-0 h-dvh w-[18rem] border-r ">
 
@@ -147,8 +186,8 @@ export default function SideBar() {
 
 export function SideBarItemExpanded({item,}) {
     const [isopen, setidopened] = useState(false);
+    const path = useParams();
     const pathName = usePathname();
-
 
     function toggleDrop() {
         item['hasItems'] && setidopened(!isopen);
@@ -156,8 +195,8 @@ export function SideBarItemExpanded({item,}) {
 
     return (
         <div className="flex flex-col py-2">
-            <div className={pathName === item['url'] ? " py-2 rounded bg-purple-950 flex-row flex justify-between items-center" : "py-2 hover:bg-purple-950 rounded flex flex-row justify-between items-center"}>
-            <Link href={item['url']}>
+            <div className={pathName === '/stores/'+path.storeid+item['url'] ? " py-2 rounded bg-purple-950 flex-row flex justify-between items-center" : "py-2 hover:bg-purple-950 rounded flex flex-row justify-between items-center"}>
+            <Link href={'/stores/'+path.storeid+item['url']}>
                 <div className="w-[12rem]">
                     <li>
                         <div
@@ -185,11 +224,11 @@ export function SideBarItemExpanded({item,}) {
                 </div>}
             </div>
 
-            <div className="ml-6">
+            <div className="ml-6 ">
                 {isopen && item['items'].map((a) => (
-                    <Link key={a['title']} href={a['url']}>
+                    <Link key={a['title']} href={'/stores/'+path.storeid+a['url']}>
                         <div className="p-2 hover:bg-purple-800 rounded flex justify-between items-center text-white">
-                            <h1 className="ml-5 flex"> {a['name']}</h1>
+                            <h1 className=" flex"> {a['name']}</h1>
                             <MdChevronRight/>
                         </div>
                     </Link>

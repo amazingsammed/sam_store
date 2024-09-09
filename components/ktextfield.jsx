@@ -70,7 +70,7 @@ export function CDropDown  (prop)  {
         <option value="">{"Choose a "+prop.label}</option>
         {prop.items.map((val,i)=>{
             return(
-             <option value={val.value?val.value:val.name} key={i}>{val.name}</option>
+             <option value={val.value?val.value:val.id?val.id:val.name} key={i}>{val.name}</option>
             );
 })}
     
