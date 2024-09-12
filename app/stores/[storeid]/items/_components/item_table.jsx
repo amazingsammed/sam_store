@@ -14,7 +14,7 @@ import Headerlisttile from "../../../../../components/headerlisttile";
 export  function ItemsPage(prop) {
 
     const tabledata = prop.data;
-  
+  console.log(tabledata);
     return (
       <div className="">
       <Headerlisttile title='Item List' subtitle='All items are listed here' bname="New Item" ontap = "items/addItem"/>

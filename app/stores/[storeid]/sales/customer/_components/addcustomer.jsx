@@ -3,7 +3,7 @@
 "use client";
 
 import {CTextfieldR, CDropDown, CDropDownWithOnChange, CTextfieldNum} from '@/components/ktextfield'
-import {createGroup} from "@/app/stores/_actions/account";
+import {createChartofAccounts} from "@/app/_actions/account";
 import {
     Dialog, DialogClose,
     DialogContent,
@@ -15,8 +15,9 @@ import {
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {useEffect, useState} from "react";
-import {getItemsgroupList, getItemsUnitList} from "@/app/stores/_actions/stock_item";
+import {getItemsgroupList, getItemsUnitList} from "@/app/_actions/stock_item";
 import {useParams, useRouter} from "next/navigation";
+import {addCustomer} from "@/app/_actions/customer";
 
 
 const typex = [
@@ -32,10 +33,11 @@ const typex = [
 ];
 
 export function CustomerForm() {
-    const [type, setType] = useState(1);
+    const path= useParams();
+    const router = useRouter();
 
-    async function handleCreateGroup(a) {
-        // await createGroup(a,path.storeid);
+    async function handleCreateCustomer(formData) {
+        await addCustomer(formData,path.storeid);
     }
 
     return (
@@ -44,7 +46,7 @@ export function CustomerForm() {
                 <Button>Create Customer</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[434]">
-                <form action={handleCreateGroup}>
+                <form action={handleCreateCustomer}>
                     <DialogHeader>
                         <DialogTitle>Create New Customer</DialogTitle>
                         <DialogDescription>
@@ -58,6 +60,7 @@ export function CustomerForm() {
                             name='type'
                             items={typex}
                         />
+                        <CTextfieldR label="Customer address" value='' name="location"/>
                         <CTextfieldNum label="Customer phone"   name="phone"/>
                         <CTextfieldNum label="Opening Balance (if any)"  name="openingbalance"/>
 

@@ -8,16 +8,10 @@ import * as React from "react";
 import Link from "next/link";
 import {useFormState, useFormStatus} from "react-dom";
 import {z} from 'zod';
-import {loginWithCredential} from "@/app/api";
 
 
-import {useRedirectParam} from "@/app/shared/useRedirectParam";
-import {
-    createUserWithEmailAndPassword,
-    sendEmailVerification
-} from 'firebase/auth';
-import {useRedirectAfterLogin} from "@/app/shared/useRedirectAfterLogin";
-import {getFirebaseAuth} from "@/app/auth/firebase";
+
+
 
 
 export const SignupFormSchema = z.object({
@@ -39,8 +33,6 @@ export const SignupFormSchema = z.object({
 
 
 export function SignupForm() {
-    const redirect = useRedirectParam();
-    const redirectAfterLogin = useRedirectAfterLogin();
     const [hasLogged, setHasLogged] = React.useState(false);
 
     async function signupAction(a, element) {
@@ -57,15 +49,8 @@ export function SignupForm() {
         }
         setHasLogged(false);
         try {
-            const auth = getFirebaseAuth();
-            const credential = await createUserWithEmailAndPassword(
-                auth,
-                element.get('email'),
-                element.get('password'),
-            );
-            await loginWithCredential(credential);
-            await sendEmailVerification(credential.user);
-            redirectAfterLogin();
+
+            // redirectAfterLogin();
         } catch (e) {
             console.log(e);
         }
@@ -81,14 +66,6 @@ export function SignupForm() {
                 <h1 className="text-3xl font-bold">Create an account</h1>
                 <p className="text-gray-500">Enter your information to get started</p>
             </div>
-            {hasLogged && (
-                <div className="font-bold">
-          <span>
-            Redirecting to <strong>{redirect || '/'}</strong>
-          </span>
-
-                </div>
-            )}
             <form action={action}>
                 <div className="flex flex-col gap-2">
                     <div>

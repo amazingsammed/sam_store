@@ -1,5 +1,5 @@
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {confirmStore} from "@/app/stores/_actions/stores";
+import {confirmStore} from "@/app/_actions/stores";
 import {redirect} from "next/navigation";
 
 

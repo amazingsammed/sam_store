@@ -4,7 +4,7 @@ import SideBar from "@/components/Sidebar";
 import { Inter } from "next/font/google";
 import {Header} from "@/components/headerlisttile";
 import StoreHeader, {Drawer} from "@/app/stores/[storeid]/_component/store_header";
-import {confirmStore} from "@/app/stores/_actions/stores";
+import {confirmStore} from "@/app/_actions/stores";
 
 
 

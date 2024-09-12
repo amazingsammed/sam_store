@@ -13,7 +13,7 @@ const UserSchema = z.object({
     name: z.string().min(3, 'Username is required'),
 });
 
-export async function POST(request: Request) {
+export async function POST(request) {
     try {
         const body = await request.json();
         const {email, password, name} = UserSchema.parse(body);
@@ -27,12 +27,12 @@ export async function POST(request: Request) {
         }
         const hashedPassword = await hash(password, 10)
         const newUser = await prisma.user.create({
-            data: {email: email, password: hashedPassword, name: name, uuid: v4()},
+            data: {email: email, password: hashedPassword, name: name, uuid: v4(),createddate: new Date()},
         })
-        const {password: nam, ...rest} = newUser;
+        const {password: nam,id ,imageurl,status,createddate,isactive,...rest} = newUser;
 
-        return NextResponse.json({user: rest, message: "User created successfully"}, {status: 201});
-    } catch (e : any) {
+        return NextResponse.json({user: {...rest}, message: "User created successfully"}, {status: 201});
+    } catch (e) {
         console.log(e.message);
         return NextResponse.json({'message': "Something went wrong"}, {status: 500});
     }

@@ -1,6 +1,6 @@
 
 import {ItemsPage} from "@/app/stores/[storeid]/items/_components/item_table";
-import {getItemsList, getProducts} from "@/app/stores/_actions/stock_item";
+import { getProducts} from "@/app/_actions/stock_item";
 
 
 

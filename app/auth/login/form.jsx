@@ -8,88 +8,53 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {Icons} from "@/app/auth/_component/icons";
 import * as React from "react";
-
-
-import {useRouter, useSearchParams} from "next/navigation";
-import {signIn} from "next-auth/react";
-import {signInWithEmailAndPassword} from "firebase/auth";
-import {useRedirectParam} from "@/app/shared/useRedirectParam";
-import {useRedirectAfterLogin} from "@/app/shared/useRedirectAfterLogin";
-import {loginWithCredential} from "@/app/api";
-import {getFirebaseAuth} from "@/app/auth/firebase";
-import {useLoadingCallback} from 'react-loading-hook';
-import {
-    getGoogleProvider,
-    loginWithProviderUsingRedirect
-} from './firebase';
 import {LoginFormSchema} from "@/app/_zod-models/auth";
+import {signIn} from "next-auth/react";
+import {useRouter} from "next/navigation";
 
 
 export function LoginForm() {
-    const [hasLogged, setHasLogged] = React.useState(false);
-    const redirect = useRedirectParam();
-    const redirectAfterLogin = useRedirectAfterLogin();
-
-    async function handleLogin(credential) {
-        await loginWithCredential(credential);
-        redirectAfterLogin();
-    }
+    const router = useRouter();
 
     async function handleLoginAction(state, formData) {
-
-        setHasLogged(false);
         try {
-            const auth = getFirebaseAuth();
-            console.log({
-                email: formData.get('email'),
-                password: formData.get('password'),
-            });
+            // console.log({
+            //     email: formData.get('email'),
+            //     password: formData.get('password'),
+            // });
             const validatedFields = LoginFormSchema.safeParse({
                 email: formData.get('email'),
                 password: formData.get('password'),
-            })
-            const errorMessage = { message: 'Invalid login credentials.' };
+            });
 
             if (!validatedFields.success) {
                 return {
                     errors: validatedFields.error.flatten().fieldErrors,
                 };
             }
+            console.log(validatedFields.data.email);
+            const signInData = await signIn("credentials", {
+                email: validatedFields.data.email,
+                password: validatedFields.data.password,
+            });
+            console.log(signInData?.error);
+            console.log(signInData?.error);
 
-            const credential = await signInWithEmailAndPassword(auth, validatedFields.data.email, validatedFields.data.password);
-            console.log(credential);
-            await loginWithCredential(credential);
-            redirectAfterLogin();
+            if (signInData?.error) {
+                console.log(signInData.error);
+                return {message: 'Something went wrong'}
+            } else {
+                await router.push('/stores');
+            }
+
         } catch (e) {
-            return { message: 'Invalid login credentials.' };
             console.log(e);
+            return {message: 'Invalid login credentials.'};
         }
 
-        setHasLogged(true);
 
     }
 
-    const [
-        handleLoginWithGoogleUsingRedirect,
-        isGoogleUsingRedirectLoading,
-        googleUsingRedirectError
-    ] = useLoadingCallback(async () => {
-        setHasLogged(false);
-        try {
-
-            setHasLogged(false);
-
-            const auth = getFirebaseAuth();
-            await loginWithProviderUsingRedirect(auth, getGoogleProvider(auth));
-
-            setHasLogged(true);
-        } catch (e) {
-
-
-        }
-
-        setHasLogged(true);
-    });
 
     const [state, action] = useFormState(handleLoginAction, undefined);
 
@@ -151,7 +116,7 @@ export function LoginForm() {
           </span>
                 </div>
             </div>
-            <Button variant="outline" type="button" onClick={handleLoginWithGoogleUsingRedirect} pending={isGoogleUsingRedirectLoading}>
+            <Button variant="outline" type="button" >
                 <Icons.google className="mr-2 h-4 w-4"/>{" "}
                 Google
             </Button>

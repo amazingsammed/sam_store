@@ -74,7 +74,7 @@ const theSidemenu = [
             },
             {
                 'name': "Customers",
-                'url': "/customers"
+                'url': "/sales/customer"
             },
         ]
     },

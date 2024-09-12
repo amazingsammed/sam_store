@@ -9,30 +9,14 @@ import {
     DialogTitle,
     DialogTrigger
 } from "@/components/ui/dialog";
-import {CDropDownWithOnChange, CTextfieldNum, CTextfieldR} from "@/components/ktextfield";
-import {createStore} from "@/app/stores/_actions/stores";
-import {getFirebaseAuth} from "@/app/auth/firebase";
-import {signOut} from "firebase/auth";
-import {logout} from "@/app/api";
-import {useLoadingCallback} from "react-loading-hook";
-import {useRouter} from "next/navigation";
-import {useState} from "react";
+import { CTextfieldNum, CTextfieldR} from "@/components/ktextfield";
+import {createStore} from "@/app/_actions/stores";
+
 
 
 
 
 function Storeheader() {
-    const router = useRouter();
-    const [hasLoggedOut, setHasLoggedOut] = useState(false);
-    const [handleLogout, isLogoutLoading] = useLoadingCallback(async () => {
-        const auth = getFirebaseAuth();
-        await signOut(auth);
-        await logout();
-
-        router.refresh();
-
-        setHasLoggedOut(true);
-    });
     return (
 
         <nav className="bg-blue border-gray-200 border-b">
@@ -42,13 +26,13 @@ function Storeheader() {
                 </div>
                 <div className="flex  space-x-3 md:space-x-0 rtl:space-x-reverse">
                        <Addform/>
-                    <Button
-                        loading={isLogoutLoading || hasLoggedOut}
-                        disabled={isLogoutLoading || hasLoggedOut}
-                        onClick={handleLogout}
-                    >
-                        Log out
-                    </Button>
+                    {/*<Button*/}
+                    {/*    loading={isLogoutLoading || hasLoggedOut}*/}
+                    {/*    disabled={isLogoutLoading || hasLoggedOut}*/}
+                    {/*    onClick={handleLogout}*/}
+                    {/*>*/}
+                    {/*    Log out*/}
+                    {/*</Button>*/}
                 </div>
             </div>
         </nav>

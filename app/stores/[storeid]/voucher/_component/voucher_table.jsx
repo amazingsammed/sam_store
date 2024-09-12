@@ -1,6 +1,6 @@
 'use client'
 
-import {getItemsList} from "@/app/stores/_actions/stock_item";
+import {getItemsList} from "@/app/_actions/stock_item";
 
 export async function VoucherTable(prop) {
 
@@ -52,7 +52,7 @@ export async function VoucherTable(prop) {
     TableRow,
   } from "@/components/ui/table"
 import Headerlisttile from "../../../../../components/headerlisttile";
-import {getVoucherList} from "@/app/stores/_actions/voucher";
+import {getVoucherList} from "@/app/_actions/voucher";
   
 
   

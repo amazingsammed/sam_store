@@ -1,7 +1,7 @@
 'use server';
 import {toJson} from "@/app/shared/sharedfunctions";
 import prisma from "@/lib/prisma";
-import {PrimeChecker} from "@/app/stores/_actions/_checker";
+import {PrimeChecker} from "@/app/_actions/_checker";
 
 
 export async function createStockGroup(data, storeid) {

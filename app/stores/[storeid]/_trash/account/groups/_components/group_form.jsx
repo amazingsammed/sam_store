@@ -1,7 +1,7 @@
 "use client";
 
 import {CTextfieldR, CDropDown} from '@/components/ktextfield'
-import {createGroup} from "@/app/stores/_actions/account";
+import {createChartofAccounts} from "@/app/_actions/account";
 import {
     Dialog,
     DialogContent,
@@ -44,7 +44,7 @@ export function AddGroupDialog() {
                 <Button >Create Group</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[434]">
-                <form action={createGroup}>
+                <form action={createChartofAccounts}>
                     <DialogHeader>
                         <DialogTitle>Create Group</DialogTitle>
                         <DialogDescription>

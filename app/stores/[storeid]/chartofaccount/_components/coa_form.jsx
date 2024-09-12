@@ -1,7 +1,7 @@
 "use client";
 
 import {CTextfieldR, CDropDown, CDropDownWithOnChange, CTextfieldNum} from '@/components/ktextfield'
-import {createGroup} from "@/app/stores/_actions/account";
+import {createChartofAccounts} from "@/app/_actions/account";
 import {
     Dialog, DialogClose,
     DialogContent,
@@ -13,8 +13,9 @@ import {
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {useEffect, useState} from "react";
-import {getItemsgroupList, getItemsUnitList} from "@/app/stores/_actions/stock_item";
+import {getItemsgroupList, getItemsUnitList} from "@/app/_actions/stock_item";
 import {useParams, useRouter} from "next/navigation";
+import {useFormState} from "react-dom";
 
 const accountgroups = [
     {
@@ -119,18 +120,20 @@ export function AddChartofAccount() {
     }
     const path= useParams();
     const router = useRouter();
-    async function handleCreateGroup(a) {
-        await createGroup(a,path.storeid);
+    async function handleCreateGroup(s,a) {
+        await createChartofAccounts(a,path.storeid);
         router.refresh();
     }
+
+    const [state, action] = useFormState(handleCreateGroup, undefined);
 
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button>Create Group</Button>
+                <Button>Create Account</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[434]">
-                <form action={handleCreateGroup}>
+                <form action={action}>
                     <DialogHeader>
                         <DialogTitle>Create New Account</DialogTitle>
                         <DialogDescription>
@@ -138,20 +141,21 @@ export function AddChartofAccount() {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
-                        <CTextfieldR label="Group Name" value='' name="name"/>
+                        <CTextfieldR label="Group Name" value='' name="account_name"/>
                         <CDropDownWithOnChange
                             label="Account Type"
-                            name='type'
+                            name='account_type'
                             onchange={changeAccounttype}
                             items={accounts}
                         />
                         <CDropDownWithOnChange
                             label="Account Group"
-                            name='group'
+                            name='account_group'
                             items={group}
                         />
-                        <CTextfieldNum label="Account Code" value={accountcode} onchange={changeAccountCode} name="code"/>
-                        <CTextfieldNum label="Opening Balance"  name="openingbalance"/>
+                        <CTextfieldNum label="Account Code" value={accountcode} onchange={changeAccountCode} name="account_code"/>
+                        <CTextfieldNum label="Opening Balance"  name="opening_balance"/>
+                        
 
                     </div>
                     <DialogFooter>

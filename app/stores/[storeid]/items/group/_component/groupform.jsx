@@ -10,11 +10,11 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
-import {createStockGroup, getStockCategory} from "@/app/stores/_actions/stock_item_options";
+import {createStockGroup, getStockCategory} from "@/app/_actions/stock_item_options";
 import {useParams, useRouter} from "next/navigation";
-import {createGroup} from "@/app/stores/_actions/account";
+import {createChartofAccounts} from "@/app/_actions/account";
 import {useEffect, useState} from "react";
-import {getItemsgroupList, getItemsUnitList} from "@/app/stores/_actions/stock_item";
+import {getItemsgroupList, getItemsUnitList} from "@/app/_actions/stock_item";
 
 
 const accounts = [

@@ -4,7 +4,7 @@ import {DataTableDemo} from "@/app/stores/[storeid]/purchases/_components/testpa
 function Page(props) {
     return (
         <div>
-            <DataTableDemo />
+            {/*<DataTableDemo />*/}
         </div>
     );
 }

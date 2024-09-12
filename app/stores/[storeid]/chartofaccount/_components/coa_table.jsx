@@ -36,11 +36,11 @@ export  function Cartofaccount(prop) {
         <TableBody>
           {TableData.map((element ,index) => (
             <TableRow key={index}>
-              <TableCell className="font-medium">{element.code}</TableCell>
-              <TableCell>{element.name}</TableCell>
-              <TableCell>{element.group}</TableCell>
-              <TableCell>{element.type}</TableCell>
-              <TableCell>{element.openingbalance}</TableCell>
+              <TableCell className="font-medium">{element.account_code}</TableCell>
+              <TableCell>{element.account_name}</TableCell>
+              <TableCell>{element.account_parent}</TableCell>
+              <TableCell>{element.account_type}</TableCell>
+              <TableCell>{element.opening_balance}</TableCell>
 
             </TableRow>
           ))}

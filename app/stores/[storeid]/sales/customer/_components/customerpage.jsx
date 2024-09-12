@@ -15,16 +15,8 @@ import Headerlisttile, {HeaderListTileDialog} from "@/components/headerlisttile"
 import {CustomerForm} from "@/app/stores/[storeid]/sales/customer/_components/addcustomer";
 
 
-export  function CustomerTable() {
-    const TableData = [{
-        'code': '123',
-        'name': 'SAMMED',
-        'type':'single',
-        'balance':'200',
-        'last_invoice':'INV123',
-        'salesperson':'kk',
-        'phone':'233543220177',
-    }];
+export  function CustomerTable(props) {
+    const TableData = props.elements;
     return (
         <div className="">
             <HeaderListTileDialog title='List of Customers' subtitle='All Customers in Current Store' buttonx={

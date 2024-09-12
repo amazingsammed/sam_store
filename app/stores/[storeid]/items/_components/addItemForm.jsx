@@ -3,9 +3,9 @@
 import {CTextfieldR, CTextfieldNum, CCheckBox, CDropDown} from '@/components/ktextfield'
 import {useParams, useRouter} from "next/navigation";
 import {useState, useEffect} from 'react';
-import {addProduct} from "@/app/stores/_actions/stock_item";
+import {addProduct} from "@/app/_actions/stock_item";
 import {Button} from "@/components/ui/button";
-import {getStockGroup, getStockUnits} from "@/app/stores/_actions/stock_item_options";
+import {getStockGroup, getStockUnits} from "@/app/_actions/stock_item_options";
 
 export default async function AddItemForm() {
     const [groups, setGroups] = useState([{'name': "electronics",}]);
@@ -50,7 +50,7 @@ export default async function AddItemForm() {
     const router = useRouter()
 function handleAddproduct(elements) {
         addProduct(elements,path.storeid);
-        // router.back();
+        router.back();
 
 }
 

@@ -20,6 +20,7 @@ export async function POST(request) {
         const existingUser = await prisma.user.findUnique({
             where: {email: email},
         });
+        console.log(existingUser);
 
         if (!existingUser) {
             return NextResponse.json({user: null, message: "User does not exist,please signup"}, {status: 409});
@@ -30,8 +31,17 @@ export async function POST(request) {
          if (!passwordMarch) {
              return NextResponse.json({user: null, message: "Incorrect Password"}, {status: 409});
          }
-        const {password: nam, ...rest} = existingUser;
-        return NextResponse.json({user: rest, message: "User created successfully"}, {status: 201});
+        const {password: nam,id ,imageurl,status,createddate,isactive,...rest} = existingUser;
+        return NextResponse.json({user: {...rest}, message: "User created successfully"}, {status: 201});
+    } catch (e) {
+        console.log(e.message);
+        return NextResponse.json({'message': "Something went wrong"}, {status: 500});
+    }
+}
+
+export async function GET() {
+    try {
+        return NextResponse.json({user: 'rest', message: "User created successfully"}, {status: 200});
     } catch (e) {
         console.log(e.message);
         return NextResponse.json({'message': "Something went wrong"}, {status: 500});

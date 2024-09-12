@@ -1,5 +1,5 @@
 import Storelist from "@/app/stores/_component/storelist";
-import {getStores} from "@/app/stores/_actions/stores";
+import {getStores} from "@/app/_actions/stores";
 
 export default async function Page() {
    const list= await getStores();

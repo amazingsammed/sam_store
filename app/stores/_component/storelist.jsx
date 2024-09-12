@@ -5,7 +5,6 @@ import Link from "next/link";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 
 import Storeheader from "@/app/stores/_component/storeheader";
-import {getStores} from "@/app/stores/_actions/stores";
 
 function Storelist(prop) {
     const stores = prop.datax;

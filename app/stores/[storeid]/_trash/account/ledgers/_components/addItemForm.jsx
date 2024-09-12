@@ -2,7 +2,7 @@
 
 import {CTextfieldR, CTextfieldNum, CCheckBox, CDropDown} from '@/components/ktextfield'
 import {useState, useEffect} from 'react';
-import {addProduct, getItemsgroupList, getItemsUnitList} from "@/app/stores/_actions/stock_item";
+import {addProduct, getItemsgroupList, getItemsUnitList} from "@/app/_actions/stock_item";
 import {
     Dialog,
     DialogContent,
@@ -12,7 +12,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import {Button} from "@/components/ui/button";
-import {createLedger, getGroupList, getGroupNames} from "@/app/stores/_actions/account";
+import {createLedger, getGroupList, getGroupNames} from "@/app/_actions/account";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Command} from "cmdk";
 import {cn} from "@/lib/utils";

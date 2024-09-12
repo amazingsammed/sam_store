@@ -1,6 +1,6 @@
 import React from 'react';
 import {CategoryTable} from "@/app/stores/[storeid]/items/category/_component/categorytable";
-import {getStockCategory} from "@/app/stores/_actions/stock_item_options";
+import {getStockCategory} from "@/app/_actions/stock_item_options";
 
 async function Page(props) {
     const data = await getStockCategory(props.params.storeid);
