@@ -1,13 +1,16 @@
-import CredentialsProvider from "next-auth/providers/credentials";
-import NextAuth, {NextAuthOptions} from "next-auth";
+import NextAuth from "next-auth"
+
+import {authOptions} from "@/lib/nextauth";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
+import CredentialsProvider from "next-auth/providers/credentials";
 import {compare} from "bcrypt";
 
 
+// const handler = NextAuth(authOptions)
 
-
-export const authOptions = {
+const handler = NextAuth({
+    // debug: true,
     adapter: PrismaAdapter(prisma),
     secret: process.env.NEXTAUTH_SECRET,
     session: {
@@ -22,7 +25,7 @@ export const authOptions = {
             type: "credentials",
             name: "Credentials",
             credentials: {
-                email: { label: "email", type: "text"},
+                email: {label: "email", type: "text"},
                 password: {label: "password", type: "password"}
             },
             async authorize(credentials) {
@@ -39,8 +42,7 @@ export const authOptions = {
                 // if (res.ok && results.user) {
                 //     return results.user;
                 // }
-                const {email, password } = credentials;
-
+                const {email, password} = credentials;
 
 
                 const existingUser = await prisma.user.findUnique({
@@ -53,45 +55,34 @@ export const authOptions = {
                 }
 
 
-                const passwordMarch = await compare(password , existingUser.password);
+                const passwordMarch = await compare(password, existingUser.password);
                 if (!passwordMarch) {
                     throw new Error("Incorrect Password");
                 }
-               return existingUser;
+                return existingUser;
             }
         })
     ],
     callbacks: {
-
         async jwt({ token, user }) {
             if (user) {
                 token.uuid = user.uuid;
                 token.name = user.name;
                 token.email = user.email;
             }
-            console.log(user,token,'jwt');
             return token;
         },
-      session: ({ session, token, user }) => {
-            // Customize the session object
+
+        async session({ session, token }) {
             session.user = {
-                uuid: user.uuid,
-                name: user.name,
-                email: user.email
+                uuid: token.uuid ,
+                name: token.name ,
+                email: token.email,
             };
-            console.log(user,token,session,'session');
+            // console.log('Session:', session);
             return session;
         },
-        // async session({ session, token }) {
-        //     // Customize the session object with token information
-        //     session.user = {
-        //         uuid: token.uuid , // Type assertion for TypeScript
-        //         name: token.name ,
-        //         email: token.email,
-        //     };
-        //     console.log('Session:', session);
-        //     return session;
-        // },
     },
-}
-export default NextAuth(authOptions)
+});
+
+export {handler as GET, handler as POST}

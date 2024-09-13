@@ -32,13 +32,12 @@ export function LoginForm() {
                     errors: validatedFields.error.flatten().fieldErrors,
                 };
             }
-            console.log(validatedFields.data.email);
-            const signInData = await signIn("credentials", {
+            const signInData =  await  signIn("credentials", {
+                redirect : false,
                 email: validatedFields.data.email,
                 password: validatedFields.data.password,
             });
-            console.log(signInData?.error);
-            console.log(signInData?.error);
+            console.log(signInData);
 
             if (signInData?.error) {
                 console.log(signInData.error);

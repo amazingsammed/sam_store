@@ -5,10 +5,10 @@ import {redirect} from "next/navigation";
 
 
 export default async function Page(params) {
-    const result =await confirmStore(params.params.storeid);
-    if (!result) {
-        redirect("/stores");
-    }
+    // const result =await confirmStore(params.params.storeid);
+    // if (!result) {
+    //     redirect("/stores");
+    // }
     return <div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

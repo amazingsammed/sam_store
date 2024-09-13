@@ -1,6 +1,5 @@
 import {withAuth} from "next-auth/middleware";
 import {NextResponse} from "next/server";
-import path from "node:path";
 
 
 export default withAuth(
@@ -9,6 +8,12 @@ export default withAuth(
         console.log(token)
 
         if (token['jti'] !== undefined) {
+            return NextResponse.next();
+        }
+        if (token['uuid'] !== undefined) {
+            return NextResponse.next();
+        }
+        if (token['email'] !== undefined) {
             return NextResponse.next();
         }
 
@@ -20,7 +25,8 @@ export const config = {
     matcher: [
         "/[storeid]/:path*",
         "/stores/:path*",
-        "/stores"]
+        "/stores"
+    ]
 }
 
 

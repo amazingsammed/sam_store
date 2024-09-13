@@ -1,20 +1,37 @@
 'use server';
-
-import {authConfig} from "@/config/server-config";
+import NextAuth, {NextAuthOptions} from "next-auth";
 import {getServerSession} from "next-auth";
-import {getCsrfToken} from "next-auth/react";
-import {getToken} from "next-auth/jwt";
+import {getSession} from "next-auth/react";
 const secret = process.env.NEXTAUTH_SECRET;
-export const dynamic = "force-dynamic";
 export async function PrimeChecker(storeid){
     try {
-        const tokens = await getServerSession(authConfig);
+        const tokens = await getServerSession({
+            callbacks: {
+                async jwt({ token, user }) {
+                    if (user) {
+                        token.uuid = user.uuid;
+                        token.name = user.name;
+                        token.email = user.email;
+                    }
+                    return token;
+                },
+                session: ({ session, token, user }) => {
+                    session.user = {
+                        uuid: token.uuid,
+                        name: token.name,
+                        email: token.email
+                    };
+                    return session;
+                },
+            },
+        });
+
 
         if (!tokens) {
             throw new Error('unauthenticated user');
         }
-        console.log(tokens,"the tokens");
-        return tokens;
+        console.log(tokens.user.uuid,"Current User uuid");
+        return tokens.user.uuid;
     }
     catch(err){
         console.error(err);

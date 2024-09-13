@@ -4,6 +4,8 @@ import {authConfig} from "@/config/server-config";
 import {cookies} from "next/headers";
 import {PrimeChecker} from "@/app/_actions/_checker";
 import prisma from "@/lib/prisma";
+import {toJson} from "@/app/shared/sharedfunctions";
+import {v4 as uuidv4} from "uuid";
 
 export async function getStores() {
     const results =[];
@@ -13,7 +15,7 @@ export async function getStores() {
 
         const  data= await prisma.store.findMany({
             where: {
-                userid: userid,
+                createdby: userid,
             }
         });
 
@@ -27,21 +29,23 @@ export async function getStores() {
 
 export async function createStore(data) {
 try {
-    // const tokens = await getTokens(cookies(), authConfig);
-    //
-    // if (!tokens) {
-    //     throw new Error('Cannot update counter of unauthenticated user');
-    // }
-    // const userid = tokens.decodedToken.uid;
-    //
-    // const docData = {
-    //     ...data,
-    //     date:  Date.now(),
-    //     users: [userid],
-    //     isActive: true,admin: [userid],
-    //
-    // };
-    // await db.collection('stores').add(docData);
+    const userid = await PrimeChecker('storeidx');
+    const element = toJson(data)
+    // console.log(element);
+    const guid = uuidv4();
+    const savedElement = await prisma.store.create({
+        data: {
+            storename: element.storename,
+            uuid: guid,
+            storeemail: element.storelocation,
+            storeaddress: element.storeaddress,
+            storephone: element.storephone,
+            createdby: userid,
+            createddate: new Date(),
+
+        }
+    });
+   console.log(savedElement,'saved');
 }catch (e) {
     console.log(e);
 }

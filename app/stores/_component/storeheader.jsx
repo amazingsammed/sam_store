@@ -48,7 +48,7 @@ export function Addform() {
            location: b.get('storelocation'),
        }
        console.log(element);
-       await createStore(element);
+       await createStore(b);
 
     }
     return (

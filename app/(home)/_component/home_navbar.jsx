@@ -19,10 +19,6 @@ export default function HomeNav(){
     'title': "Contact",
     'url': "/contact"
 },
-{
-  'title': "Items",
-  'url': "/store/items"
-},
     
 ];
   function handleClick(){
