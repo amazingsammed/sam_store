@@ -1,10 +1,9 @@
 import React from 'react';
-import Headerlisttile from "@/components/headerlisttile";
 import {VoucherTable} from "@/app/stores/[storeid]/voucher/_component/voucher_table";
 import {getVoucherList} from "@/app/_actions/voucher";
 
-async function Page() {
-    const data = await getVoucherList();
+async function Page(params) {
+    const data = await getVoucherList(params.params.storeid);
     return (
         <div>
             <VoucherTable data={data}/>

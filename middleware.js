@@ -5,7 +5,7 @@ import {NextResponse} from "next/server";
 export default withAuth(
     async function middleware(req) {
         const token = await req.nextauth.token;
-        console.log(token)
+        console.log(token['uuid'] ,'middleware');
 
         if (token['jti'] !== undefined) {
             return NextResponse.next();
@@ -16,7 +16,6 @@ export default withAuth(
         if (token['email'] !== undefined) {
             return NextResponse.next();
         }
-
         return NextResponse.redirect("/api/auth/signin");
     }
 )
@@ -25,7 +24,8 @@ export const config = {
     matcher: [
         "/[storeid]/:path*",
         "/stores/:path*",
-        "/stores"
+        "/stores",
+        "/api/app/:path*"
     ]
 }
 

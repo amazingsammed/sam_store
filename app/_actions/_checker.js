@@ -4,6 +4,10 @@ import {getServerSession} from "next-auth";
 import {getSession} from "next-auth/react";
 const secret = process.env.NEXTAUTH_SECRET;
 export async function PrimeChecker(storeid){
+    if(storeid === undefined){
+        console.log('checker', "storeid not defined");
+        throw new Error('store id not defined');
+    }
     try {
         const tokens = await getServerSession({
             callbacks: {

@@ -25,9 +25,9 @@ export  function ItemsPage(prop) {
             <TableHead>Code</TableHead>
             <TableHead >Name</TableHead>
             <TableHead className="text-right">Selling Price</TableHead>
-            <TableHead className="text-right">Purchase Price</TableHead>
-            <TableHead className="text-right">Quantity</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            {/*<TableHead className="text-right">Purchase Price</TableHead>*/}
+            {/*<TableHead className="text-right">Quantity</TableHead>*/}
+            {/*<TableHead className="text-right">Amount</TableHead>*/}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -36,9 +36,9 @@ export  function ItemsPage(prop) {
               <TableCell >{element.shortname}</TableCell>
               <TableCell className="font-medium">{element.name}</TableCell>
               <TableCell className="text-right">{element.salesprice}</TableCell>
-              <TableCell className="text-right">{element.purchaseprice}</TableCell>
-              <TableCell className="text-right">{element.quantity}</TableCell>
-              <TableCell className="text-right">{element.quantity*element.salesprice}</TableCell>
+              {/*<TableCell className="text-right">{element.purchaseprice}</TableCell>*/}
+              {/*<TableCell className="text-right">{element.qty}</TableCell>*/}
+              {/*<TableCell className="text-right">{element.quantity*element.salesprice}</TableCell>*/}
             </TableRow>
           ))}
         </TableBody>

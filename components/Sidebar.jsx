@@ -42,13 +42,9 @@ const theSidemenu = [
     {
         'title': "Chart of Accounts",
         'icon': <MdAccountBox size={size}/>,
-        'hasItems': true,
+        'hasItems': false,
         'url': "/chartofaccount",
-        'items': [
-            {'name': "Groups", 'url': '/account/groups'},
-            // {'name': "Ledgers", 'url': '/[storeid]/account/ledgers'}
 
-        ]
     },
     {
         'title': "Cash Sales",
@@ -158,7 +154,7 @@ export default function SideBar() {
     return (
         <nav className="bg-slate-950 hidden fixed lg:flex flex-col top-0 left-0 h-dvh w-[18rem] border-r ">
 
-            <div className=" p-4 flex flex-row items-center bg-purple-800 ">
+            <div className=" p-4 flex flex-row items-center bg-slate-800 ">
                 {/*<MdMenu size={30}/>*/}
                 <span className="text-3xl uppercase pl-4  text-white">My Store</span>
             </div>

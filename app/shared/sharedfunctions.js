@@ -26,3 +26,15 @@ function formDataToJson(formData) {
 
     return jsonObject;
 }
+
+export function queryClean(a){
+    return a;
+}
+export function CleanResults(data){
+    if(data===undefined || data===null || data.length===0){
+        console.log('shared function', data);
+        return [];
+    }
+    return JSON.parse(JSON.stringify(data));
+}
+

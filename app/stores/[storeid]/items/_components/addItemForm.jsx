@@ -48,10 +48,12 @@ export default async function AddItemForm() {
     }
     const path= useParams();
     const router = useRouter()
-function handleAddproduct(elements) {
-        addProduct(elements,path.storeid);
-        router.back();
-
+async function handleAddproduct(elements) {
+    await addProduct(elements, path.storeid);
+    await router.back();
+    setTimeout(()=>{
+        router.refresh();
+    }, 500);
 }
 
 

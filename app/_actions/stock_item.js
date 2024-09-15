@@ -22,7 +22,7 @@ export async function getProducts(storeid) {
             }
         });
 
-        return data;
+        return JSON.parse(JSON.stringify(data));
     } catch (e) {
         return [];
     }
@@ -38,10 +38,11 @@ export async function addProduct(data, storeid) {
         const element = toJson(data)
         console.log(element);
         const guid = uuidv4();
+        const guidx = uuidv4();
         const savedElement = await prisma.stock_item.create({
             data: {
                 name: element.name,
-                uuidt: guid,
+                uuidt: guidx,
                 shortname: element.shortname,
                 group: parseInt(element.group),
                 unit: parseInt(element.unit),
@@ -72,8 +73,8 @@ export async function addProduct(data, storeid) {
             )
             const inventoryresults = await  prisma.trn_inventory.create({
                 data: {
-                    uuid: guid,
-                    itemid: savedElement.id,
+                    voucher_uuid: guid,
+                    item_uuid: guidx,
                     quantity: parseInt(element.quantity),
                     rate: parseFloat(element.purchaseprice),
                     amount: parseFloat(element.quantity) * parseFloat(element.purchaseprice),

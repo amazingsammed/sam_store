@@ -22,10 +22,8 @@ import {
 
 
 export function ItemListCombo(props) {
-
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")
-
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
@@ -36,7 +34,7 @@ export function ItemListCombo(props) {
                     className="w-[200px] justify-between"
                 >
                     {value
-                        ? props.list.find((framework) => framework.product_id === value)?.name
+                        ? props.list.find((item) => item.uuidt === value)?.name
                         : "Select an item..."}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
@@ -49,20 +47,18 @@ export function ItemListCombo(props) {
                         <CommandGroup>
                             {props.list.map((element,i) => (
                                 <CommandItem
-                                    key={element.i}
-                                    value={element.product_id}
+                                    key={i}
+                                    value={element.uuidt}
                                     onSelect={(currentValue) => {
-
                                         setValue(currentValue === value ? "" : currentValue)
-                                      console.log(currentValue)
-                                        console.log(value)
+                                        props.onChangeValue(element)
                                         setOpen(false)
                                     }}
                                 >
                                     <Check
                                         className={cn(
                                             "mr-2 h-4 w-4",
-                                            value === element.product_id ? "opacity-100" : "opacity-0"
+                                            value === element.uuidt ? "opacity-100" : "opacity-0"
                                         )}
                                     />
                                     {element.name}

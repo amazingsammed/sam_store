@@ -15,6 +15,7 @@ export async function getGroupList(storeid) {
                 storeid: storeid,
             }
         });
+        console.log(results);
         return [...JSON.parse(JSON.stringify(results))];
     }catch (e) {
         return [];

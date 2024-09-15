@@ -1,8 +1,6 @@
 'use client'
 
-import {getItemsList} from "@/app/_actions/stock_item";
-
-export async function VoucherTable(prop) {
+export function VoucherTable(prop) {
 
 
   const tableData = prop.data;
@@ -14,17 +12,24 @@ export async function VoucherTable(prop) {
           <TableHeader>
             <TableRow>
               <TableHead>Date</TableHead>
-              <TableHead className="w-[300px]">Party Name</TableHead>
               <TableHead>Voucher Type</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
+              <TableHead>Narration</TableHead>
+              <TableHead >Account name</TableHead>
+              <TableHead className="text-right" >Amount</TableHead>
+              <TableHead >Sales Person</TableHead>
+              <TableHead >Action </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {tableData.map((invoice,i) => (
                 <TableRow key={i}>
                   <TableCell>{invoice.date}</TableCell>
-                  <TableCell className="font-medium">{invoice.party_name}</TableCell>
-                  <TableCell>{invoice.voucher_type}</TableCell>
+                  <TableCell>{invoice.vouchertype}</TableCell>
+                  <TableCell>{invoice.narration}</TableCell>
+                  <TableCell>{invoice.account}</TableCell>
+                  <TableCell>{invoice.amount}</TableCell>
+                  <TableCell>{invoice.salesperson}</TableCell>
+                  <TableCell><MdMoreVert/></TableCell>
                 </TableRow>
             ))}
           </TableBody>
@@ -52,7 +57,7 @@ export async function VoucherTable(prop) {
     TableRow,
   } from "@/components/ui/table"
 import Headerlisttile from "../../../../../components/headerlisttile";
-import {getVoucherList} from "@/app/_actions/voucher";
+import {MdMoreVert} from "react-icons/md";
   
 
   

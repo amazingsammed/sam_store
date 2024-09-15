@@ -8,6 +8,7 @@ import * as React from "react";
 import Link from "next/link";
 import {useFormState, useFormStatus} from "react-dom";
 import {z} from 'zod';
+import {useRouter} from "next/navigation";
 
 
 
@@ -34,6 +35,7 @@ export const SignupFormSchema = z.object({
 
 export function SignupForm() {
     const [hasLogged, setHasLogged] = React.useState(false);
+    const router = useRouter();
 
     async function signupAction(a, element) {
         const validatedFields = SignupFormSchema.safeParse({
@@ -50,7 +52,16 @@ export function SignupForm() {
         setHasLogged(false);
         try {
 
-            // redirectAfterLogin();
+            const res = await fetch("/api/signup", {
+                method: 'POST',
+                body: JSON.stringify(validatedFields.data),
+                headers: {"Content-Type": "application/json"}
+            })
+            if (res.status === 201) {
+                await router.push('/auth/login')
+            }else {
+                console.log(res.body);
+            }
         } catch (e) {
             console.log(e);
         }
@@ -70,14 +81,14 @@ export function SignupForm() {
                 <div className="flex flex-col gap-2">
                     <div>
                         <Label htmlFor="name">Name</Label>
-                        <Input id="name" name="name" placeholder="John Doe"/>
+                        <Input id="name" name="name" placeholder="Your name here.."/>
                     </div>
                     {state?.errors?.name && (
                         <p className="text-sm text-red-500">{state.errors.name}</p>
                     )}
                     <div>
                         <Label htmlFor="email">Email</Label>
-                        <Input id="email" name="email" placeholder="john@example.com"/>
+                        <Input id="email" name="email" placeholder="mystore@example.com"/>
                     </div>
                     {state?.errors?.email && (
                         <p className="text-sm text-red-500">{state.errors.email}</p>

@@ -1,7 +1,7 @@
 'use server';
 import {PrimeChecker} from "@/app/_actions/_checker";
 import prisma from "@/lib/prisma";
-import {toJson} from "@/app/shared/sharedfunctions";
+import {CleanResults, toJson} from "@/app/shared/sharedfunctions";
 import {v4 as uuidv4} from "uuid";
 
 export async function getCustomers(storeid) {
@@ -14,8 +14,7 @@ export async function getCustomers(storeid) {
                 storeid: storeid,
             }
         });
-console.log(data);
-        return data;
+        return CleanResults(data);
     } catch (e) {
         return [];
     }
