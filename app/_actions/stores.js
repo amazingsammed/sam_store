@@ -12,7 +12,6 @@ export async function getStores() {
     try {
 
         const userid = await PrimeChecker('storeid');
-
         // const  data= await prisma.store.findMany({
         //     where: {
         //         createdby: userid,
@@ -50,13 +49,12 @@ export async function createStore(data) {
     try {
         const userid = await PrimeChecker('storeidx');
         const element = toJson(data)
-        // console.log(element);
         const guid = uuidv4();
         const storeElement = await prisma.store.create({
             data: {
                 storename: element.storename,
                 uuid: guid,
-                storeemail: element.storelocation,
+                storeemail: element.storeemail,
                 storeaddress: element.storeaddress,
                 storephone: element.storephone,
                 createdby: userid,
@@ -75,26 +73,24 @@ export async function createStore(data) {
             }
         });
 
-        const caoElement = await prisma.default_coa.findMany();
-        for (const item of caoElement) {
-            const newcode = uuidv4();
-            const savedElement = await prisma.chart_of_account.create({
-                data: {
-                    uuid: newcode,
-                    account_code: parseInt(item.account_code),
-                    account_name: item.account_name,
-                    account_parent: parseInt(item.account_parent),
-                    account_type: parseInt(item.account_type),
-                    opening_balance: parseFloat(item.opening_balance),
-                    createdby: userid,
-                    storeid: guid,
-                    // createddate: new Date(),
-                }
-            });
-        }
-
-        console.log('saved SE');
-        console.log('saved UE');
+        // const caoElement = await prisma.default_coa.findMany();
+        // for (const item of caoElement) {
+        //     const newcode = uuidv4();
+        //     const savedElement = await prisma.chart_of_account.create({
+        //         data: {
+        //             uuid: newcode,
+        //             account_code: parseInt(item.account_code),
+        //             account_name: item.account_name,
+        //             account_parent: parseInt(item.account_parent),
+        //             account_type: parseInt(item.account_type),
+        //             opening_balance: parseFloat(item.opening_balance),
+        //             createdby: userid,
+        //             storeid: guid,
+        //             // createddate: new Date(),
+        //         }
+        //     });
+        // }
+        console.log('saved Store');
     } catch (e) {
         console.log(e);
     }

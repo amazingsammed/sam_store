@@ -191,9 +191,9 @@ export function SideBarItemExpanded({item,}) {
 
     return (
         <div className="flex flex-col py-2">
-            <div className={pathName === '/stores/'+path.storeid+item['url'] ? " py-2 rounded bg-purple-950 flex-row flex justify-between items-center" : "py-2 hover:bg-purple-950 rounded flex flex-row justify-between items-center"}>
+            <div className={pathName === '/stores/'+path.storeid+item['url'] ? "  rounded bg-purple-950 flex-row flex justify-between items-center" : " hover:bg-purple-950 rounded flex flex-row justify-between items-center"}>
             <Link href={'/stores/'+path.storeid+item['url']}>
-                <div className="w-[12rem]">
+                <div className="w-[12rem] py-3">
                     <li>
                         <div
                             className={pathName === item['url'] ? "transition-colors  pl-4 text-white   " :
@@ -205,19 +205,12 @@ export function SideBarItemExpanded({item,}) {
                                     {item['icon']}
                                     {item['title']}
                                 </div>
-                                {/*<div onClick={toggleDrop} className="p-3 m-1 hover:bg-gray-100 rounded-lg">*/}
-
-                                {/*{ item['hasItems'] && <MdChevronRight/>}*/}
-                                {/*</div>*/}
                             </div>
                         </div>
                     </li>
                 </div>
             </Link>
-                { item['hasItems'] && <div onClick={toggleDrop} className=" text-white hover:bg-purple-800 rounded-lg p-2 mr-2">
-                    {isopen ?<MdArrowDownward />:<MdChevronRight />}
-
-                </div>}
+                { item['hasItems'] && <div onClick={toggleDrop} className=" text-white hover:bg-purple-800 rounded-lg p-2 mr-2">{isopen ?<MdArrowDownward />:<MdChevronRight />}</div>}
             </div>
 
             <div className="ml-6 ">

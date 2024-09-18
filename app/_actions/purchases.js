@@ -1,11 +1,11 @@
 'use server';
+
 import {PrimeChecker} from "@/app/_actions/_checker";
-import {CleanResults, queryClean, toJson} from "@/app/shared/sharedfunctions";
-import prisma from "@/lib/prisma";
 import {v4 as uuidv4} from "uuid";
+import prisma from "@/lib/prisma";
+import {CleanResults, queryClean} from "@/app/shared/sharedfunctions";
 
-
-function listToInventory(data, guid, storeid, userid) {
+function listToPurchasesInventory(data, guid, storeid, userid) {
     const results = [];
     let total = 0.0
     data.forEach(item => {
@@ -26,7 +26,7 @@ function listToInventory(data, guid, storeid, userid) {
     return [results , total];
 }
 
-export async function createCashSales(data, storeid) {
+export async function createCashPurchases(data, storeid) {
     try {
         console.log(data);
 
@@ -34,15 +34,15 @@ export async function createCashSales(data, storeid) {
         console.log(userid);
         // const element = toJson(data)
         const guid = uuidv4();
-        const [results, total ] = listToInventory(data, guid, storeid, userid);
+        const [results, total ] = listToPurchasesInventory(data, guid, storeid, userid);
         console.log(results,'results')
         await prisma.voucher.create({
             data: {
                 uuid: guid,
                 date: new Date(),
-                voucher_type: 22,
-                narration: "Cash Sales",
-                party_name: 'Sales',
+                voucher_type: 15,
+                narration: "Cash Purchases",
+                party_name: 'Cash',
                 is_invoice: 0,
                 is_inventory_voucher: 1,
                 is_accounting_voucher: 1,
@@ -53,31 +53,34 @@ export async function createCashSales(data, storeid) {
         await prisma.trn_inventory.createMany({
                 data: results
             }
-        )
+        );
         await prisma.trn_accounting.createMany({
-           data: [
-               {   voucher_uuid: guid,
-                   vouchername: 'Sales',
-                   account_uuid: 'Sales',
-                   amount: parseFloat(total) * -1,
-                   storeid: storeid,
-                   createddate: new Date(),
-                   createdby: userid,
-                   status: 1,
-                   narration: "CSH_SLS"
-               },
-               {   voucher_uuid: guid,
-                   vouchername: 'Sales',
-                   account_uuid: 'Cash',
-                   amount: parseFloat(total),
-                   storeid: storeid,
-                   createddate: new Date(),
-                   createdby: userid,
-                   status: 1,
-                   narration: "CSH_SLS"
-               },
-           ],
+            data: [
+                {   voucher_uuid: guid,
+                    vouchername: 'Cash',
+                    account_uuid: 'cash',
+                    amount: parseFloat(total) * -1,
+                    storeid: storeid,
+                    createddate: new Date(),
+                    createdby: userid,
+                    status: 1,
+                    narration: "CSH_PUR",
+                    is_system: 1,
+                },
+                {   voucher_uuid: guid,
+                    vouchername: 'Purchases',
+                    account_uuid: 'purchases',
+                    amount: parseFloat(total),
+                    storeid: storeid,
+                    createddate: new Date(),
+                    createdby: userid,
+                    status: 1,
+                    narration: "CSH_PUR",
+                    is_system: 1,
+                },
+            ],
         });
+
     } catch (e) {
 
         console.log(e);
@@ -85,7 +88,7 @@ export async function createCashSales(data, storeid) {
 }
 
 
-export async function getSalesList(storeid) {
+export async function getPurchasesList(storeid) {
     try {
         const userid = await PrimeChecker(storeid);
 
@@ -107,7 +110,7 @@ FROM
 WHERE
 \tvoucher.uuid = trn_inventory.voucher_uuid AND
 \ttrn_inventory.item_uuid = stock_item.uuidt AND
-\tvoucher.voucher_type = 22 AND
+\tvoucher.voucher_type = 15 AND
 \ttrn_inventory.storeid = ${queryClean(storeid)} AND
 \tvoucher.\`status\` = 1 AND
 \tvoucher.createdby = \`user\`.uuid ORDER BY 

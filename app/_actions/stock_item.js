@@ -1,6 +1,6 @@
 'use server'
 
-import {toJson} from "@/app/shared/sharedfunctions";
+import {prismatoJson, queryClean, toJson} from "@/app/shared/sharedfunctions";
 import prisma from "@/lib/prisma";
 import {PrimeChecker} from "@/app/_actions/_checker";
 import {v4 as uuidv4} from "uuid";
@@ -12,16 +12,30 @@ export async function getProducts(storeid) {
     try {
         const userid = await PrimeChecker(storeid);
 
-        const  data= await prisma.stock_item.findMany({
-            where: {
-                storeid: storeid,
-            },
-            include: {
-                stock_item_group: true,
-                stock_item_unit: true,
-            }
-        });
-
+        const  data= await prisma.$queryRaw ` SELECT
+\tstock_item.shortname, 
+\tstock_item.\`name\`, 
+\tstock_item_group.\`name\` AS \`group\`, 
+\tstock_item.uuidt, 
+\tstock_item_unit.\`name\` AS unit, 
+\tstock_item.salesprice, 
+\tstock_item.purchaseprice, 
+\tstock_item.is_service, 
+\tstock_item.warninglimit, 
+\tstock_item.description, 
+\tstock_item.createddate, 
+\t\`user\`.\`name\` AS createdby
+FROM
+\tstock_item_group,
+\tstock_item,
+\tstock_item_unit,
+\t\`user\`
+WHERE
+\tstock_item.\`group\` = stock_item_group.id AND
+\tstock_item_unit.id = stock_item.unit AND
+\tstock_item.createdby = \`user\`.uuid AND
+\tstock_item.storeid = ${queryClean(storeid)}
+        `;
         return JSON.parse(JSON.stringify(data));
     } catch (e) {
         return [];
@@ -83,10 +97,34 @@ export async function addProduct(data, storeid) {
                     createdby: userid,
                 }
             });
-        console.log(inventoryresults);
         }
-        console.log(savedElement);
+
     } catch (e) {
         console.log(e);
+    }
+}
+
+export async function editStockItem(data, storeid) {
+
+    try{
+        const userid = await PrimeChecker(storeid);
+        const element = toJson(data);
+        console.log(element);
+        const savedElement = await prisma.stock_item.update({
+            where: {
+                uuidt: element.uuidt,
+                storeid: storeid,
+            },
+            data: {
+                name: element.name,
+                shortname: element.shortname,
+                salesprice: parseFloat(element.salesprice),
+                purchaseprice: parseFloat(element.purchaseprice),
+                description: element.description,
+            }
+        });
+        console.log(savedElement , 'results');
+    }catch (e) {
+console.log(e);
     }
 }

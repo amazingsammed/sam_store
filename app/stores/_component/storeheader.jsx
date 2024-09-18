@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { CTextfieldNum, CTextfieldR} from "@/components/ktextfield";
 import {createStore} from "@/app/_actions/stores";
+import {useRouter} from "next/navigation";
 
 
 
@@ -40,6 +41,8 @@ function Storeheader() {
 }
 
 export function Addform() {
+    const router = useRouter();
+
    async function createstore(b){
        const element= {
            name: b.get('storename'),
@@ -49,7 +52,7 @@ export function Addform() {
        }
        console.log(element);
        await createStore(b);
-
+       router.refresh();
     }
     return (
         <Dialog>
@@ -66,7 +69,7 @@ export function Addform() {
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <CTextfieldR label="Store Name"  name="storename"/>
-                        <CTextfieldR label="Store Location"  name="storelocation"/>
+                        <CTextfieldR label="Store Email"  name="storeemail"/>
                         <CTextfieldR label="Store Address"  name="storeaddress"/>
                         <CTextfieldNum label="Store Phone"  name="storephone"/>
 

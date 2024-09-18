@@ -20,6 +20,8 @@ export const SignupFormSchema = z.object({
         .string()
         .min(2, {message: 'Name must be at least 2 characters long.'})
         .trim(),
+    phone: z
+        .string().min(8,{ message: 'Phone number must be at least 8 characters long.' }),
     email: z.string().email({message: 'Please enter a valid email.'}).trim(),
     password: z
         .string()
@@ -42,6 +44,7 @@ export function SignupForm() {
             name: element.get('name'),
             email: element.get('email'),
             password: element.get('password'),
+            phone: element.get('phone'),
         });
 
         if (!validatedFields.success) {
@@ -50,21 +53,21 @@ export function SignupForm() {
             };
         }
         setHasLogged(false);
-        try {
-
-            const res = await fetch("/api/signup", {
-                method: 'POST',
-                body: JSON.stringify(validatedFields.data),
-                headers: {"Content-Type": "application/json"}
-            })
-            if (res.status === 201) {
-                await router.push('/auth/login')
-            }else {
-                console.log(res.body);
-            }
-        } catch (e) {
-            console.log(e);
-        }
+        // try {
+        //
+        //     const res = await fetch("/api/signup", {
+        //         method: 'POST',
+        //         body: JSON.stringify(validatedFields.data),
+        //         headers: {"Content-Type": "application/json"}
+        //     })
+        //     if (res.status === 201) {
+        //         await router.push('/auth/login')
+        //     }else {
+        //         console.log(res.body);
+        //     }
+        // } catch (e) {
+        //     console.log(e);
+        // }
 
         setHasLogged(true);
     }
@@ -81,17 +84,24 @@ export function SignupForm() {
                 <div className="flex flex-col gap-2">
                     <div>
                         <Label htmlFor="name">Name</Label>
-                        <Input id="name" name="name" placeholder="Your name here.."/>
+                        <Input id="name" name="name" placeholder="Your name here.." type="text"/>
                     </div>
                     {state?.errors?.name && (
                         <p className="text-sm text-red-500">{state.errors.name}</p>
                     )}
                     <div>
                         <Label htmlFor="email">Email</Label>
-                        <Input id="email" name="email" placeholder="mystore@example.com"/>
+                        <Input id="email" name="email" placeholder="mystore@example.com" type="email"/>
                     </div>
                     {state?.errors?.email && (
                         <p className="text-sm text-red-500">{state.errors.email}</p>
+                    )}
+                    <div>
+                        <Label htmlFor="phone">Phone</Label>
+                        <Input id="phone" name="phone" placeholder="000-0000-0000-0" type="number"/>
+                    </div>
+                    {state?.errors?.phone && (
+                        <p className="text-sm text-red-500">{state.errors.phone}</p>
                     )}
                     <div>
                         <Label htmlFor="password">Password</Label>

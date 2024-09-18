@@ -18,10 +18,6 @@ export function LoginForm() {
 
     async function handleLoginAction(state, formData) {
         try {
-            // console.log({
-            //     email: formData.get('email'),
-            //     password: formData.get('password'),
-            // });
             const validatedFields = LoginFormSchema.safeParse({
                 email: formData.get('email'),
                 password: formData.get('password'),
@@ -40,12 +36,12 @@ export function LoginForm() {
             console.log(signInData);
 
             if (signInData?.error) {
+
                 console.log(signInData.error);
                 return {message: 'Something went wrong'}
             } else {
                 await router.push('/stores');
             }
-
         } catch (e) {
             console.log(e);
             return {message: 'Invalid login credentials.'};

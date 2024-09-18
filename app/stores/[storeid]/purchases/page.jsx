@@ -1,10 +1,13 @@
 import React from 'react';
-import {DataTableDemo} from "@/app/stores/[storeid]/purchases/_components/testpage";
+import {PurchasesListPage} from "@/app/stores/[storeid]/purchases/_components/purchaseslist";
+import {getPurchasesList} from "@/app/_actions/purchases";
 
-function Page(props) {
+async function Page(props) {
+    const data = await getPurchasesList(props.params.storeid);
     return (
         <div>
             {/*<DataTableDemo />*/}
+            <PurchasesListPage data={data}/>
         </div>
     );
 }

@@ -38,3 +38,21 @@ export function CleanResults(data){
     return JSON.parse(JSON.stringify(data));
 }
 
+export function prismatoJson(data,nestedKeys){
+    console.log(data , 'Mydata');
+    return data.map(item => {
+        let flattenedItem = { ...item };
+
+        nestedKeys.forEach(nestedKey => {
+            if (flattenedItem[nestedKey]) {
+                flattenedItem = flattenedItem[nestedKey].map(nestedItem => ({
+                    ...flattenedItem,
+                    ...nestedItem,
+                }));
+            }
+        });
+
+        return flattenedItem;
+    }).flat();
+}
+

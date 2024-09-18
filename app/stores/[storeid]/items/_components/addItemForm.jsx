@@ -15,8 +15,8 @@ export default async function AddItemForm() {
 
     useEffect(() => {
             const fetcher = async () => {
-                var a = await getStockGroup(path.storeid);
-                var b = await getStockUnits(path.storeid);
+                const a = await getStockGroup(path.storeid);
+                const b = await getStockUnits(path.storeid);
                 if (a.length === 0) {
 
                 } else {
@@ -64,6 +64,7 @@ async function handleAddproduct(elements) {
                     <CTextfieldR label="Product name"  name="name"/>
                     <div className='mb-6'></div>
                     <div className='grid gap-6 mb-6 md:grid-cols-3'>
+
                         <CTextfieldR label="Short name"  name="shortname"/>
                         <CTextfieldNum label="Selling Price"
                                        name="salesprice"/>

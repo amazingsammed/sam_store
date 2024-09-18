@@ -153,6 +153,7 @@ model trn_accounting {
   status       Int?
   is_active    Int?      @default(1)
   narration    String?   @db.VarChar(255)
+  is_system    Int?      @default(0)
 
   @@index([account_uuid], map: "accountid")
   @@index([voucher_uuid], map: "uuid")

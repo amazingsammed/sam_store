@@ -3,18 +3,15 @@
 import React, {useState} from 'react';
 import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {MdCheck, MdDeleteOutline} from "react-icons/md";
-import Headerlisttile, {HeaderWithButton} from "@/components/headerlisttile";
+import  {HeaderWithButton} from "@/components/headerlisttile";
 import {ItemListCombo, ToastSimple} from "@/app/stores/[storeid]/sales/cashsales/_component/itemlistcombo";
-import {createCashSales} from "@/app/_actions/sales";
-import {useParams, useRouter} from "next/navigation";
-import {SuccessDialog} from "@/app/shared/mydialogbox";
-import {ToastAction} from "@/components/ui/toast";
-import {useToast} from "@/hooks/use-toast";
 
-function Cashsalepage(prop) {
-    const { toast } = useToast();
+import {useParams, useRouter} from "next/navigation";
+
+import {createCashPurchases} from "@/app/_actions/purchases";
+
+export default  function CashPurchasesFormPage(prop) {
     const path = useParams();
-    const [success, setSuccess] = useState(false);
     const [list, setList] = useState([]);
 const    router = useRouter();
     const [newitem, setnewitem] = useState({
@@ -56,7 +53,7 @@ const    router = useRouter();
         if(list.length ===0){
             return;
         }
-        await createCashSales(list , path.storeid);
+        await createCashPurchases(list , path.storeid);
         await router.back();
         setTimeout(()=>{
             router.refresh();
@@ -67,11 +64,10 @@ const    router = useRouter();
     return (
         <div className="grid grid-cols-12">
             <div className='h-[80dvh]  justify-between col-span-10'>
-                <HeaderWithButton title='Cash Sales' subtitle='Account Name : Sales Account' bname="Save" ontap={handleSave}/>
+                <HeaderWithButton title='Cash Purchases Form' subtitle='Account Name : Cash Account' bname="Save" ontap={handleSave}/>
                 <div className="p-4 mb-auto overflow-y-auto ">
                     <form action={handlesubmit}>
                         <div className="overflow-y-auto ">
-
                             <Table>
                                 <TableHeader>
                                     <TableRow>
@@ -137,7 +133,6 @@ const    router = useRouter();
     );
 }
 
-export default Cashsalepage;
 
 const inputdecoration = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded p-3"
 
