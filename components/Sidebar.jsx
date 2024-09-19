@@ -15,12 +15,12 @@ import {
     MdReport,
     MdSettings, MdShare
 } from "react-icons/md";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 
 import "@/app/globals.css";
 
-import {useParams, usePathname} from "next/navigation";
+import {useParams, usePathname, useRouter} from "next/navigation";
 import {IoMdCash} from "react-icons/io";
 
 
@@ -149,7 +149,35 @@ const configurationlist = [
 ];
 
 export default function SideBar() {
+    const path = useParams();
+    const pathName = usePathname();
+    const router = useRouter();
+    const [role, setRole] = useState(null)
 
+
+    useEffect(() => {
+        async function fetchPosts() {
+            let res = await fetch('http://localhost:3000/api/system',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify({ storeid: path.storeid }),}
+            )
+
+            if(res.status === 400){
+                await router.push('/stores');
+            }
+            if(res.status === 200){
+            let {results} = await res.json();
+            setRole(results['role'])
+            }else {
+                await router.push('/stores');
+            }
+        }
+        fetchPosts()
+    }, [])
 
     return (
         <nav className="bg-slate-950 hidden fixed lg:flex flex-col top-0 left-0 h-dvh w-[18rem] border-r ">
@@ -164,8 +192,11 @@ export default function SideBar() {
 
                 {theSidemenu.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}
                 <div className="h-4"></div>
-                <span className="text-xs uppercase pl-4  text-white mt-4 pt-4">Configuration</span>
-                {configurationlist.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}
+                {role==='admin'&&<div>
+
+                    <span className="text-xs uppercase pl-4  text-white mt-4 pt-4">Configuration</span>
+                    {configurationlist.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}
+                </div>}
             </ul>
 
             {/*<div className=" p-4 border-b flex flex-row items-center  text-white">*/}
@@ -180,10 +211,12 @@ export default function SideBar() {
 }
 
 
-export function SideBarItemExpanded({item,}) {
+export  function SideBarItemExpanded({item,}) {
     const [isopen, setidopened] = useState(false);
     const path = useParams();
     const pathName = usePathname();
+
+
 
     function toggleDrop() {
         item['hasItems'] && setidopened(!isopen);
@@ -191,31 +224,34 @@ export function SideBarItemExpanded({item,}) {
 
     return (
         <div className="flex flex-col py-2">
-            <div className={pathName === '/stores/'+path.storeid+item['url'] ? "  rounded bg-purple-950 flex-row flex justify-between items-center" : " hover:bg-purple-950 rounded flex flex-row justify-between items-center"}>
-            <Link href={'/stores/'+path.storeid+item['url']}>
-                <div className="w-[12rem] py-3">
-                    <li>
-                        <div
-                            className={pathName === item['url'] ? "transition-colors  pl-4 text-white   " :
-                                "btn transition-colors  pl-4 focus-visible:ring-primary-800 text-gray-700  "
-                            }
-                        >
-                            <div className="flex justify-between items-center">
-                                <div className="flex-row items-center flex gap-2  text-white">
-                                    {item['icon']}
-                                    {item['title']}
+            <div
+                className={pathName === '/stores/' + path.storeid + item['url'] ? "  rounded bg-purple-950 flex-row flex justify-between items-center" : " hover:bg-purple-950 rounded flex flex-row justify-between items-center"}>
+                <Link href={'/stores/' + path.storeid + item['url']}>
+                    <div className="w-[12rem] py-3">
+                        <li>
+                            <div
+                                className={pathName === item['url'] ? "transition-colors  pl-4 text-white   " :
+                                    "btn transition-colors  pl-4 focus-visible:ring-primary-800 text-gray-700  "
+                                }
+                            >
+                                <div className="flex justify-between items-center">
+                                    <div className="flex-row items-center flex gap-2  text-white">
+                                        {item['icon']}
+                                        {item['title']}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                </div>
-            </Link>
-                { item['hasItems'] && <div onClick={toggleDrop} className=" text-white hover:bg-purple-800 rounded-lg p-2 mr-2">{isopen ?<MdArrowDownward />:<MdChevronRight />}</div>}
+                        </li>
+                    </div>
+                </Link>
+                {item['hasItems'] &&
+                    <div onClick={toggleDrop} className=" text-white hover:bg-purple-800 rounded-lg p-2 mr-2">{isopen ?
+                        <MdArrowDownward/> : <MdChevronRight/>}</div>}
             </div>
 
             <div className="ml-6 ">
                 {isopen && item['items'].map((a) => (
-                    <Link key={a['title']} href={'/stores/'+path.storeid+a['url']}>
+                    <Link key={a['title']} href={'/stores/' + path.storeid + a['url']}>
                         <div className="p-2 hover:bg-purple-800 rounded flex justify-between items-center text-white">
                             <h1 className=" flex"> {a['name']}</h1>
                             <MdChevronRight/>

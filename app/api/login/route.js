@@ -39,7 +39,7 @@ export async function POST(request) {
     }
 }
 
-export async function GET() {
+export async function GET(a) {
     try {
         return NextResponse.json({user: 'rest', message: "User created successfully"}, {status: 200});
     } catch (e) {

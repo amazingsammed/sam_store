@@ -112,11 +112,54 @@ export async function confirmStore(storeid) {
         // if (!snapshot){
         //     return false;
         // }
-        // const list = snapshot.data()['users'];
+        // const list = snapshot.data()['members'];
         // return list.includes(userid);
     } catch (e) {
         console.log(e);
         return false;
     }
 
+}
+
+
+export async function getStoreMembers(storeid){
+    try {
+        const userid = await PrimeChecker(storeid);
+        const results = await prisma.$queryRaw`
+SELECT
+\t\`user\`.\`name\`, 
+\t\`user\`.email, 
+\tuser_store.createddate AS date, 
+\tsystem_roles.role,
+\`user\`.uuid,
+CASE user_store.\`status\`
+\tWHEN 1 THEN
+\t\t'active'
+\tELSE
+\t\t'inactive'
+END as \`status\`
+FROM
+\t\`user\`,
+\tuser_store,
+\tsystem_roles
+WHERE
+\t\`user\`.uuid = user_store.user_uuid AND
+\tsystem_roles.uuid = user_store.role_uuid AND
+\tuser_store.store_uuid = ${queryClean(storeid)}`;
+        console.log(results);
+        return results;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function getStoreRoles(){
+    try {
+        const userid = await PrimeChecker('storeidx');
+        const results = await prisma.system_roles.findMany();
+        console.log(results);
+        return results;
+    }catch (e){
+        console.log(e);
+    }
 }

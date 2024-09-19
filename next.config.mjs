@@ -1,3 +1,5 @@
+import nextra from "nextra";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     // Needed for `signInWithRedirect` and custom `authDomain` configuration. See https://firebase.google.com/docs/auth/web/redirect-best-practices#proxy-requests
@@ -20,4 +22,9 @@ const nextConfig = {
     }
 };
 
-export default nextConfig;
+const withNextra = nextra({
+    theme: 'nextra-theme-docs',
+    themeConfig: './theme.config.jsx'
+})
+
+export default withNextra(nextConfig);

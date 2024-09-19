@@ -1,11 +1,10 @@
 import React from 'react';
-import {Button} from "@/components/ui/button";
-import {PlusCircle} from "lucide-react";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import MembersTable from "@/app/stores/[storeid]/settings/_component/members_table";
 
 function Settingspage(props) {
     return (
-        <div>
+        <div className="max-w-screen-xl">
             <h1 className="text-3xl my-4 font-bold">Settings</h1>
             <Tabs defaultValue="general">
                 <div className="flex items-center">
@@ -23,7 +22,7 @@ function Settingspage(props) {
                     <h1>General</h1>
                 </TabsContent>
                 <TabsContent value="members">
-                    <h1>Members</h1>
+                    <MembersTable/>
                 </TabsContent>
             </Tabs>
         </div>
