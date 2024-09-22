@@ -34,7 +34,8 @@ WHERE
 \tstock_item.\`group\` = stock_item_group.id AND
 \tstock_item_unit.id = stock_item.unit AND
 \tstock_item.createdby = \`user\`.uuid AND
-\tstock_item.storeid = ${queryClean(storeid)}
+\tstock_item.storeid = ${queryClean(storeid)} AND
+\tstock_item.\`status\` = 1
         `;
         return JSON.parse(JSON.stringify(data));
     } catch (e) {
@@ -43,7 +44,6 @@ WHERE
 
     //return currentUserCounter.count;
 }
-
 
 export async function addProduct(data, storeid) {
 
@@ -125,6 +125,24 @@ export async function editStockItem(data, storeid) {
         });
         console.log(savedElement , 'results');
     }catch (e) {
-console.log(e);
+        console.log(e);
+    }
+}
+
+export async function deleteStockItem(data) {
+    try{
+        const element = data;
+        console.log(element);
+        const savedElement = await prisma.stock_item.update({
+            where: {
+                uuidt: element.uuidt,
+            },
+            data: {
+                status: 0,
+            }
+        });
+        console.log(savedElement , 'results');
+    }catch (e) {
+        console.log(e);
     }
 }

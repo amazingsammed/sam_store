@@ -32,7 +32,6 @@ export function queryClean(a){
 }
 export function CleanResults(data){
     if(data===undefined || data===null || data.length===0){
-        console.log('shared function', data);
         return [];
     }
     return JSON.parse(JSON.stringify(data));

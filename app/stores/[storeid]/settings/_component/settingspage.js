@@ -1,6 +1,6 @@
 import React from 'react';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import MembersTable from "@/app/stores/[storeid]/settings/_component/members_table";
+import MembersTable from "@/app/stores/[storeid]/settings/_component/_members/members_table";
 
 function Settingspage(props) {
     return (

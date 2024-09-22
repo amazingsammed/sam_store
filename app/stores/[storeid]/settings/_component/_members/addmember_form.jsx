@@ -1,7 +1,5 @@
 "use client";
 
-import {CTextfieldR, CTextfieldNum} from '@/components/ktextfield'
-import {createChartofAccounts} from "@/app/_actions/account";
 import {
     Dialog, DialogClose,
     DialogContent,
@@ -15,6 +13,7 @@ import {useParams, useRouter} from "next/navigation";
 import {useFormState} from "react-dom";
 import React, {useEffect, useState} from "react";
 import {getStoreRoles} from "@/app/_actions/stores";
+import {createMember} from "@/app/_actions/store_members";
 
 
 
@@ -30,8 +29,8 @@ export function AddMemberForm() {
     }, []);
     const path= useParams();
     const router = useRouter();
-    async function handleAddMember(s,a) {
-        await createChartofAccounts(a,path.storeid);
+    async function handleAddMember(s,data) {
+        await createMember(data,path.storeid);
         router.refresh();
     }
 
@@ -51,7 +50,7 @@ export function AddMemberForm() {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
-                        <CTextfieldR label="Email" value='' name="account_name"/>
+                        <CTextfieldR label="Email" value='' name="email" type="email"/>
                         <CDropDownWithOnChange
                             label="Role"
                             name='role'
@@ -86,6 +85,19 @@ export function AddMemberForm() {
                 })}
 
             </select>
-        </div>
-    )
-}
+        </div>)}
+
+ function CTextfieldR(prop) {
+         return (
+             <div>
+                 <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{prop.label}</label>
+                 <input
+                     required
+                     type={prop.type}
+                     name={prop.name}
+                     // value={prop.value}
+                     // onChange={prop.onchange}
+                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={prop.label} />
+             </div>
+         )
+     }

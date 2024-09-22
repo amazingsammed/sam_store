@@ -21,7 +21,7 @@ const getTopics = async () => {
 export default async function TopicsList() {
   const { topics } = await getTopics();
 
-  if(topics.length==0) return (<div className="relative transform"><h1>topics is empty</h1></div>)
+  if(topics.length===0) return (<div className="relative transform"><h1>topics is empty</h1></div>)
 
   return (
     <>

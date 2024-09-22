@@ -1,5 +1,5 @@
 import React from 'react';
-import {getGroupList, getLedgerList} from "@/app/_actions/account";
+import {getChartOfAccount, getLedgerList} from "@/app/_actions/account";
 import {GroupPage} from "@/app/stores/[storeid]/_trash/account/groups/_components/group_table";
 import {LedgerPage} from "@/app/stores/[storeid]/_trash/account/ledgers/_components/ledger_table";
 

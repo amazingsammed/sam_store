@@ -12,7 +12,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import {Button} from "@/components/ui/button";
-import {createLedger, getGroupList, getGroupNames} from "@/app/_actions/account";
+import {createLedger, getChartOfAccount, getGroupNames} from "@/app/_actions/account";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, Command} from "cmdk";
 import {cn} from "@/lib/utils";

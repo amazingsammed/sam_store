@@ -6,7 +6,7 @@ import prisma from "@/lib/prisma";
 import {v4 as uuidv4} from "uuid";
 import {toJson} from "@/app/shared/sharedfunctions";
 
-export async function getGroupList(storeid) {
+export async function getChartOfAccount(storeid) {
     const results = [];
     try{
         const userid = PrimeChecker(storeid);
@@ -22,34 +22,6 @@ export async function getGroupList(storeid) {
     }
 
     //return currentUserCounter.count;
-}
-export async function getLedgerList() {
-    // const prisma = new PrismaClient();
-    // const a = await prisma.mst_ledger.findMany();
-    // return  JSON.parse(JSON.stringify(a));
-    return [];
-}
-
-export async function getGroupNames() {
-    // const prisma = new PrismaClient();
-    // const a = await prisma.mst_group.findMany(
-    //     {select: {
-    //         guid: true,
-    //             name: true,
-    //         }}
-    // );
-    // const transform = a.map((element)=>(
-    //     {
-    //         value: element.guid,
-    //         name: element.name,
-    //     }
-    // ))
-    // return  JSON.parse(JSON.stringify(transform));
-    return [];
-}
-
-export async function createLedger(e) {
-console.log(e);
 }
 
 export async function createChartofAccounts(data , storeid) {

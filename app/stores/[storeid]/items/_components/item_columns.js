@@ -9,7 +9,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {MoreHorizontal} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
-import {EditItemForm} from "@/app/stores/[storeid]/items/_components/edit_ItemForm";
+import {DeleteItemForm, EditItemForm} from "@/app/stores/[storeid]/items/_components/edit_ItemForm";
+import {deleteStockItem} from "@/app/_actions/stock_item";
+import ItemActions from "@/app/stores/[storeid]/items/_components/item_actions";
 
 export const itemsColumns = [
     {
@@ -58,30 +60,7 @@ export const itemsColumns = [
             const item = row.original
 
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <EditItemForm prop ={item} />
-                        <DropdownMenuItem>Delete Item</DropdownMenuItem>
-                        <DropdownMenuItem>View Item Details</DropdownMenuItem>
-                        {/*<DropdownMenuItem*/}
-                        {/*    onClick={() => navigator.clipboard.writeText(payment.uuidt)}*/}
-                        {/*>*/}
-                        {/*    Copy Item ID*/}
-                        {/*</DropdownMenuItem>*/}
-
-
-
-
-                    </DropdownMenuContent>
-                </DropdownMenu>
+               <ItemActions element={item}/>
             )
         },
     },

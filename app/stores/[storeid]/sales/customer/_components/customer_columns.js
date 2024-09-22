@@ -1,5 +1,3 @@
-
-
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
@@ -11,8 +9,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {MoreHorizontal} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
+import {EditItemForm} from "@/app/stores/[storeid]/items/_components/edit_ItemForm";
 
-export const membersColumns = [
+export const customerColumns = [
     {
         id: "select",
         header: ({ table }) => (
@@ -35,26 +34,28 @@ export const membersColumns = [
         enableSorting: false,
         enableHiding: false,
     },
+
     {
         accessorKey: "name",
         header: "Name",
     },
     {
-        accessorKey: "email",
-        header: "Email",
+        accessorKey: "phone",
+        header: "Phone",
     },
     {
-        accessorKey: "role",
-        header: "Role",
+        accessorKey: "balance",
+        header: "Balance",
     },
     {
-        accessorKey: "status",
-        header: "Status",
+        accessorKey: "salesperson",
+        header: "Salesperson",
+        enableHiding: true,
     },
     {
         id: "actions",
         cell: ({ row }) => {
-            const payment = row.original
+            const item = row.original
 
             return (
                 <DropdownMenu>
@@ -66,15 +67,15 @@ export const membersColumns = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.uuid)}
-                        >
-                            Copy Member ID
-                        </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>View Member Details</DropdownMenuItem>
-                        <DropdownMenuItem>Deactivate</DropdownMenuItem>
-                        <DropdownMenuItem>Remove member</DropdownMenuItem>
+                        <EditItemForm prop ={item} />
+                        <DropdownMenuItem>Deactivate Customer</DropdownMenuItem>
+                        <DropdownMenuItem>View Item Details</DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={() => navigator.clipboard.writeText(item.phone)}
+                        >
+                            Copy Customer Phone
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

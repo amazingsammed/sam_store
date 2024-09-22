@@ -64,7 +64,7 @@ const    router = useRouter();
     return (
         <div className="grid grid-cols-12">
             <div className='h-[80dvh]  justify-between col-span-10'>
-                <HeaderWithButton title='Cash Purchases Form' subtitle='Account Name : Cash Account' bname="Save" ontap={handleSave}/>
+                <HeaderWithButton title='Cash Purchases Form' subtitle='Account Name : Cash Account' bname="Save" ontap={handleSave}>
                 <div className="p-4 mb-auto overflow-y-auto ">
                     <form action={handlesubmit}>
                         <div className="overflow-y-auto ">
@@ -127,6 +127,7 @@ const    router = useRouter();
                     </form>
 
                 </div>
+                </HeaderWithButton>
 
             </div>
         </div>

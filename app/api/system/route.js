@@ -36,12 +36,23 @@ export async function POST(request) {
         SELECT
 \tsystem_roles.role, 
 \tuser_store.createddate, 
-\tuser_store.createdby
+\tuser_store.createdby, 
+\tuser_store.user_uuid, 
+\tstore.storename, 
+\tstore.storeaddress, 
+\tstore.storephone, 
+\tstore.storeemail, 
+\t\`user\`.\`name\`, 
+\t\`user\`.email
 FROM
 \tsystem_roles,
-\tuser_store
+\tuser_store,
+\tstore,
+\t\`user\`
 WHERE
 \tsystem_roles.uuid = user_store.role_uuid AND
+\tuser_store.store_uuid = store.uuid AND
+\tuser_store.user_uuid = \`user\`.uuid AND
 \tuser_store.store_uuid = ${storeid} AND
 \tuser_store.user_uuid = ${tokens.user.uuid} AND
 \tuser_store.\`status\` = 1

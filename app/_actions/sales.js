@@ -13,13 +13,9 @@ function listToInventory(data, guid, storeid, userid) {
         results.push({
             voucher_uuid: guid,
             item_uuid: item.uuidt,
-            quantity: parseInt(item.quantity),
+            quantity: parseInt(item.quantity) * -1,
             rate: parseFloat(item.rate),
             amount: parseFloat(item.quantity) * parseFloat(item.rate),
-            storeid: storeid,
-            createddate: new Date(),
-            createdby: userid,
-            narration: "CH_SL "+item.name
         });
     })
     console.log(results);
@@ -60,21 +56,13 @@ export async function createCashSales(data, storeid) {
                    vouchername: 'Sales',
                    account_uuid: 'Sales',
                    amount: parseFloat(total) * -1,
-                   storeid: storeid,
-                   createddate: new Date(),
-                   createdby: userid,
-                   status: 1,
-                   narration: "CSH_SLS"
+                   is_system: 1,
                },
                {   voucher_uuid: guid,
                    vouchername: 'Sales',
                    account_uuid: 'Cash',
                    amount: parseFloat(total),
-                   storeid: storeid,
-                   createddate: new Date(),
-                   createdby: userid,
-                   status: 1,
-                   narration: "CSH_SLS"
+                   is_system: 1,
                },
            ],
         });
@@ -84,13 +72,11 @@ export async function createCashSales(data, storeid) {
     }
 }
 
-
 export async function getSalesList(storeid) {
     try {
         const userid = await PrimeChecker(storeid);
-
-
-        const results = await prisma.$queryRaw ` SELECT
+        const results = await prisma.$queryRaw ` 
+        SELECT
 \tvoucher.date, 
 \tstock_item.\`name\` AS itemname, 
 \ttrn_inventory.quantity, 
@@ -108,13 +94,16 @@ WHERE
 \tvoucher.uuid = trn_inventory.voucher_uuid AND
 \ttrn_inventory.item_uuid = stock_item.uuidt AND
 \tvoucher.voucher_type = 22 AND
-\ttrn_inventory.storeid = ${queryClean(storeid)} AND
+\tvoucher.storeid = ${queryClean(storeid)} AND
 \tvoucher.\`status\` = 1 AND
-\tvoucher.createdby = \`user\`.uuid ORDER BY 
-\ttrn_inventory.id`;
+\tvoucher.createdby = \`user\`.uuid
+ORDER BY
+\ttrn_inventory.id ASC
+        `;
         return CleanResults(results);
     } catch (e) {
 
         console.log(e);
     }
 }
+

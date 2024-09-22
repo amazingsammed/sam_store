@@ -2,6 +2,7 @@
 
 import "./globals.css";
 import {SessionProvider} from "next-auth/react";
+import SessionWrapper from "@/app/_wrapper";
 // import { Inter } from "next/font/google";
 //
 // const inter = Inter({ subsets: ["latin"] });
@@ -11,16 +12,20 @@ export const metadata = {
   description: "Best Accounting software",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({session, children }) {
 
 
   return (
       <html lang="en">
       {/*<body className={inter.className}>*/}
       <body >
-      <div>
+      <SessionWrapper
+      session={session}
+      >
           <div>{children}</div>
-      </div>
+      </SessionWrapper>
+
+
       </body>
       </html>
 );

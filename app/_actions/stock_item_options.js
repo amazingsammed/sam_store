@@ -22,7 +22,6 @@ export async function createStockGroup(data, storeid) {
         console.log(e);
     }
 }
-
 export async function createStockUnits(data, storeid) {
     try {
         const userid = await PrimeChecker(storeid);
@@ -40,7 +39,6 @@ export async function createStockUnits(data, storeid) {
         console.log(e);
     }
 }
-
 export async function createStockCategory(data, storeid) {
     try {
         const userid = await PrimeChecker(storeid);
@@ -93,7 +91,6 @@ export async function getStockCategory(storeid) {
         return [];
     }
 }
-
 export async function getStockUnits(storeid) {
     try {
         const userid = await PrimeChecker(storeid);

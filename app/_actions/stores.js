@@ -97,30 +97,6 @@ export async function createStore(data) {
 
 }
 
-export async function confirmStore(storeid) {
-    try {
-        // const tokens = await getTokens(cookies(), authConfig);
-        //
-        // if (!tokens) {
-        //     throw new Error('Cannot update counter of unauthenticated user');
-        // }
-        // const userid = tokens.decodedToken.uid;
-        //
-        // const snapshot = await db
-        //     .collection('stores').doc(storeid)
-        //     .get();
-        // if (!snapshot){
-        //     return false;
-        // }
-        // const list = snapshot.data()['members'];
-        // return list.includes(userid);
-    } catch (e) {
-        console.log(e);
-        return false;
-    }
-
-}
-
 
 export async function getStoreMembers(storeid){
     try {

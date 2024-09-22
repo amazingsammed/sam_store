@@ -20,7 +20,7 @@ export async function POST(request) {
         const existingUser = await prisma.user.findUnique({
             where: {email: email},
         });
-        console.log(existingUser);
+        console.log(existingUser,"login post");
 
         if (!existingUser) {
             return NextResponse.json({user: null, message: "User does not exist,please signup"}, {status: 409});

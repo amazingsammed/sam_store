@@ -44,7 +44,7 @@ model stock_item {
   id               Int               @default(autoincrement())
   name             String?           @default("") @db.VarChar(1024)
   group            Int?
-  uuidt            String            @db.VarChar(255)
+  uuidt            String            @unique(map: "uuidt") @db.VarChar(255)
   shortname        String?           @default("") @db.VarChar(256)
   part_number      String?           @default("") @db.VarChar(256)
   unit             Int?
@@ -109,9 +109,9 @@ model store {
   storeaddress String?   @db.VarChar(255)
   storephone   String?   @db.VarChar(255)
   storeemail   String?   @db.VarChar(255)
-  status       String?   @default("1") @db.VarChar(255)
+  status       Int?      @default(1)
   createddate  DateTime? @db.DateTime(0)
-  isactive     Int?
+  isactive     Int?      @default(1)
   createdby    String?   @db.VarChar(255)
 }
 
@@ -142,37 +142,30 @@ model system_accounts {
 }
 
 model trn_accounting {
-  id           Int       @id @default(autoincrement())
-  voucher_uuid String?   @db.VarChar(255)
-  vouchername  String    @default("") @db.VarChar(64)
-  account_uuid String    @db.VarChar(255)
-  amount       Decimal   @default(0.00) @db.Decimal(17, 2)
-  storeid      String?   @db.VarChar(255)
-  createdby    String?   @db.VarChar(255)
-  createddate  DateTime? @db.DateTime(0)
-  status       Int?
-  is_active    Int?      @default(1)
-  narration    String?   @db.VarChar(255)
-  is_system    Int?      @default(0)
+  id           Int     @id @default(autoincrement())
+  voucher_uuid String? @db.VarChar(255)
+  vouchername  String  @default("") @db.VarChar(64)
+  account_uuid String  @db.VarChar(255)
+  amount       Decimal @default(0.00) @db.Decimal(17, 2)
+  status       Int?    @default(1)
+  is_active    Int?    @default(1)
+  is_system    Int?    @default(0)
 
   @@index([account_uuid], map: "accountid")
   @@index([voucher_uuid], map: "uuid")
 }
 
 model trn_inventory {
-  id                Int       @id @default(autoincrement())
-  voucher_uuid      String?   @db.VarChar(255)
-  item_uuid         String?   @db.VarChar(255)
-  quantity          Decimal?  @default(0.0000) @db.Decimal(15, 4)
-  rate              Decimal?  @default(0.0000) @db.Decimal(15, 4)
-  amount            Decimal?  @default(0.00) @db.Decimal(17, 2)
-  additional_amount Decimal?  @default(0.00) @db.Decimal(17, 2)
-  discount_amount   Decimal?  @default(0.00) @db.Decimal(17, 2)
+  id                Int      @id @default(autoincrement())
+  voucher_uuid      String?  @db.VarChar(255)
+  item_uuid         String?  @db.VarChar(255)
+  quantity          Decimal? @default(0.0000) @db.Decimal(15, 4)
+  rate              Decimal? @default(0.0000) @db.Decimal(15, 4)
+  amount            Decimal? @default(0.00) @db.Decimal(17, 2)
+  additional_amount Decimal? @default(0.00) @db.Decimal(17, 2)
+  discount_amount   Decimal? @default(0.00) @db.Decimal(17, 2)
   order_number      Int?
-  storeid           String?   @db.VarChar(255)
-  createdby         String?   @db.VarChar(255)
-  createddate       DateTime? @db.DateTime(0)
-  narration         String?   @db.VarChar(255)
+  status            Int?     @default(1)
 
   @@index([item_uuid], map: "itemid")
   @@index([voucher_uuid], map: "voucherid")
@@ -182,7 +175,7 @@ model user {
   id          Int       @id @default(autoincrement())
   uuid        String?   @db.VarChar(255)
   name        String?   @db.VarChar(255)
-  email       String    @unique @db.VarChar(255)
+  email       String    @unique(map: "email") @db.VarChar(255)
   imageurl    String?   @db.VarChar(255)
   password    String?   @db.VarChar(255)
   status      Int?      @default(1)
@@ -191,8 +184,8 @@ model user {
 }
 
 model voucher {
-  id                    Int       @default(autoincrement())
-  uuid                  String    @db.VarChar(255)
+  id                    Int       @id @default(autoincrement())
+  uuid                  String?   @unique(map: "uuid") @db.VarChar(255)
   date                  DateTime? @db.Date
   voucher_type          Int?
   voucher_number        String?   @default("") @db.VarChar(64)
@@ -208,11 +201,9 @@ model voucher {
   createdby             String?   @db.VarChar(255)
   storeid               String?   @db.VarChar(255)
   status                Int?      @default(1)
-
-  @@id([id, uuid])
-  @@index([id], map: "id")
-  @@index([uuid], map: "uuid")
-  @@index([voucher_type], map: "voucher_type")
+  editedby              String?   @db.VarChar(255)
+  editeddate            DateTime? @db.DateTime(0)
+  editednarration       String?   @db.VarChar(255)
 }
 
 model voucher_type {
@@ -256,11 +247,14 @@ model system_roles {
 }
 
 model user_store {
-  id          Int       @id @default(autoincrement())
-  user_uuid   String?   @db.VarChar(255)
-  store_uuid  String?   @db.VarChar(255)
+  id          Int       @default(autoincrement())
+  user_uuid   String    @db.VarChar(255)
+  store_uuid  String    @db.VarChar(255)
   role_uuid   String?   @db.VarChar(255)
   createddate DateTime? @db.DateTime(0)
   createdby   String?   @db.VarChar(255)
   status      Int?      @default(1)
+
+  @@id([id, user_uuid, store_uuid])
+  @@unique([user_uuid, store_uuid], map: "user_uuid")
 }

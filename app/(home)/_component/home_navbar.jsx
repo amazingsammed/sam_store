@@ -7,22 +7,23 @@ import {Button} from "@/components/ui/button";
 
 export default function HomeNav(){
   const [open,setopen]= useState(false);
-  var header = [
-    {
-        'title': "Home",
-        'url': "/"
-    },
-    {
-      'title': "About",
-      'url': "/about"
-  },
-  {
-    'title': "Contact",
-    'url': "/contact"
-},
-    
-];
-  function handleClick(){
+    const header = [
+        {
+            'title': "Home",
+            'url': "/"
+        },
+        {
+            'title': "About",
+            'url': "/about"
+        },
+        {
+            'title': "Documentation",
+            'url': "/docs/get-started"
+        },
+
+    ];
+
+    function handleClick(){
     console.log('hey');
     setopen(!open);
   }

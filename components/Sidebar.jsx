@@ -7,7 +7,7 @@ import {
     MdChevronRight,
     MdDashboard,
     MdHome,
-    MdInventory,
+    MdInventory, MdLogout,
     MdMenu,
     MdNote,
     MdPerson2,
@@ -22,6 +22,18 @@ import "@/app/globals.css";
 
 import {useParams, usePathname, useRouter} from "next/navigation";
 import {IoMdCash} from "react-icons/io";
+import {Button} from "@/components/ui/button";
+import {signOut} from "next-auth/react";
+import {
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet"
 
 
 const size = 24;
@@ -47,7 +59,7 @@ const theSidemenu = [
 
     },
     {
-        'title': "Cash Sales",
+        'title': "Sales",
         'icon': <MdNote size={size}/>,
         'hasItems': true,
         'url': "/sales",
@@ -58,7 +70,7 @@ const theSidemenu = [
             },
             {
                 'name': "Sales Order",
-                'url': "/sales/order"
+                'url': "/sales/salesorder"
             },
             {
                 'name': "Invoice",
@@ -75,7 +87,7 @@ const theSidemenu = [
         ]
     },
     {
-        'title': "Cash Purchases",
+        'title': "Purchases",
         'icon': <MdReport size={size}/>,
         'hasItems': true,
         'url': "/purchases",
@@ -155,6 +167,7 @@ export default function SideBar() {
     const [role, setRole] = useState(null)
 
 
+
     useEffect(() => {
         async function fetchPosts() {
             let res = await fetch('http://localhost:3000/api/system',
@@ -171,6 +184,7 @@ export default function SideBar() {
             }
             if(res.status === 200){
             let {results} = await res.json();
+                console.log(results, 'success');
             setRole(results['role'])
             }else {
                 await router.push('/stores');
@@ -184,7 +198,7 @@ export default function SideBar() {
 
             <div className=" p-4 flex flex-row items-center bg-slate-800 ">
                 {/*<MdMenu size={30}/>*/}
-                <span className="text-3xl uppercase pl-4  text-white">My Store</span>
+                <span className="text-3xl uppercase pl-4  text-white">MSK</span>
             </div>
 
             <ul className="p-4 mb-auto overflow-y-auto ">
@@ -192,12 +206,19 @@ export default function SideBar() {
 
                 {theSidemenu.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}
                 <div className="h-4"></div>
-                {role==='admin'&&<div>
+                {role === 'admin' && <div>
 
                     <span className="text-xs uppercase pl-4  text-white mt-4 pt-4">Configuration</span>
                     {configurationlist.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}
                 </div>}
             </ul>
+
+            {/*<div className=" px-4  items-center text-white ">*/}
+            {/*    <Button className="w-[13rem] items-end" onClick={handleSignout}>*/}
+            {/*    <MdLogout size={24}/>*/}
+            {/*    <span className=" pl-4  text-white">Log out</span>*/}
+            {/*    </Button>*/}
+            {/*</div>*/}
 
             {/*<div className=" p-4 border-b flex flex-row items-center  text-white">*/}
             {/*    <MdMenu size={30}/>*/}
@@ -211,11 +232,10 @@ export default function SideBar() {
 }
 
 
-export  function SideBarItemExpanded({item,}) {
+export function SideBarItemExpanded({item,}) {
     const [isopen, setidopened] = useState(false);
     const path = useParams();
     const pathName = usePathname();
-
 
 
     function toggleDrop() {
@@ -265,6 +285,23 @@ export  function SideBarItemExpanded({item,}) {
     );
 }
 
+export function SheetSideBar({children}) {
+
+    return (
+        <Sheet>
+            <SheetTrigger>{children}</SheetTrigger>
+            <SheetContent className="w-[400px] sm:w-[540px]">
+                <SheetHeader>
+                    <SheetTitle>Are you absolutely sure?</SheetTitle>
+                    <SheetDescription>
+                        {theSidemenu.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}
+                    </SheetDescription>
+                </SheetHeader>
+            </SheetContent>
+        </Sheet>
+    );
+
+}
 
 
 

@@ -2,11 +2,11 @@
 
 import React, {useEffect, useState} from 'react';
 
-import {membersColumns} from "@/app/stores/[storeid]/settings/_component/members_columns";
+import {membersColumns} from "@/app/stores/[storeid]/settings/_component/_members/members_columns";
 import {getStoreMembers} from "@/app/_actions/stores";
 import {useParams} from "next/navigation";
-import {DataTable} from "@/app/stores/[storeid]/settings/_component/members_datatable";
-import {AddMemberForm} from "@/app/stores/[storeid]/settings/_component/addmember_form";
+import {DataTable} from "@/app/stores/[storeid]/settings/_component/_members/members_datatable";
+import {AddMemberForm} from "@/app/stores/[storeid]/settings/_component/_members/addmember_form";
 
 function MembersTable(props) {
     const [members, setMembers] = useState([]);
