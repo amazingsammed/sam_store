@@ -49,11 +49,15 @@ export const itemsColumns = [
         accessorKey: "group",
         header: "Group",
     },
+
     {
         accessorKey: "salesprice",
         header: "Selling Price",
     },
-
+    {
+        accessorKey: "status",
+        header: "Status",
+    },
     {
         id: "actions",
         cell: ({ row }) => {

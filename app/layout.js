@@ -12,7 +12,7 @@ export const metadata = {
   description: "Best Accounting software",
 };
 
-export default function RootLayout({session, children }) {
+export default function RootLayout({children }) {
 
 
   return (
@@ -20,7 +20,7 @@ export default function RootLayout({session, children }) {
       {/*<body className={inter.className}>*/}
       <body >
       <SessionWrapper
-      session={session}
+
       >
           <div>{children}</div>
       </SessionWrapper>

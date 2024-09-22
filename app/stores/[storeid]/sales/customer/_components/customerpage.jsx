@@ -1,20 +1,10 @@
 
 
 'use client'
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+
 import Headerlisttile, {HeaderListTileDialog} from "@/components/headerlisttile";
 import {CustomerForm} from "@/app/stores/[storeid]/sales/customer/_components/addcustomer";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
-import {itemsColumns} from "@/app/stores/[storeid]/items/_components/item_columns";
 import {customerColumns} from "@/app/stores/[storeid]/sales/customer/_components/customer_columns";
 
 

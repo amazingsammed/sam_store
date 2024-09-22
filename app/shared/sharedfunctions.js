@@ -1,6 +1,6 @@
 
 
-export function toJson(formData){
+export function formdataToJson(formData){
 
     const object = {};
     formData.forEach(function(value, key){

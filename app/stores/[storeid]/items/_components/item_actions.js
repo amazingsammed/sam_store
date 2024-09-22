@@ -20,6 +20,7 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import CTextfield from "@/components/ktextfield";
+import {cn} from "@/lib/utils";
 
 function ItemActions({element}) {
     const param = useParams();
@@ -40,7 +41,8 @@ function ItemActions({element}) {
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <EditItemForm prop ={element} />
-                <DropdownMenuItem onClick={handleDeleteStockItem}>Delete Item </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDeleteStockItem}>
+                    {element.status ===0?'Activate':'Deactivate'} </DropdownMenuItem>
                 <DropdownMenuItem>View Item Details</DropdownMenuItem>
                 {/*<DropdownMenuItem*/}
                 {/*    onClick={() => navigator.clipboard.writeText(payment.uuidt)}*/}
@@ -81,7 +83,9 @@ export default ItemActions;
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className='bg-transparent hover:bg-transparent text-black px-2'>Edit Item</Button>
+                <button className={cn(
+                    "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+                )}>Edit Item</button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[434]">
                 <form action={action}>
@@ -113,34 +117,6 @@ export default ItemActions;
     );
 }
 
- function DeleteItemForm(prop) {
-    const path= useParams();
-    const router = useRouter();
-
-
-    return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button className='bg-transparent hover:bg-transparent text-black px-2 block'>Delete Item</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[434]">
-                <form>
-                    <DialogHeader>
-                        <DialogTitle>Delete Item</DialogTitle>
-                        <DialogDescription>
-                            Do you want to delete this item
-                        </DialogDescription>
-                    </DialogHeader>
-                    <DialogFooter>
-                        <DialogClose>
-                            <Button onClick={handleDeleteStockItem}>Delete</Button>
-                        </DialogClose >
-                    </DialogFooter>
-                </form>
-            </DialogContent>
-        </Dialog>
-    );
-}
 
 function CTextfieldR(prop) {
     return (

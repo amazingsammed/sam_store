@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {MoreHorizontal} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
-import {EditItemForm} from "@/app/stores/[storeid]/items/_components/edit_ItemForm";
 
 export const customerColumns = [
     {
@@ -67,8 +66,8 @@ export const customerColumns = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <EditItemForm prop ={item} />
+                        {/*<DropdownMenuSeparator />*/}
+                        {/*<EditItemForm prop ={item} />*/}
                         <DropdownMenuItem>Deactivate Customer</DropdownMenuItem>
                         <DropdownMenuItem>View Item Details</DropdownMenuItem>
                         <DropdownMenuItem

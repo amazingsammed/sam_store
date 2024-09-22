@@ -4,7 +4,7 @@ import {authConfig} from "@/config/server-config";
 import {cookies} from "next/headers";
 import {PrimeChecker} from "@/app/_actions/_checker";
 import prisma from "@/lib/prisma";
-import {queryClean, toJson} from "@/app/shared/sharedfunctions";
+import {queryClean, formdataToJson} from "@/app/shared/sharedfunctions";
 import {v4 as uuidv4} from "uuid";
 import myDB from "@/lib/mysqldb";
 
@@ -12,11 +12,6 @@ export async function getStores() {
     try {
 
         const userid = await PrimeChecker('storeid');
-        // const  data= await prisma.store.findMany({
-        //     where: {
-        //         createdby: userid,
-        //     }
-        // });
         console.log(queryClean(userid),'chexker');
         const results = await prisma.$queryRaw`SELECT 
 \tstore.storename, 
@@ -48,7 +43,7 @@ GROUP BY
 export async function createStore(data) {
     try {
         const userid = await PrimeChecker('storeidx');
-        const element = toJson(data)
+        const element = formdataToJson(data)
         const guid = uuidv4();
         const storeElement = await prisma.store.create({
             data: {
@@ -73,23 +68,6 @@ export async function createStore(data) {
             }
         });
 
-        // const caoElement = await prisma.default_coa.findMany();
-        // for (const item of caoElement) {
-        //     const newcode = uuidv4();
-        //     const savedElement = await prisma.chart_of_account.create({
-        //         data: {
-        //             uuid: newcode,
-        //             account_code: parseInt(item.account_code),
-        //             account_name: item.account_name,
-        //             account_parent: parseInt(item.account_parent),
-        //             account_type: parseInt(item.account_type),
-        //             opening_balance: parseFloat(item.opening_balance),
-        //             createdby: userid,
-        //             storeid: guid,
-        //             // createddate: new Date(),
-        //         }
-        //     });
-        // }
         console.log('saved Store');
     } catch (e) {
         console.log(e);

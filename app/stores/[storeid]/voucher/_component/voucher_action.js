@@ -10,12 +10,15 @@ import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
 import {useParams, usePathname, useRouter} from "next/navigation";
 import Link from "next/link";
+import {deactivateVoucher} from "@/app/_actions/voucher";
 
 function VoucherAction({element}) {
     const router = useRouter();
     const params = useParams();
     const path = usePathname();
-    function handleEditVoucher(){
+    async function handleDeleteVoucher() {
+        await deactivateVoucher(element);
+        router.refresh();
     }
     return (
         <DropdownMenu>
@@ -36,10 +39,8 @@ function VoucherAction({element}) {
 
                Edit Voucher
                 </Link></DropdownMenuItem>
-                <DropdownMenuItem>Delete Voucher</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDeleteVoucher}>Delete Voucher</DropdownMenuItem>
                 <DropdownMenuItem>View Voucher Details</DropdownMenuItem>
-
-
             </DropdownMenuContent>
         </DropdownMenu>
     );

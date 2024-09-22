@@ -1,7 +1,7 @@
 'use server';
 import {PrimeChecker} from "@/app/_actions/_checker";
 import prisma from "@/lib/prisma";
-import {CleanResults, toJson} from "@/app/shared/sharedfunctions";
+import {CleanResults, formdataToJson} from "@/app/shared/sharedfunctions";
 import {v4 as uuidv4} from "uuid";
 
 export async function getCustomers(storeid) {
@@ -29,7 +29,7 @@ export async function addCustomer(data, storeid) {
         const userid = await PrimeChecker(storeid);
         console.log(data);
         console.log(storeid);
-        const element = toJson(data);
+        const element = formdataToJson(data);
         console.log(element);
         const guid = uuidv4();
         const savedElement = await prisma.chart_of_account.create({

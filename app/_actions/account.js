@@ -4,7 +4,7 @@
 import {PrimeChecker} from "@/app/_actions/_checker";
 import prisma from "@/lib/prisma";
 import {v4 as uuidv4} from "uuid";
-import {toJson} from "@/app/shared/sharedfunctions";
+import {formdataToJson} from "@/app/shared/sharedfunctions";
 
 export async function getChartOfAccount(storeid) {
     const results = [];
@@ -27,7 +27,7 @@ export async function getChartOfAccount(storeid) {
 export async function createChartofAccounts(data , storeid) {
     try {
         const userid = await PrimeChecker(storeid);
-        const element = toJson(data);
+        const element = formdataToJson(data);
         const guid = uuidv4();
         console.log(element);
         const savedElement = await prisma.chart_of_account.create({

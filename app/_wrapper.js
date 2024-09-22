@@ -2,11 +2,11 @@
 import React from 'react';
 import {SessionProvider} from "next-auth/react";
 
-function SessionWrapper({ children ,session}) {
+function SessionWrapper({ children}) {
     return (
-        <SessionProvider session={session}>
+        < >
             {children}
-        </SessionProvider>
+        </>
     );
 }
 

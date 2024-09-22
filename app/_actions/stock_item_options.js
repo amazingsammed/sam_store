@@ -1,5 +1,5 @@
 'use server';
-import {toJson} from "@/app/shared/sharedfunctions";
+import {formdataToJson} from "@/app/shared/sharedfunctions";
 import prisma from "@/lib/prisma";
 import {PrimeChecker} from "@/app/_actions/_checker";
 
@@ -8,7 +8,7 @@ export async function createStockGroup(data, storeid) {
     try {
         const userid = await PrimeChecker(storeid);
         console.log(userid);
-        const element = toJson(data)
+        const element = formdataToJson(data)
         return await prisma.stock_item_group.create({
             data: {
                 name: element.name,
@@ -26,7 +26,7 @@ export async function createStockUnits(data, storeid) {
     try {
         const userid = await PrimeChecker(storeid);
         console.log(userid);
-        const element = toJson(data)
+        const element = formdataToJson(data)
         return await prisma.stock_item_unit.create({
             data: {
                 name: element.name,
@@ -43,7 +43,7 @@ export async function createStockCategory(data, storeid) {
     try {
         const userid = await PrimeChecker(storeid);
         console.log(userid);
-        const element = toJson(data)
+        const element = formdataToJson(data)
         return await prisma.stock_item_category.create({
             data: {
                 name: element.name,

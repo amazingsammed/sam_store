@@ -1,6 +1,6 @@
 'use server';
 import {PrimeChecker} from "@/app/_actions/_checker";
-import {CleanResults, queryClean, toJson} from "@/app/shared/sharedfunctions";
+import {CleanResults, queryClean, formdataToJson} from "@/app/shared/sharedfunctions";
 import prisma from "@/lib/prisma";
 import {v4 as uuidv4} from "uuid";
 
