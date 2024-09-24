@@ -20,7 +20,7 @@ export  function PurchasesListPage(prop) {
 
     return (
         <div className="">
-            <Headerlisttile title='Purchases List' subtitle='All Purchases Vouchers are listed here' bname="New Item" ontap = "purchases/cashpurchases">
+            <Headerlisttile title='Purchases List' subtitle='All Purchases Vouchers are listed here' bname="Create" ontap = "purchases/cashpurchases">
                 <DataTable columns={purchasesColumns} data={tabledata} filter={'itemname'}/>
             </Headerlisttile>
             {/*<Table>*/}

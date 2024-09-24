@@ -18,7 +18,7 @@ import {
 import {Button} from "@/components/ui/button";
 import {SortingState} from "@tanstack/react-table";
 import {useState} from "react";
-import { Input } from "@/components/ui/input"
+import {Input} from "@/components/ui/input"
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
@@ -28,9 +28,9 @@ import {
 
 
 export function DataTable({
-                                             columns,
-                                             data,filter='name'
-                                         }) {
+                              columns,
+                              data, filter = 'name'
+                          }) {
     const [sorting, setSorting] = useState([]);
     const [rowSelection, setRowSelection] = useState({});
     const [columnVisibility, setColumnVisibility] =
@@ -49,7 +49,7 @@ export function DataTable({
         getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
         state: {
-            sorting,rowSelection,columnVisibility,columnFilters,
+            sorting, rowSelection, columnVisibility, columnFilters,
         },
         onRowSelectionChange: setRowSelection,
     })

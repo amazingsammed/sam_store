@@ -22,19 +22,19 @@ export default function EditVoucherFormPage(prop) {
         "name": '', 'quantity': '', 'amount': '', 'rate': ''
     });
     useEffect(() => {
-            const fetcher = async () => {
-           const voucher = await getSingleVoucherList(searchParams.get('uuid'),params.storeid);
-         if (voucher) {
-             setAccount(voucher[0].accountname)
-         }
-          voucher.forEach((item) => {
-              setList([...list, item]);
-          })
-            };
-            fetcher();
+        const fetcher = async () => {
+            const voucher = await getSingleVoucherList(searchParams.get('uuid'),params.storeid);
+            if (voucher) {
+                setAccount(voucher[0].accountname)
+            }
+            setList([]);
+            voucher.forEach((item) => {
+                setList((prev) => [...prev, item]);
+            })
+        };
+        fetcher();
 
-        },
-        []);
+    }, []);
 
     function handlesubmit(e) {
         setList([
@@ -70,7 +70,7 @@ export default function EditVoucherFormPage(prop) {
         if (list.length === 0) {
             return;
         }
-        await createCashPurchases(list, params.storeid);
+
         await router.back();
         setTimeout(() => {
             router.refresh();

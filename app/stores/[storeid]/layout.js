@@ -19,7 +19,7 @@ export default async function Layout({children}) {
             <SideBar/>
             <div className="lg:pl-[22rem]  ">
                 <Storeinfo/>
-                <div className="lg:pt-16  p-4 mx-auto">
+                <div className="lg:pt-8  p-4 mx-auto">
 
                 {children}
                 </div>

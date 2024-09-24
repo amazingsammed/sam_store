@@ -54,8 +54,14 @@ const theSidemenu = [
     {
         'title': "Chart of Accounts",
         'icon': <MdAccountBox size={size}/>,
-        'hasItems': false,
+        'hasItems': true,
         'url': "/chartofaccount",
+        'items': [
+            {
+                'name': "Account Group",
+                'url': "/chartofaccount/groups"
+            }
+        ]
 
     },
     {

@@ -20,8 +20,7 @@ export  function UnitsTable(prop) {
         <div className="">
             <HeaderListTileDialog title='Unit List' subtitle='All items are listed here' bname="New Item" buttonx ={
                 <AddUnitsDialog/>
-            }/>
-
+            }>
             <Table>
                 <TableHeader>
                     <TableRow>
@@ -47,6 +46,8 @@ export  function UnitsTable(prop) {
                     </TableRow>
                 </TableFooter>
             </Table>
+            </HeaderListTileDialog>
+
         </div>
 
     );

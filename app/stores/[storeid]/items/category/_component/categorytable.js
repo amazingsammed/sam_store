@@ -21,7 +21,8 @@ export  function CategoryTable(prop) {
         <div className="">
             <HeaderListTileDialog title='Category List' subtitle='All items are listed here'  buttonx ={
                 <AddCategoryDialog/>
-            }/>
+            }>
+
 
             <Table>
                 <TableHeader>
@@ -48,6 +49,8 @@ export  function CategoryTable(prop) {
                     </TableRow>
                 </TableFooter>
             </Table>
+            </HeaderListTileDialog>
+
         </div>
 
     );

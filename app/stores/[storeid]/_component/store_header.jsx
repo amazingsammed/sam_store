@@ -6,31 +6,6 @@ import Link from "next/link";
 import {SheetSideBar} from "@/components/Sidebar";
 
 function StoreHeader() {
-    const [open,setopen]= useState();
-    const header = [
-        {
-            'title': "Home",
-            'url': "/"
-        },
-        {
-            'title': "About",
-            'url': "/about"
-        },
-        {
-            'title': "Contact",
-            'url': "/contact"
-        },
-        {
-            'title': "Items",
-            'url': "/store/items"
-        },
-
-    ];
-
-    function handleClick(){
-        console.log('hey');
-        // setopen(!open);
-    }
 
     return (
 

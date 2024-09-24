@@ -22,7 +22,7 @@ export  function SalesPage(prop) {
 
     return (
         <div className="">
-            <Headerlisttile title='Sales List' subtitle='All Sales Vouchers are listed here' bname="New Item" ontap = "sales/cashsales">
+            <Headerlisttile title='Sales List' subtitle='All Sales Vouchers are listed here' bname="Create" ontap = "sales/cashsales">
                 <DataTable columns={salesColumns} data={tabledata} filter={'itemname'}/>
             </Headerlisttile>
 

@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+'use client'
+import React, {useEffect, useState} from 'react';
+import Link from 'next/link';
 import {
     DropdownMenu,
     DropdownMenuContent, DropdownMenuItem,
@@ -8,8 +10,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
-import {useParams, useRouter} from "next/navigation";
-import {deleteStockItem, editStockItem} from "@/app/_actions/stock_item";
+import {useParams, usePathname, useRouter} from "next/navigation";
+import {deleteStockItem, editStockItem, getProductDetail} from "@/app/_actions/stock_item";
 import {useFormState} from "react-dom";
 import {
     Dialog, DialogClose,
@@ -21,10 +23,14 @@ import {
 } from "@/components/ui/dialog";
 import CTextfield from "@/components/ktextfield";
 import {cn} from "@/lib/utils";
+import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
+import {SideBarItemExpanded} from "@/components/Sidebar";
+import {TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow, Table} from "@/components/ui/table";
 
 function ItemActions({element}) {
     const param = useParams();
     const router = useRouter();
+    const path = usePathname();
     async function handleDeleteStockItem() {
         await deleteStockItem(element,param.storeid);
         router.refresh();
@@ -43,18 +49,22 @@ function ItemActions({element}) {
                 <EditItemForm prop ={element} />
                 <DropdownMenuItem onClick={handleDeleteStockItem}>
                     {element.status ===0?'Activate':'Deactivate'} </DropdownMenuItem>
-                <DropdownMenuItem>View Item Details</DropdownMenuItem>
-                {/*<DropdownMenuItem*/}
-                {/*    onClick={() => navigator.clipboard.writeText(payment.uuidt)}*/}
-                {/*>*/}
-                {/*    Copy Item ID*/}
-                {/*</DropdownMenuItem>*/}
+                {/*<SheetSideBar element = {element}>*/}
+                {/*    View Item Details*/}
+                {/*</SheetSideBar>*/}
+                <DropdownMenuItem>
+                  <Link href={`${path}/${element.uuidt}`}>
+                      View Item Details
+                  </Link>
+                </DropdownMenuItem>
+
             </DropdownMenuContent>
         </DropdownMenu>
     );
 }
 
 export default ItemActions;
+
 
 
  function EditItemForm(prop) {

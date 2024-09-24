@@ -49,30 +49,34 @@ export async function getAllProducts(storeid) {
     try {
         const userid = await PrimeChecker(storeid);
 
-        const  data= await prisma.$queryRaw ` SELECT
-\tstock_item.shortname, 
+        const  data= await prisma.$queryRaw ` 
+SELECT
+\tSUM(trn_inventory.quantity) AS quantity, 
 \tstock_item.\`name\`, 
-\tstock_item_group.\`name\` AS \`group\`, 
-\tstock_item.uuidt, 
-\tstock_item_unit.\`name\` AS unit, 
 \tstock_item.salesprice, 
 \tstock_item.purchaseprice, 
-\tstock_item.is_service, 
-\tstock_item.warninglimit, 
-\tstock_item.description, 
-\tstock_item.\`status\`,
-\tstock_item.createddate, 
-\t\`user\`.\`name\` AS createdby
+\tstock_item.\`status\`, 
+\tstock_item.shortname, 
+\tstock_item.uuidt, 
+\tstock_item_unit.\`name\` AS unit, 
+\tstock_item_group.\`name\` AS \`group\`
 FROM
+\ttrn_inventory
+\tLEFT JOIN
+\tstock_item
+\tON 
+\t\ttrn_inventory.item_uuid = stock_item.uuidt,
 \tstock_item_group,
-\tstock_item,
 \tstock_item_unit,
-\t\`user\`
+\tvoucher
 WHERE
-\tstock_item.\`group\` = stock_item_group.id AND
-\tstock_item_unit.id = stock_item.unit AND
-\tstock_item.createdby = \`user\`.uuid AND
-\tstock_item.storeid = ${queryClean(storeid)} 
+\ttrn_inventory.voucher_uuid = voucher.uuid AND
+\tvoucher.\`status\` = 1 AND
+\tstock_item.storeid = ${queryClean(storeid)} AND
+\tstock_item.unit = stock_item_unit.id AND
+\tstock_item.\`group\` = stock_item_group.id
+GROUP BY
+\ttrn_inventory.item_uuid
         `;
         return JSON.parse(JSON.stringify(data));
     } catch (e) {
@@ -80,6 +84,43 @@ WHERE
     }
 
     //return currentUserCounter.count;
+}
+
+export async function getProductDetail(productId) {
+    try {
+        let data= await prisma.$queryRaw ` 
+SELECT
+\ttrn_inventory.rate, 
+\ttrn_inventory.amount, 
+\ttrn_inventory.quantity,  
+\tvoucher_type.\`name\`,
+\tvoucher.date
+FROM
+\ttrn_inventory,
+\tvoucher,
+\tvoucher_type
+WHERE
+\ttrn_inventory.voucher_uuid = voucher.uuid AND
+\tvoucher.\`status\` = 1 AND
+\ttrn_inventory.item_uuid = ${queryClean(productId)} AND
+\tvoucher.voucher_type = voucher_type.id
+
+        `;
+        let product = await prisma.stock_item.findFirst(
+            {
+                where: {
+                    uuidt: productId
+                }
+            }
+        )
+         product =JSON.parse(JSON.stringify(product));
+         data = JSON.parse(JSON.stringify(data))
+        console.log(data);
+        console.log(product);
+        return {product ,data};
+    } catch (e) {
+        return [];
+    }
 }
 
 export async function addProduct(data, storeid) {
@@ -129,9 +170,6 @@ export async function addProduct(data, storeid) {
                     quantity: parseInt(element.quantity),
                     rate: parseFloat(element.purchaseprice),
                     amount: parseFloat(element.quantity) * parseFloat(element.purchaseprice),
-                    storeid: storeid,
-                    createddate: new Date(),
-                    createdby: userid,
                 }
             });
         }

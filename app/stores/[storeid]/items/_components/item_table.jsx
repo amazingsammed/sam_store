@@ -21,8 +21,6 @@ export  function ItemsPage(prop) {
       <Headerlisttile title='Item List' subtitle='All items are listed here' bname="New Item" ontap = "items/addItem">
         <DataTable columns={itemsColumns} data={tabledata} filter={'name'}/>
       </Headerlisttile>
-      
-
         </div>
 
     );

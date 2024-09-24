@@ -23,7 +23,7 @@ export  function GroupTable(prop) {
         <div className="">
             <HeaderListTileDialog title='Group List' subtitle='All items are listed here' bname="New Item" buttonx ={
                 <AddGroupDialog/>
-            }/>
+            }>
 
             <Table>
                 <TableHeader>
@@ -52,6 +52,8 @@ export  function GroupTable(prop) {
                     </TableRow>
                 </TableFooter>
             </Table>
+            </HeaderListTileDialog>
+
         </div>
 
     );

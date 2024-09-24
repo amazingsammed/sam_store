@@ -82,6 +82,7 @@ WHERE
 AND
 \tstock_item.uuidt = trn_inventory.item_uuid
 `;
+        console.log(results, 'getSingleVoucherList');
         return CleanResults(results);
     } catch (e) {
         console.log(e);

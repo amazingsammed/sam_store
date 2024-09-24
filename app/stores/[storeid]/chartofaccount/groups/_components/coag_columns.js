@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
@@ -9,14 +10,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {MoreHorizontal} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
-import {DeleteItemForm, EditItemForm} from "@/app/stores/[storeid]/items/_components/edit_ItemForm";
-import {deleteStockItem} from "@/app/_actions/stock_item";
-import ItemActions from "@/app/stores/[storeid]/items/_components/item_actions";
-import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
-import React from "react";
-import {SideBarItemExpanded} from "@/components/Sidebar";
+import CoagAction from "@/app/stores/[storeid]/chartofaccount/groups/_components/coag_actions";
+import {accounts} from "@/app/stores/[storeid]/chartofaccount/_components/coa_form";
 
-export const itemsColumns = [
+export const coagColumns = [
     {
         id: "select",
         header: ({ table }) => (
@@ -40,41 +37,54 @@ export const itemsColumns = [
         enableHiding: false,
     },
     {
-        accessorKey: "shortname",
-        header: "Code",
-        enableHiding: true,
-    },
-    {
         accessorKey: "name",
-        header: "Name",
+        header: "Group Name",
     },
     {
-        accessorKey: "group",
-        header: "Group",
-    },
-
-    {
-        accessorKey: "salesprice",
-        header: "Selling Price",
-    },
-    {
-        accessorKey: "quantity",
-        header: "Quantity Left",
+        accessorKey: "accountid",
+        header: "Account Type",
+        cell: ({ row }) => {
+            const accountid = row.original.accountid;
+            return accounts[accountid-1].name;
+        }
     },
     {
         accessorKey: "status",
         header: "Status",
+        cell: ({ row }) => {
+            const status = row.original.status;
+            return status ===1 ?"active":"inactive";
+        }
     },
+    {
+        accessorKey: "system",
+        header: "System Account",
+        cell: ({ row }) => {
+            const system = row.original.system;
+            return system ===1 ?"yes":"no";
+        }
+    },
+
+    // {
+    //     accessorKey: "party_name",
+    //     header: "Account",
+    // },
+    // {
+    //     accessorKey: "salesperson",
+    //     header: "Sales Person",
+    // },
     {
         id: "actions",
         cell: ({ row }) => {
             const item = row.original
 
             return (
-               <ItemActions element={item}/>
+                <>
+                { item.system===0&&
+           <CoagAction element={item}/>
+        }
+                </>
             )
         },
     },
 ]
-
-

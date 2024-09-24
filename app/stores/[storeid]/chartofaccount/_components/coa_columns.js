@@ -1,5 +1,4 @@
-
-import { Button } from "@/components/ui/button"
+import {Button} from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -10,6 +9,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {MoreHorizontal} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
+import {accounts} from "@/app/stores/[storeid]/chartofaccount/_components/coa_form";
+import CoaAction from "@/app/stores/[storeid]/chartofaccount/_components/coa_actions";
 
 export const coaColumns = [
     {
@@ -43,16 +44,31 @@ export const coaColumns = [
         header: "Account Name",
     },
     {
-        accessorKey: "account_parent",
+        accessorKey: "account_group",
         header: "Account Group",
+        cell: ({ row }) => {
+            return row.original.account_group;
+        }
     },
     {
         accessorKey: "account_type",
         header: "Account Type",
+        cell: ({ row }) => {
+            const account_type = row.original.account_type;
+            return accounts[account_type-1].name;
+        }
     },
     {
         accessorKey: "opening_balance",
         header: "Opening Balance",
+    },
+    {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+            const status = row.original.status;
+            return status ===1 ?"active":"inactive";
+        }
     },
     // {
     //     accessorKey: "party_name",
@@ -65,29 +81,9 @@ export const coaColumns = [
     {
         id: "actions",
         cell: ({ row }) => {
-            const payment = row.original
-
+            const element = row.original
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.uuidt)}
-                        >
-                            Copy Item ID
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>View Item Details</DropdownMenuItem>
-                        <DropdownMenuItem>Edit Item</DropdownMenuItem>
-                        <DropdownMenuItem>Delete Item</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+            <CoaAction element={element} />
             )
         },
     },
