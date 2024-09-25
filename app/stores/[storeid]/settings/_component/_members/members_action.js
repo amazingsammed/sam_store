@@ -38,11 +38,11 @@ function MembersAction({element}) {
      async function handleDeactivate() {
          await deactivateMember(element, param.storeid);
          router.refresh();
+         router.refresh();
      }
 
     return (
         <>
-
 
             {data.user.uuid !== element.uuid && <DropdownMenu>
                 <DropdownMenuTrigger asChild>

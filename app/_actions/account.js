@@ -43,7 +43,6 @@ export async function createChartofAccounts(data , storeid) {
                 createddate: new Date(),
             }
         });
-        console.log(savedElement);
     }catch (e) {
         console.log(e);
     }
@@ -212,6 +211,7 @@ export async function getChartOfAccountGroupbyAccountid(accountid, storeid) {
     //return currentUserCounter.count;
 }
 export async function getChartOfAccountGroupbyuuid(uuid,storeid) {
+
     const allresults = [];
     try{
 
@@ -235,7 +235,6 @@ export async function getChartOfAccountGroupbyuuid(uuid,storeid) {
         system.forEach((item) => {
             allresults.push({...item,'system':1});
         })
-        console.log(allresults,'all results');
         return [...JSON.parse(JSON.stringify(allresults))];
     }catch (e) {
         console.log(e)

@@ -1,3 +1,4 @@
+import {format} from "date-fns";
 
 
 export function formdataToJson(formData){
@@ -53,5 +54,9 @@ export function prismatoJson(data,nestedKeys){
 
         return flattenedItem;
     }).flat();
+}
+
+export function DateFormat(data){
+    return format( Date(data), 'Ko MMM yy');
 }
 

@@ -10,7 +10,8 @@ import {
 import {MoreHorizontal} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
 import {accounts} from "@/app/stores/[storeid]/chartofaccount/_components/coa_form";
-import CoaAction from "@/app/stores/[storeid]/chartofaccount/_components/coa_actions";
+import CoaAction, {GetAccountGroup} from "@/app/stores/[storeid]/chartofaccount/_components/coa_actions";
+import {Suspense} from "react";
 
 export const coaColumns = [
     {
@@ -47,7 +48,9 @@ export const coaColumns = [
         accessorKey: "account_group",
         header: "Account Group",
         cell: ({ row }) => {
-            return row.original.account_group;
+            return <Suspense fallback={<p>Loading....</p>}>
+                <GetAccountGroup uuid={row.original.account_group} />
+            </Suspense>;
         }
     },
     {

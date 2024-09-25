@@ -26,7 +26,22 @@ import {deactivateCOA, deactivateCOAG, editCOA, editCOAG, getChartOfAccountGroup
 import {accounts} from "@/app/stores/[storeid]/chartofaccount/_components/coa_form";
 import CTextfield from "@/components/ktextfield";
 
-
+export function GetAccountGroup({uuid}) {
+    const param = useParams();
+    const router = useRouter();
+    const path = usePathname();
+    const [group,setGroup]=useState("");
+    useEffect(()=>{
+        const fetcher = async () => {
+            const a = await getChartOfAccountGroupbyuuid(uuid,param.storeid);
+            setGroup(a[0].name);
+        };
+        fetcher();
+    },[])
+    return (
+        <div>{group}</div>
+    );
+}
 
 
 
@@ -71,7 +86,7 @@ export default CoaAction;
 
 function EditItemForm({prop}) {
     const [data, setData] = useState({
-        'name': prop.name,
+        'name': prop.account_name,
         'opening_balance': prop.opening_balance,
         'uuid': prop.uuid,
         'description':prop.description

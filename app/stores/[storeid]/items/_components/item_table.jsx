@@ -17,14 +17,14 @@ export  function ItemsPage(prop) {
 
     const tabledata = prop.data;
     return (
-      <div className="">
-      <Headerlisttile title='Item List' subtitle='All items are listed here' bname="New Item" ontap = "items/addItem">
-        <DataTable columns={itemsColumns} data={tabledata} filter={'name'}/>
-      </Headerlisttile>
+        <div className="">
+          <Headerlisttile title='Item List' subtitle='All items are listed here' bname="New Item" ontap="items/addItem">
+            <DataTable columns={itemsColumns} data={tabledata} filter={'name'}/>
+          </Headerlisttile>
         </div>
 
     );
-  }
+}
 
  
 

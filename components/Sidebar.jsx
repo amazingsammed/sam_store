@@ -141,7 +141,7 @@ const theSidemenu = [
         'title': "Reports",
         'icon': <MdReport size={size}/>,
         'hasItems': false,
-        'url': "/reports"
+        'url': "/report"
     },
 
 

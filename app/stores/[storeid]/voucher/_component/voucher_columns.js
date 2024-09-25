@@ -14,6 +14,7 @@ import {
 import React from "react";
 import {deactivateVoucher} from "@/app/_actions/voucher";
 import VoucherAction from "@/app/stores/[storeid]/voucher/_component/voucher_action";
+import {DateFormat} from "@/app/shared/sharedfunctions";
 
 export const voucherColumns = [
     {
@@ -41,7 +42,9 @@ export const voucherColumns = [
     {
         accessorKey: "date",
         header: "Date",
-        enableHiding: true,
+        cell: ({ row }) => {
+            return DateFormat(row.original.date);
+        }
     },
     {
         accessorKey: "vouchertype",

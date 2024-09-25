@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {MoreHorizontal} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
+import {DateFormat} from "@/app/shared/sharedfunctions";
 
 export const salesColumns = [
     // {
@@ -34,9 +35,13 @@ export const salesColumns = [
     //     enableSorting: false,
     //     enableHiding: false,
     // },
+
     {
         accessorKey: "date",
         header: "Date",
+        cell: ({ row }) => {
+            return DateFormat(row.original.date);
+        }
     },
     {
         accessorKey: "shortname",

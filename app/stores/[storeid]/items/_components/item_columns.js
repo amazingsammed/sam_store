@@ -64,12 +64,15 @@ export const itemsColumns = [
     {
         accessorKey: "status",
         header: "Status",
+        cell: ({ row }) => {
+            const status = row.original.status;
+            return status ===1 ?"active":"inactive";
+        }
     },
     {
         id: "actions",
         cell: ({ row }) => {
             const item = row.original
-
             return (
                <ItemActions element={item}/>
             )

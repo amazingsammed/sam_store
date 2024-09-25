@@ -93,7 +93,7 @@ export function AddChartofAccount() {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
-                        <CTextfieldR label="Group Name" value='' name="account_name"/>
+                        <CTextfieldR label="Account Name" value='' name="account_name"/>
                         <CDropDownWithOnChange
                             label="Account Type"
                             name='account_type'

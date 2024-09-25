@@ -3,7 +3,7 @@
 import {CTextfieldR, CDropDown} from '@/components/ktextfield'
 import {createChartofAccounts, createChartofAccountsGroup} from "@/app/_actions/account";
 import {
-    Dialog,
+    Dialog, DialogClose,
     DialogContent,
     DialogDescription, DialogFooter,
     DialogHeader,
@@ -69,7 +69,9 @@ export function AddAccountGroupDialog() {
                         />
                     </div>
                     <DialogFooter>
-                        <Button type="submit">Save</Button>
+                        <DialogClose>
+                            <Button type="submit">Save</Button>
+                        </DialogClose >
                     </DialogFooter>
                 </form>
             </DialogContent>
