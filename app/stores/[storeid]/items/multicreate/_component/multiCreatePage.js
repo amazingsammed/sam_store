@@ -8,7 +8,6 @@ import {ItemListCombo, ToastSimple} from "@/app/stores/[storeid]/sales/cashsales
 import {createCashSales} from "@/app/_actions/sales";
 import {useParams, useRouter} from "next/navigation";
 import {SuccessDialog} from "@/app/shared/mydialogbox";
-import {ToastAction} from "@/components/ui/toast";
 
 
 function MultiCreatePage() {
