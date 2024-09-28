@@ -52,7 +52,7 @@ const HomePage = () => {
 
   return (
   <div className="max-w-screen-xl mx-auto">
-      <section className=" flex-row flex  justify-between p-3 h-[100vh] items-center">
+      <section className=" flex-row flex  justify-between p-3  items-center pt-20">
           <div className="flex flex-col  w-1/2 gap-20">
               <div>
               <h1 className="font-extrabold text-5xl">Empowering Your Business with Seamless Accounting Solutions</h1>
