@@ -2,9 +2,7 @@
 import React from 'react';
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import {TableBody, TableHead, TableHeader, TableRow, Table, TableCell} from "@/components/ui/table";
-import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
-import {MdChevronLeft, MdChevronRight} from "react-icons/md";
 
 function Productpage(products,
                      offset,

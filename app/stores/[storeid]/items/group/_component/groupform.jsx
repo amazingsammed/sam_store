@@ -12,9 +12,7 @@ import {
 import {Button} from "@/components/ui/button";
 import {createStockGroup, getStockCategory} from "@/app/_actions/stock_item_options";
 import {useParams, useRouter} from "next/navigation";
-import {createChartofAccounts} from "@/app/_actions/account";
 import {useEffect, useState} from "react";
-import {getItemsgroupList, getItemsUnitList} from "@/app/_actions/stock_item";
 
 
 const accounts = [

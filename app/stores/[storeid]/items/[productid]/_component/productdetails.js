@@ -1,13 +1,10 @@
 'use client'
 
-import React, {Suspense} from 'react';
-import Headerlisttile, {HeaderListTileDialog} from "@/components/headerlisttile";
+import React from 'react';
+import {HeaderListTileDialog} from "@/components/headerlisttile";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
-import {itemsColumns} from "@/app/stores/[storeid]/items/_components/item_columns";
-import {Checkbox} from "@/components/ui/checkbox";
-import ItemActions from "@/app/stores/[storeid]/items/_components/item_actions";
 import {Button} from "@/components/ui/button";
-import {useParams, useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
 
 function Productdetails({element, product}) {
     const router = useRouter();

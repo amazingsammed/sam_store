@@ -2,8 +2,7 @@
 
 "use client";
 
-import {CTextfieldR, CDropDown, CDropDownWithOnChange, CTextfieldNum} from '@/components/ktextfield'
-import {createChartofAccounts} from "@/app/_actions/account";
+import {CTextfieldR, CDropDownWithOnChange, CTextfieldNum} from '@/components/ktextfield'
 import {
     Dialog, DialogClose,
     DialogContent,
@@ -13,9 +12,6 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {useEffect, useState} from "react";
-import {getItemsgroupList, getItemsUnitList} from "@/app/_actions/stock_item";
 import {useParams, useRouter} from "next/navigation";
 import {addCustomer} from "@/app/_actions/customer";
 

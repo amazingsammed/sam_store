@@ -1,7 +1,6 @@
 'use server';
-import NextAuth, {NextAuthOptions} from "next-auth";
 import {getServerSession} from "next-auth";
-import {getSession} from "next-auth/react";
+
 const secret = process.env.NEXTAUTH_SECRET;
 export async function PrimeChecker(storeid){
     if(storeid === undefined){

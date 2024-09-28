@@ -1,8 +1,7 @@
 import {NextResponse} from "next/server";
 import * as z from 'zod';
 import prisma from "@/lib/prisma";
-import {compare, hash} from "bcrypt";
-import { v4 } from "uuid";
+import {compare} from "bcrypt";
 
 const UserSchema = z.object({
     email: z.string().min(1, 'Email is required').email('Invalid email'),

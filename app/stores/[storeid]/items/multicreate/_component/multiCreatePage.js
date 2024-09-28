@@ -3,11 +3,9 @@
 import React, {useState} from 'react';
 import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {MdCheck, MdDeleteOutline} from "react-icons/md";
-import Headerlisttile, {HeaderWithButton} from "@/components/headerlisttile";
-import {ItemListCombo, ToastSimple} from "@/app/stores/[storeid]/sales/cashsales/_component/itemlistcombo";
+import {HeaderWithButton} from "@/components/headerlisttile";
 import {createCashSales} from "@/app/_actions/sales";
 import {useParams, useRouter} from "next/navigation";
-import {SuccessDialog} from "@/app/shared/mydialogbox";
 
 
 function MultiCreatePage() {

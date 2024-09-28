@@ -11,7 +11,6 @@ import {
 import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
 import {useParams, usePathname, useRouter} from "next/navigation";
-import {deleteStockItem, editStockItem, getProductDetail} from "@/app/_actions/stock_item";
 import {useFormState} from "react-dom";
 import {
     Dialog, DialogClose,
@@ -22,8 +21,7 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import {cn} from "@/lib/utils";
-import {deactivateCOA, deactivateCOAG, editCOA, editCOAG, getChartOfAccountGroupbyuuid} from "@/app/_actions/account";
-import {accounts} from "@/app/stores/[storeid]/chartofaccount/_components/coa_form";
+import {deactivateCOA, editCOA, getChartOfAccountGroupbyuuid} from "@/app/_actions/account";
 import CTextfield from "@/components/ktextfield";
 
 export function GetAccountGroup({uuid}) {

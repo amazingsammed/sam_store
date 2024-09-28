@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useState} from 'react';
+import React from 'react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,21 +12,18 @@ import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
 import {changeroleMember, deactivateMember} from "@/app/_actions/store_members";
 import {useParams, useRouter} from "next/navigation";
-import {getToken} from "next-auth/jwt";
 import {useSession} from "next-auth/react";
 import {
     Dialog,
     DialogClose,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger
 } from "@/components/ui/dialog";
-import CTextfield, {CDropDown} from "@/components/ktextfield";
+import {CDropDown} from "@/components/ktextfield";
 import {cn} from "@/lib/utils";
-import {editStockItem} from "@/app/_actions/stock_item";
 import {useFormState} from "react-dom";
 import {formdataToJson} from "@/app/shared/sharedfunctions";
 

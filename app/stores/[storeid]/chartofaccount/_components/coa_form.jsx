@@ -2,7 +2,6 @@
 
 import {
     CTextfieldR,
-    CDropDown,
     CDropDownWithOnChange,
     CTextfieldNum,
     UUIDDropDownWithOnChange
@@ -17,9 +16,7 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
 import {useEffect, useState} from "react";
-import {getItemsgroupList, getItemsUnitList} from "@/app/_actions/stock_item";
 import {useParams, useRouter} from "next/navigation";
 import {useFormState} from "react-dom";
 

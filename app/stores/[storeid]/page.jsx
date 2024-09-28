@@ -1,7 +1,4 @@
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {confirmStore} from "@/app/_actions/stores";
-import {redirect} from "next/navigation";
-
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 
 
 export default async function Page(params) {

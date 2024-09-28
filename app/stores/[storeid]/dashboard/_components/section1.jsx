@@ -1,7 +1,6 @@
 import React from 'react'
-import Link from "next/link"
 import {
-    Card, CardDescription, CardContent, CardTitle, CardHeader, CardFooter
+    Card, CardContent, CardTitle, CardHeader
 } from "@/components/ui/card"
 
 export const Section1 = () => {

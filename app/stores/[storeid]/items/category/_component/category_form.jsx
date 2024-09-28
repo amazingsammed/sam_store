@@ -1,7 +1,6 @@
 "use client";
 
-import {CTextfieldR, CDropDown} from '@/components/ktextfield'
-import {createChartofAccounts} from "@/app/_actions/account";
+import {CTextfieldR} from '@/components/ktextfield'
 import {
     Dialog, DialogClose,
     DialogContent,
@@ -11,7 +10,7 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
-import {createStockCategory, createStockGroup} from "@/app/_actions/stock_item_options";
+import {createStockCategory} from "@/app/_actions/stock_item_options";
 import {useParams, useRouter} from "next/navigation";
 
 

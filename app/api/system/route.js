@@ -1,6 +1,5 @@
 import prisma from "@/lib/prisma";
 import {NextResponse} from "next/server";
-import {compare} from "bcrypt";
 import {getServerSession} from "next-auth";
 
 

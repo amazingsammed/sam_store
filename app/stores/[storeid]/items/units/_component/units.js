@@ -2,16 +2,14 @@
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableFooter,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import {MdMoreHoriz, MdMoreVert} from "react-icons/md";
-import Headerlisttile, {HeaderListTileDialog} from "@/components/headerlisttile";
-import {AddCategoryDialog} from "@/app/stores/[storeid]/items/category/_component/category_form";
+import {MdMoreVert} from "react-icons/md";
+import {HeaderListTileDialog} from "@/components/headerlisttile";
 import {AddUnitsDialog} from "@/app/stores/[storeid]/items/units/_component/unitsform";
 
 export  function UnitsTable(prop) {

@@ -1,7 +1,7 @@
 "use client";
 
 import {CTextfieldR, CDropDown} from '@/components/ktextfield'
-import {createChartofAccounts, createChartofAccountsGroup} from "@/app/_actions/account";
+import {createChartofAccountsGroup} from "@/app/_actions/account";
 import {
     Dialog, DialogClose,
     DialogContent,

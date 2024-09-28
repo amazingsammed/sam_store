@@ -2,7 +2,7 @@
 
 'use client'
 
-import Headerlisttile, {HeaderListTileDialog} from "@/components/headerlisttile";
+import {HeaderListTileDialog} from "@/components/headerlisttile";
 import {CustomerForm} from "@/app/stores/[storeid]/sales/customer/_components/addcustomer";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
 import {customerColumns} from "@/app/stores/[storeid]/sales/customer/_components/customer_columns";

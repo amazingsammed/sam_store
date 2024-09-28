@@ -1,7 +1,3 @@
-import Link from 'next/link';
-import {MenuIcon} from "lucide-react";
-
-
 const links = [
   { href: '#', title: 'Home' },
   { href: '#', title: 'About' },

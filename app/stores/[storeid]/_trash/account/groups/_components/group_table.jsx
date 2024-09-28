@@ -2,14 +2,13 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import Headerlisttile, {HeaderListTileDialog} from "@/components/headerlisttile";
+import {HeaderListTileDialog} from "@/components/headerlisttile";
 import {AddGroupDialog} from "@/app/stores/[storeid]/_trash/account/groups/_components/group_form";
 
 

@@ -1,11 +1,6 @@
 "use client"
 
-import React, {useEffect, useState} from 'react';
-import {MdLogout, MdStore} from "react-icons/md";
-import {Button} from "@/components/ui/button";
-import {useParams, usePathname, useRouter} from "next/navigation";
-import {signOut} from "next-auth/react";
-import Link from 'next/link'
+import React from 'react';
 import {AddAnItem} from "@/app/stores/[storeid]/items/_components/item_form";
 
 function Storeinfo(props) {

@@ -3,11 +3,9 @@
 import {
     CTextfieldR,
     CDropDown,
-    CDropDownWithOnChange,
     CTextfieldNum,
-    UUIDDropDownWithOnChange, CCheckBox
+    CCheckBox
 } from '@/components/ktextfield'
-import {createChartofAccounts, getChartOfAccountGroupbyAccountid} from "@/app/_actions/account";
 import {
     Dialog, DialogClose,
     DialogContent,
@@ -17,11 +15,9 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
 import {useEffect, useState} from "react";
-import {addProduct, getItemsgroupList, getItemsUnitList} from "@/app/_actions/stock_item";
+import {addProduct} from "@/app/_actions/stock_item";
 import {useParams, useRouter} from "next/navigation";
-import {useFormState} from "react-dom";
 import {getStockGroup, getStockUnits} from "@/app/_actions/stock_item_options";
 
 

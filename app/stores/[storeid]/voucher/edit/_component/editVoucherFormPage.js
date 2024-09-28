@@ -4,12 +4,10 @@ import React, {useEffect, useState} from 'react';
 import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {MdCheck, MdDeleteOutline} from "react-icons/md";
 import {HeaderWithButton} from "@/components/headerlisttile";
-import {ItemListCombo, ToastSimple} from "@/app/stores/[storeid]/sales/cashsales/_component/itemlistcombo";
+import {ItemListCombo} from "@/app/stores/[storeid]/sales/cashsales/_component/itemlistcombo";
 
-import {useParams, usePathname, useRouter, useSearchParams} from "next/navigation";
+import {useParams, useRouter, useSearchParams} from "next/navigation";
 
-import {createCashPurchases} from "@/app/_actions/purchases";
-import {getStockGroup, getStockUnits} from "@/app/_actions/stock_item_options";
 import {getSingleVoucherList} from "@/app/_actions/voucher";
 
 export default function EditVoucherFormPage(prop) {

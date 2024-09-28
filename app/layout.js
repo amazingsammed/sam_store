@@ -1,7 +1,6 @@
 
 
 import "./globals.css";
-import {SessionProvider} from "next-auth/react";
 import SessionWrapper from "@/app/_wrapper";
 // import { Inter } from "next/font/google";
 //

@@ -1,7 +1,6 @@
 
 import Cashsalepage from "@/app/stores/[storeid]/sales/cashsales/_component/cashsalepage";
-import Itemlist from "@/app/stores/[storeid]/_component/itemlist";
-import {getCachedProducts, getProducts} from "@/app/_actions/stock_item";
+import {getProducts} from "@/app/_actions/stock_item";
 
 
 async function Page(props) {

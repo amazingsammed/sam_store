@@ -5,7 +5,6 @@ import Link from "next/link";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 
 import Storeheader from "@/app/stores/_component/storeheader";
-import {SessionProvider} from "next-auth/react";
 
 function Storelist(prop) {
     const stores = prop.datax;

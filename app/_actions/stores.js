@@ -1,12 +1,9 @@
 'use server'
 
-import {authConfig} from "@/config/server-config";
-import {cookies} from "next/headers";
 import {PrimeChecker} from "@/app/_actions/_checker";
 import prisma from "@/lib/prisma";
 import {queryClean, formdataToJson} from "@/app/shared/sharedfunctions";
 import {v4 as uuidv4} from "uuid";
-import myDB from "@/lib/mysqldb";
 
 export async function getStores() {
     try {

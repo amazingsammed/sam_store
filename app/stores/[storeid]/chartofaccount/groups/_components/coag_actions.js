@@ -1,5 +1,5 @@
 'use client'
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Link from 'next/link';
 import {
     DropdownMenu,
@@ -11,7 +11,6 @@ import {
 import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
 import {useParams, usePathname, useRouter} from "next/navigation";
-import {deleteStockItem, editStockItem, getProductDetail} from "@/app/_actions/stock_item";
 import {useFormState} from "react-dom";
 import {
     Dialog, DialogClose,

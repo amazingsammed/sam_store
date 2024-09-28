@@ -1,6 +1,5 @@
 import Storelist from "@/app/stores/_component/storelist";
 import {getStores} from "@/app/_actions/stores";
-import {SessionProvider} from "next-auth/react";
 
 export default async function Page() {
    const list= await getStores();

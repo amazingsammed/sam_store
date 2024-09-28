@@ -1,8 +1,7 @@
 "use client"
 
-import React, {useState} from 'react';
+import React from 'react';
 import {MdMenu} from "react-icons/md";
-import Link from "next/link";
 import {SheetSideBar} from "@/components/Sidebar";
 
 function StoreHeader() {

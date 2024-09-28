@@ -1,5 +1,5 @@
 'use client'
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Link from 'next/link';
 import {
     DropdownMenu,
@@ -11,7 +11,7 @@ import {
 import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
 import {useParams, usePathname, useRouter} from "next/navigation";
-import {deleteStockItem, editStockItem, getProductDetail} from "@/app/_actions/stock_item";
+import {deleteStockItem, editStockItem} from "@/app/_actions/stock_item";
 import {useFormState} from "react-dom";
 import {
     Dialog, DialogClose,
@@ -23,9 +23,6 @@ import {
 } from "@/components/ui/dialog";
 import CTextfield from "@/components/ktextfield";
 import {cn} from "@/lib/utils";
-import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
-import {SideBarItemExpanded} from "@/components/Sidebar";
-import {TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow, Table} from "@/components/ui/table";
 
 function ItemActions({element}) {
     const param = useParams();

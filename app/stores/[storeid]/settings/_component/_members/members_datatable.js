@@ -1,7 +1,6 @@
 "use client"
 
 import {
-    ColumnDef,
     flexRender,
     getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel,
     useReactTable,
@@ -16,15 +15,8 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import {Button} from "@/components/ui/button";
-import {SortingState} from "@tanstack/react-table";
 import {useState} from "react";
 import { Input } from "@/components/ui/input"
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 
 
 export function DataTable({columns,data,filter='name',addButton}) {

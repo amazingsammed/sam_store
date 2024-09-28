@@ -1,9 +1,6 @@
 
 import {ItemsPage} from "@/app/stores/[storeid]/items/_components/item_table";
-import {getAllProducts, getAllProductsbyStoreid, getProducts} from "@/app/_actions/stock_item";
-import Productpage from "@/app/stores/[storeid]/items/_components/productpage";
-
-
+import {getAllProductsbyStoreid} from "@/app/_actions/stock_item";
 
 
 export default async function Home(params) {

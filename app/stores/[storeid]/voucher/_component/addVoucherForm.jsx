@@ -1,7 +1,6 @@
 "use client";
 
 import {CTextfieldR, CTextfieldNum, CCheckBox, CDropDown} from '@/components/ktextfield'
-import {useRouter} from "next/navigation";
 import {useState, useEffect} from 'react';
 import {addProduct, getItemsgroupList, getItemsUnitList} from "@/app/_actions/stock_item";
 

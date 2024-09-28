@@ -1,16 +1,5 @@
 'use client'
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
 import Headerlisttile from "../../../../../components/headerlisttile";
-import {MdMoreVert} from "react-icons/md";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
 import {purchasesColumns} from "@/app/stores/[storeid]/purchases/_components/purchases_columns";
 

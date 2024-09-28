@@ -3,17 +3,11 @@ import Link from "next/link";
 import {
     MdAccountBox,
     MdArrowDownward,
-    MdChevronLeft,
     MdChevronRight,
     MdDashboard,
-    MdHome,
-    MdInventory, MdLogout,
-    MdMenu,
-    MdNote,
-    MdPerson2,
-    MdPerson3,
+    MdInventory, MdNote,
     MdReport,
-    MdSettings, MdShare
+    MdSettings
 } from "react-icons/md";
 import React, {useEffect, useState} from "react";
 
@@ -21,15 +15,10 @@ import React, {useEffect, useState} from "react";
 import "@/app/globals.css";
 
 import {useParams, usePathname, useRouter} from "next/navigation";
-import {IoMdCash} from "react-icons/io";
-import {Button} from "@/components/ui/button";
-import {signOut} from "next-auth/react";
 import {
     Sheet,
-    SheetClose,
     SheetContent,
     SheetDescription,
-    SheetFooter,
     SheetHeader,
     SheetTitle,
     SheetTrigger,

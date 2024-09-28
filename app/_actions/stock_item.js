@@ -1,6 +1,6 @@
 'use server'
 
-import {prismatoJson, queryClean, formdataToJson} from "@/app/shared/sharedfunctions";
+import {queryClean, formdataToJson} from "@/app/shared/sharedfunctions";
 import prisma from "@/lib/prisma";
 import {PrimeChecker} from "@/app/_actions/_checker";
 import {v4 as uuidv4} from "uuid";
