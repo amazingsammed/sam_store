@@ -19,7 +19,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import {useToast} from "@/hooks/use-toast";
+
 
 
 export function ItemListCombo(props) {
@@ -74,19 +74,3 @@ export function ItemListCombo(props) {
 }
 
 
-export function ToastSimple() {
-    const { toast } = useToast()
-
-    return (
-        <Button
-            variant="outline"
-            onClick={() => {
-                toast({
-                    description: "Your message has been sent.",
-                })
-            }}
-        >
-            Show Toast
-        </Button>
-    )
-}

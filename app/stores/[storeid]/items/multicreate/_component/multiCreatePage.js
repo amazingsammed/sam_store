@@ -9,10 +9,10 @@ import {createCashSales} from "@/app/_actions/sales";
 import {useParams, useRouter} from "next/navigation";
 import {SuccessDialog} from "@/app/shared/mydialogbox";
 import {ToastAction} from "@/components/ui/toast";
-import {useToast} from "@/hooks/use-toast";
+
 
 function MultiCreatePage() {
-    const {toast} = useToast();
+
     const path = useParams();
     const [success, setSuccess] = useState(false);
     const [list, setList] = useState([]);
