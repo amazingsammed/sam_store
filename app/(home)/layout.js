@@ -7,7 +7,7 @@ export default function Layout({ children }) {
   return (
         <div>
             <HomeNav />
-          <div >{children}</div>
+          <div className="max-w-screen-xl mx-auto">{children}</div>
         </div>
   );
 }

@@ -29,7 +29,7 @@ export default function HomeNav(){
   }
     return (
 
-        <nav className="bg-blue border-gray-200 border-b">
+        <nav className=" border-gray-200  fixed bg-white items-center w-full border-b-2">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-end  md:justify-between mx-auto p-4 container">
           <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" >
           <ul className="flex flex-col md:p-0 mt-4 border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
