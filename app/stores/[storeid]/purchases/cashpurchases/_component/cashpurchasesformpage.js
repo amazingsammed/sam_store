@@ -36,7 +36,7 @@ const    router = useRouter();
         setnewitem({
             ...newitem,
             "name": item.name,
-            'rate': item.salesprice,
+            'rate': item.purchaseprice,
             "uuidt": item.uuidt,
         })
     }

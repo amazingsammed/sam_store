@@ -39,11 +39,11 @@ export const itemsColumns = [
         enableSorting: false,
         enableHiding: false,
     },
-    {
-        accessorKey: "shortname",
-        header: "Code",
-        enableHiding: true,
-    },
+    // {
+    //     accessorKey: "shortname",
+    //     header: "Code",
+    //     enableHiding: true,
+    // },
     {
         accessorKey: "name",
         header: "Name",
@@ -57,10 +57,10 @@ export const itemsColumns = [
         accessorKey: "salesprice",
         header: "Selling Price",
     },
-    {
-        accessorKey: "quantity",
-        header: "Quantity Left",
-    },
+    // {
+    //     accessorKey: "quantity",
+    //     header: "Quantity Left",
+    // },
     {
         accessorKey: "status",
         header: "Status",

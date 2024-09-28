@@ -13,30 +13,17 @@ export async function getProducts(storeid) {
         const userid = await PrimeChecker(storeid);
 
         const  data= await prisma.$queryRaw ` SELECT
-\tstock_item.shortname, 
 \tstock_item.\`name\`, 
-\tstock_item_group.\`name\` AS \`group\`, 
 \tstock_item.uuidt, 
-\tstock_item_unit.\`name\` AS unit, 
 \tstock_item.salesprice, 
-\tstock_item.purchaseprice, 
-\tstock_item.is_service, 
-\tstock_item.warninglimit, 
-\tstock_item.description, 
-\tstock_item.createddate, 
-\t\`user\`.\`name\` AS createdby
+\tstock_item.purchaseprice
 FROM
-\tstock_item_group,
-\tstock_item,
-\tstock_item_unit,
-\t\`user\`
+\tstock_item
 WHERE
-\tstock_item.\`group\` = stock_item_group.id AND
-\tstock_item_unit.id = stock_item.unit AND
-\tstock_item.createdby = \`user\`.uuid AND
 \tstock_item.storeid = ${queryClean(storeid)} AND
 \tstock_item.\`status\` = 1
         `;
+        console.log(data);
         return JSON.parse(JSON.stringify(data));
     } catch (e) {
         return [];
@@ -77,6 +64,34 @@ WHERE
 \tstock_item.\`group\` = stock_item_group.id
 GROUP BY
 \ttrn_inventory.item_uuid
+        `;
+        return JSON.parse(JSON.stringify(data));
+    } catch (e) {
+        return [];
+    }
+
+    //return currentUserCounter.count;
+}
+export async function getAllProductsbyStoreid(storeid) {
+    const results = [];
+    try {
+        const userid = await PrimeChecker(storeid);
+
+        const  data= await prisma.$queryRaw ` 
+SELECT
+\tstock_item.\`name\`, 
+\tstock_item.salesprice, 
+\tstock_item.purchaseprice, 
+\tstock_item.\`status\`, 
+\tstock_item_group.\`name\` AS \`group\`
+FROM
+\tstock_item,
+\tstock_item_group,
+\tstock_item_unit
+WHERE
+\tstock_item.\`group\` = stock_item_group.id AND
+\tstock_item.unit = stock_item_unit.id AND
+\tstock_item.storeid = ${queryClean(storeid)} 
         `;
         return JSON.parse(JSON.stringify(data));
     } catch (e) {
@@ -148,7 +163,7 @@ export async function addProduct(data, storeid) {
 
             }
         });
-        if (element.hasopenbalance === 'on') {
+        if (element.hasopenbalance === 'on' || parseInt(element.quantity) >0 ) {
             await prisma.voucher.create({
                 data: {
                     uuid: guid,
