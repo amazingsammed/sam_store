@@ -51,12 +51,12 @@ const HomePage = () => {
 
 
   return (
-  <div className="max-w-screen-xl mx-auto">
-      <section className=" flex-row flex  justify-between p-3  items-center pt-20">
-          <div className="flex flex-col  w-1/2 gap-20">
+  <div className="max-w-screen-xl mx-auto px-10 md:px-4">
+      <section className="flex-col md:flex-row flex  justify-between p-3  items-center pt-20 gap-4">
+          <div className="flex flex-col   gap-20">
               <div>
-              <h1 className="font-extrabold text-5xl">Empowering Your Business with Seamless Accounting Solutions</h1>
-              <p className="mt-6 text-xl">Making your Business Transactions Simplify and Easy to manage</p>
+              <h1 className="font-extrabold md:text-5xl text-2xl">Empowering Your Business with Seamless Accounting Solutions</h1>
+              <p className="mt-6 text-xl">Making your Business Transactions Simplified and Easy to manage</p>
               </div>
 
               <div className="flex flex-row items-center gap-4 mt-15">
@@ -74,10 +74,10 @@ const HomePage = () => {
           </div>
 
       </section>
-      <section className=" flex flex-col justify-between items-center mt-10 h-[100vh]">
-          <div className="flex flex-col justify-between items-center w-2/3 py-14">
+      <section className=" flex flex-col justify-between items-center mt-10 ">
+          <div className="flex flex-col justify-between items-center  py-14">
               <h1 className="text-2xl font-bold">Features</h1>
-              <p className="container text-xl  mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"> Everything you need to manage your web accounting Store. Keep track of all of your payments, invoices, expenses, etc. in one place with zero fees</p>
+              <p className="container text-xl  mx-auto"> Everything you need to manage your web accounting Store. Keep track of all of your payments, invoices, expenses, etc. in one place with zero fees</p>
           </div>
           <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3 ">
               {basicReport.map((item, index) => (
