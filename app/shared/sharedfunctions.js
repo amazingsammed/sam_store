@@ -57,6 +57,6 @@ export function prismatoJson(data,nestedKeys){
 }
 
 export function DateFormat(data){
-    return format( Date(data), 'Ko MMM yy');
+    return format( Date(data), 'dd MMM yy');
 }
 

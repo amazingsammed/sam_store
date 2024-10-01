@@ -58,6 +58,7 @@ export async function deactivateVoucher(data) {
 }
 
 export async function getSingleVoucherList(uuid ,storeid) {
+    console.log(uuid ,"Voucher uuid")
     try {
         const userid = await PrimeChecker(storeid);
         const results = await prisma.$queryRaw ` 
@@ -68,7 +69,7 @@ export async function getSingleVoucherList(uuid ,storeid) {
 \tvoucher_type.\`name\` AS accountname, 
 \tvoucher.narration, 
 \tstock_item.\`name\`, 
-\tstock_item.uuidt
+\tstock_item.uuid
 FROM
 \ttrn_inventory,
 \tvoucher,
@@ -77,10 +78,10 @@ FROM
 WHERE
 \ttrn_inventory.voucher_uuid = voucher.uuid AND
 \tvoucher.voucher_type = voucher_type.id AND
-\tvoucher.uuid = ${queryClean(uuid)} AND
+\tvoucher.uuid = ${uuid} AND
 \tvoucher.storeid = ${queryClean(storeid)}
 AND
-\tstock_item.uuidt = trn_inventory.item_uuid
+\tstock_item.uuid = trn_inventory.item_uuid
 `;
         console.log(results, 'getSingleVoucherList');
         return CleanResults(results);

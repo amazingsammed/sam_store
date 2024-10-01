@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {MoreHorizontal} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
+import CustomerActions from "@/app/stores/[storeid]/sales/customer/_components/customer_actions";
 
 export const customerColumns = [
     {
@@ -41,41 +42,28 @@ export const customerColumns = [
         accessorKey: "phone",
         header: "Phone",
     },
+    // {
+    //     accessorKey: "email",
+    //     header: "Email",
+    // },
     {
-        accessorKey: "balance",
-        header: "Balance",
+        accessorKey: "address",
+        header: "Address",
     },
     {
-        accessorKey: "salesperson",
-        header: "Salesperson",
-        enableHiding: true,
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+            const status = row.original.status;
+            return status ===1 ?"active":"inactive";
+        }
     },
     {
         id: "actions",
         cell: ({ row }) => {
             const item = row.original
-
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        {/*<DropdownMenuSeparator />*/}
-                        {/*<EditItemForm prop ={item} />*/}
-                        <DropdownMenuItem>Deactivate Customer</DropdownMenuItem>
-                        <DropdownMenuItem>View Item Details</DropdownMenuItem>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(item.phone)}
-                        >
-                            Copy Customer Phone
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+               <CustomerActions element={item} />
             )
         },
     },

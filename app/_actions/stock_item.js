@@ -1,10 +1,9 @@
 'use server'
 
-import {queryClean, formdataToJson} from "@/app/shared/sharedfunctions";
+import {formdataToJson, queryClean} from "@/app/shared/sharedfunctions";
 import prisma from "@/lib/prisma";
 import {PrimeChecker} from "@/app/_actions/_checker";
 import {v4 as uuidv4} from "uuid";
-
 
 
 export async function getProducts(storeid) {
@@ -14,7 +13,7 @@ export async function getProducts(storeid) {
 
         const  data= await prisma.$queryRaw ` SELECT
 \tstock_item.\`name\`, 
-\tstock_item.uuidt, 
+\tstock_item.uuid, 
 \tstock_item.salesprice, 
 \tstock_item.purchaseprice
 FROM
@@ -44,7 +43,7 @@ SELECT
 \tstock_item.purchaseprice, 
 \tstock_item.\`status\`, 
 \tstock_item.shortname, 
-\tstock_item.uuidt, 
+\tstock_item.uuid, 
 \tstock_item_unit.\`name\` AS unit, 
 \tstock_item_group.\`name\` AS \`group\`
 FROM
@@ -52,7 +51,7 @@ FROM
 \tLEFT JOIN
 \tstock_item
 \tON 
-\t\ttrn_inventory.item_uuid = stock_item.uuidt,
+\t\ttrn_inventory.item_uuid = stock_item.uuid,
 \tstock_item_group,
 \tstock_item_unit,
 \tvoucher
@@ -82,6 +81,7 @@ SELECT
 \tstock_item.\`name\`, 
 \tstock_item.salesprice, 
 \tstock_item.purchaseprice, 
+\tstock_item.uuid,
 \tstock_item.\`status\`, 
 \tstock_item_group.\`name\` AS \`group\`
 FROM
@@ -124,7 +124,7 @@ WHERE
         let product = await prisma.stock_item.findFirst(
             {
                 where: {
-                    uuidt: productId
+                    uuid: productId
                 }
             }
         )
@@ -146,13 +146,14 @@ export async function addProduct(data, storeid) {
         console.log(element);
         const guid = uuidv4();
         const guidx = uuidv4();
+        const total = parseFloat(element.purchaseprice)* parseInt(element.quantity)
         const savedElement = await prisma.stock_item.create({
             data: {
                 name: element.name,
-                uuidt: guidx,
+                uuid: guidx,
                 shortname: element.shortname,
-                group: parseInt(element.group),
-                unit: parseInt(element.unit),
+                group: parseInt(element.group??1),
+                unit: parseInt(element.unit??1),
                 salesprice: parseFloat(element.salesprice),
                 purchaseprice: parseFloat(element.purchaseprice),
                 warninglimit: parseInt(element.warninglimit),
@@ -160,7 +161,6 @@ export async function addProduct(data, storeid) {
                 createdby: userid,
                 storeid: storeid,
                 createddate: new Date(),
-
             }
         });
         if (element.hasopenbalance === 'on' || parseInt(element.quantity) >0 ) {
@@ -174,7 +174,8 @@ export async function addProduct(data, storeid) {
                     is_invoice: 0,
                     is_inventory_voucher: 1,
                     is_accounting_voucher: 1,
-
+                    createdby: userid,
+                    storeid: storeid,
                 }
         }
             )
@@ -186,6 +187,22 @@ export async function addProduct(data, storeid) {
                     rate: parseFloat(element.purchaseprice),
                     amount: parseFloat(element.quantity) * parseFloat(element.purchaseprice),
                 }
+            });
+            await prisma.trn_accounting.createMany({
+                data: [
+                    {   voucher_uuid: guid,
+                        vouchername: 'Capital Accounts',
+                        account_uuid: 'capital',
+                        amount: parseFloat(total) * -1,
+                        is_system: 1,
+                    },
+                    {   voucher_uuid: guid,
+                        vouchername: 'Opening Stock',
+                        account_uuid: 'stock',
+                        amount: parseFloat(total),
+                        is_system: 1,
+                    },
+                ],
             });
         }
 
@@ -202,7 +219,7 @@ export async function editStockItem(data, storeid) {
         console.log(element);
         const savedElement = await prisma.stock_item.update({
             where: {
-                uuidt: element.uuidt,
+                uuid: element.uuid,
                 storeid: storeid,
             },
             data: {
@@ -213,7 +230,7 @@ export async function editStockItem(data, storeid) {
                 description: element.description,
             }
         });
-        console.log(savedElement , 'results');
+        console.log(savedElement, 'update stock')
     }catch (e) {
         console.log(e);
     }
@@ -223,9 +240,9 @@ export async function deleteStockItem(data) {
     try{
         const element = data;
         console.log(element);
-        const savedElement = await prisma.stock_item.update({
+        const savedElement = await prisma.stock_item.updateMany({
             where: {
-                uuidt: element.uuidt,
+                uuid: element.uuid,
             },
             data: {
                 status: element.status===1?0:1,
@@ -233,6 +250,116 @@ export async function deleteStockItem(data) {
         });
         console.log(savedElement , 'results');
     }catch (e) {
+        console.log(e);
+    }
+}
+
+function listToItem(element) {
+    const results = [];
+
+    element.forEach(item => {
+        const guidx = uuidv4();
+        const guid = uuidv4();
+        results.push({
+            name: item.name,
+            uuid_item: guidx,
+            group: 1,
+            unit: 1,
+            salesprice: parseFloat(item.rate),
+            purchaseprice: parseFloat(item.rate),
+            total: parseFloat(item.rate)*parseFloat(item.quantity),
+            warninglimit: 0,
+            is_service: 0,
+            uuid: guid,
+            date: new Date(),
+            voucher_type: 14,
+            narration: "purchases of " + item.name,
+            party_name: 'Purchases',
+            is_invoice: 0,
+            is_inventory_voucher: 1,
+            is_accounting_voucher: 1,
+            voucher_uuid: guid,
+            item_uuid: guidx,
+            quantity: parseInt(item.quantity),
+        });
+    })
+    return results;
+}
+export async function addManyProduct(data, storeid) {
+
+    try {
+        const userid = await PrimeChecker(storeid);
+        const items = listToItem(data,storeid,userid);
+
+        const accounting = [];
+        items.forEach(element => {
+            accounting.push(
+                {   voucher_uuid: element.uuid,
+                    vouchername: 'Capital Accounts',
+                    account_uuid: 'capital',
+                    amount: element.total * -1,
+                    is_system: 1,
+                },
+            );
+            accounting.push(
+                {   voucher_uuid: element.uuid,
+                    vouchername: 'Opening Stock',
+                    account_uuid: 'stock',
+                    amount: element.total,
+                    is_system: 1,
+                },
+            );
+        })
+        const stock = await prisma.stock_item.createMany({
+            data: items.map(element=>{
+                return {
+                    name: element.name,
+                    uuid: element.uuid_item,
+                    group: 1,
+                    unit: 1,
+                    salesprice: element.salesprice,
+                    purchaseprice: element.purchaseprice,
+                    warninglimit: 0,
+                    is_service: 0,
+                    createdby: userid,
+                    storeid: storeid,
+                    createddate: new Date(),
+                };
+            })
+        });
+
+        const voucher = await prisma.voucher.createMany({
+                    data: items.map(element=>{
+                        return {
+                            uuid: element.uuid,
+                            date: new Date(),
+                            voucher_type: 14,
+                            narration: "purchases of " + element.name,
+                            party_name: 'Purchases',
+                            is_invoice: 0,
+                            is_inventory_voucher: 1,
+                            is_accounting_voucher: 1,
+                            createdby: userid,
+                            storeid: storeid,
+                        };
+                    })
+                })
+            const inventory = await  prisma.trn_inventory.createMany({
+                data: items.map(element=>{
+                    return {
+                        voucher_uuid: element.uuid,
+                        item_uuid: element.uuid_item,
+                        quantity: element.quantity,
+                        rate: element.purchaseprice,
+                        amount: element.total,
+                    };
+                })
+            });
+        const account = await prisma.trn_accounting.createMany({data: accounting,});
+
+        console.log(stock,voucher,inventory,account);
+    return [stock,voucher,inventory,account];
+    } catch (e) {
         console.log(e);
     }
 }

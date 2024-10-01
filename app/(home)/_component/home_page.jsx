@@ -53,9 +53,9 @@ const HomePage = () => {
   return (
   <div className="max-w-screen-xl mx-auto px-10 md:px-4">
       <section className="flex-col md:flex-row flex  justify-between p-3  items-center pt-20 gap-4">
-          <div className="flex flex-col   gap-20">
+          <div className="flex flex-col gap-20">
               <div>
-              <h1 className="font-extrabold md:text-5xl text-2xl">Empowering Your Business with Seamless Accounting Solutions</h1>
+              <h1 className="font-extrabold md:text-3xl text-2xl">Empowering Your Business with Seamless Accounting Solutions</h1>
               <p className="mt-6 text-xl">Making your Business Transactions Simplified and Easy to manage</p>
               </div>
 

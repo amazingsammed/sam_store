@@ -35,7 +35,7 @@ export function ItemListCombo(props) {
                     className="w-[200px] justify-between"
                 >
                     {value
-                        ? props.list.find((item) => item.uuidt === value)?.name
+                        ? props.list.find((item) => item.uuid === value)?.name
                         : "Select an item..."}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
@@ -49,7 +49,7 @@ export function ItemListCombo(props) {
                             {props.list.map((element,i) => (
                                 <CommandItem
                                     key={i}
-                                    value={element.uuidt}
+                                    value={element.uuid}
                                     onSelect={(currentValue) => {
                                         setValue(currentValue === value ? "" : currentValue)
                                         props.onChangeValue(element)
@@ -59,7 +59,7 @@ export function ItemListCombo(props) {
                                     <Check
                                         className={cn(
                                             "mr-2 h-4 w-4",
-                                            value === element.uuidt ? "opacity-100" : "opacity-0"
+                                            value === element.uuid ? "opacity-100" : "opacity-0"
                                         )}
                                     />
                                     {element.name}

@@ -12,7 +12,7 @@ function listToInventory(data, guid, storeid, userid) {
         total = (parseFloat(item.quantity) * parseFloat(item.rate)) + total;
         results.push({
             voucher_uuid: guid,
-            item_uuid: item.uuidt,
+            item_uuid: item.uuid,
             quantity: parseInt(item.quantity) * -1,
             rate: parseFloat(item.rate),
             amount: parseFloat(item.quantity) * parseFloat(item.rate),
@@ -25,7 +25,6 @@ function listToInventory(data, guid, storeid, userid) {
 export async function createCashSales(data, storeid) {
     try {
         console.log(data);
-
         const userid = await PrimeChecker(storeid);
         console.log(userid);
         // const element = toJson(data)
@@ -92,7 +91,7 @@ FROM
 \t\`user\`
 WHERE
 \tvoucher.uuid = trn_inventory.voucher_uuid AND
-\ttrn_inventory.item_uuid = stock_item.uuidt AND
+\ttrn_inventory.item_uuid = stock_item.uuid AND
 \tvoucher.voucher_type = 22 AND
 \tvoucher.storeid = ${queryClean(storeid)} AND
 \tvoucher.\`status\` = 1 AND

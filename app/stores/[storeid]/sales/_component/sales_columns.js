@@ -75,7 +75,7 @@ export const salesColumns = [
     //                 <DropdownMenuContent align="end">
     //                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
     //                     <DropdownMenuItem
-    //                         onClick={() => navigator.clipboard.writeText(payment.uuidt)}
+    //                         onClick={() => navigator.clipboard.writeText(payment.uuid)}
     //                     >
     //                         Copy Item ID
     //                     </DropdownMenuItem>

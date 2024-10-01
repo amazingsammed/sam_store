@@ -37,7 +37,7 @@ export async function addCustomer(data, storeid) {
                 uuid: guid,
                 account_code: Math.floor(4565),
                 account_name: element.name,
-                account_parent: 32,
+                account_group: "692AC7B4-98AE-4ED5-9D2D-BE8C70D4FBBE",
                 account_type: 1,
                 opening_balance: parseFloat(element.openingbalance),
                 createdby: userid,
@@ -58,6 +58,52 @@ export async function addCustomer(data, storeid) {
             }
         });
 
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function deactivateCustomers(element,storeid) {
+    try {
+        const userid = await PrimeChecker(storeid);
+        const  results = await prisma.customer.update({
+            where: {
+                storeid: storeid,
+                coa_uuid: element.coa_uuid,
+            },
+            data: {
+                status: element.status===1?0:1,
+            }
+        });
+        console.log(results ,"Customers deactivated");
+
+    } catch (e) {
+        console.log(e)
+    }
+
+    //return currentUserCounter.count;
+}
+
+
+export async function editCustomer(data, storeid) {
+
+    try {
+        const userid = await PrimeChecker(storeid);
+        const element = formdataToJson(data);
+        const results = await prisma.customer.updateMany({
+                where: {
+                    storeid: storeid,
+                    coa_uuid: element.coa_uuid,
+                },
+            data: {
+                name: element.name,
+                address: element.address,
+                phone: element.phone,
+                editedby: userid,
+                editeddate: new Date(),
+            }
+        });
+        console.log(results);
     } catch (e) {
         console.log(e);
     }

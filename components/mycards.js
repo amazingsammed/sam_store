@@ -24,6 +24,29 @@ function ReportCard({element}) {
        </Link>
     );
 }
+export function VoucherCard({element}) {
+    const path = usePathname();
+    if(element.active ===false){
+        return <div></div>
+    }
+    return (
+        <Link href={`${element.path}`}>
+            <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-xl font-bold">
+                        {element.title}
+                    </CardTitle>
+                    {element.icon}
+                </CardHeader>
+                <CardContent>
+                    <p>
+                        {element.description}
+                    </p>
+                </CardContent>
+            </Card>
+        </Link>
+    );
+}
 
 export function HomeCard({element}) {
     const path = usePathname();

@@ -12,7 +12,7 @@ function listToPurchasesInventory(data, guid) {
         total = (parseFloat(item.quantity) * parseFloat(item.rate)) + total;
         results.push({
             voucher_uuid: guid,
-            item_uuid: item.uuidt,
+            item_uuid: item.uuid,
             quantity: parseInt(item.quantity),
             rate: parseFloat(item.rate),
             amount: parseFloat(item.quantity) * parseFloat(item.rate),
@@ -95,7 +95,7 @@ FROM
 \t\`user\`
 WHERE
 \tvoucher.uuid = trn_inventory.voucher_uuid AND
-\ttrn_inventory.item_uuid = stock_item.uuidt AND
+\ttrn_inventory.item_uuid = stock_item.uuid AND
 \tvoucher.voucher_type = 15 AND
 \tvoucher.storeid = ${queryClean(storeid)} AND
 \tvoucher.\`status\` = 1 AND

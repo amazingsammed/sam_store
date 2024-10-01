@@ -16,7 +16,7 @@ import "@/app/globals.css";
 
 import {useParams, usePathname, useRouter} from "next/navigation";
 import {
-    Sheet,
+    Sheet, SheetClose,
     SheetContent,
     SheetDescription,
     SheetHeader,
@@ -40,19 +40,7 @@ const theSidemenu = [
         'hasItems': false,
         'url': "/dashboard"
     },
-    {
-        'title': "Chart of Accounts",
-        'icon': <MdAccountBox size={size}/>,
-        'hasItems': true,
-        'url': "/chartofaccount",
-        'items': [
-            {
-                'name': "Account Group",
-                'url': "/chartofaccount/groups"
-            }
-        ]
 
-    },
     {
         'title': "Sales",
         'icon': <MdNote size={size}/>,
@@ -101,7 +89,7 @@ const theSidemenu = [
             },
             {
                 'name': "Suppliers",
-                'url': "/purchases/suppliers"
+                'url': "/purchases/supplier"
             },
         ]
     },
@@ -111,6 +99,10 @@ const theSidemenu = [
         'hasItems': true,
         'url': "/items",
         'items': [
+            {
+                'name': "MultiCreate",
+                'url': "/items/multicreate",
+            },
             {
                 'name': "Category",
                 'url': "/items/category"
@@ -152,6 +144,19 @@ const configurationlist = [
         'icon': <MdSettings size={size}/>,
         'hasItems': false,
         'url': "/settings"
+    },
+    {
+        'title': "Chart of Accounts",
+        'icon': <MdAccountBox size={size}/>,
+        'hasItems': true,
+        'url': "/chartofaccount",
+        'items': [
+            {
+                'name': "Account Group",
+                'url': "/chartofaccount/groups"
+            }
+        ]
+
     }
 ];
 
@@ -165,7 +170,7 @@ export default function SideBar() {
 
     useEffect(() => {
         async function fetchPosts() {
-            let res = await fetch('http://localhost:3000/api/system',
+            let res = await fetch( `http://localhost:3000/api/system`,
                 {
                     method: 'POST',
                     headers: {
@@ -179,9 +184,9 @@ export default function SideBar() {
             }
             if(res.status === 200){
             let {results} = await res.json();
-                console.log(results, 'success');
             setRole(results['role'])
             }else {
+                console.log(res, 'app sidebar');
                 await router.push('/stores');
             }
         }
@@ -285,17 +290,74 @@ export function SheetSideBar({children}) {
     return (
         <Sheet>
             <SheetTrigger>{children}</SheetTrigger>
-            <SheetContent className="w-[400px] sm:w-[540px]">
+            <SheetContent className="w-[400px] sm:w-[540px] bg-slate-900">
                 <SheetHeader>
-                    <SheetTitle>Are you absolutely sure?</SheetTitle>
+                    {/*<SheetTitle>*/}
+                    {/*    */}
+                    {/*</SheetTitle>*/}
                     <SheetDescription>
-                        {theSidemenu.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}
+                        <div className=" p-4 flex flex-row items-center bg-slate-800 ">
+                            {/*<MdMenu size={30}/>*/}
+                            <span className="text-3xl uppercase pl-4  text-white">MSK</span>
+                        </div>
+                        {theSidemenu.map((a) => <SideBarItemExpandedx item={a} key={a['title']}/>)}
                     </SheetDescription>
                 </SheetHeader>
             </SheetContent>
         </Sheet>
     );
 
+}
+
+export function SideBarItemExpandedx({item,}) {
+    const [isopen, setidopened] = useState(false);
+    const path = useParams();
+    const pathName = usePathname();
+
+
+    function toggleDrop() {
+        item['hasItems'] && setidopened(!isopen);
+    }
+
+    return (
+        <div className="flex flex-col py-2 ">
+            <div
+                className={pathName === '/stores/' + path.storeid + item['url'] ? "  rounded bg-purple-950 flex-row flex justify-between items-center" : " hover:bg-purple-950 rounded flex flex-row justify-between items-center"}>
+            <SheetClose>
+                <Link href={'/stores/' + path.storeid + item['url']}>
+                    <div className="w-[12rem] ">
+
+                            <div>
+                                <div className="flex justify-between items-center py-3 px-1.5">
+                                    <div className="flex-row items-center flex gap-2  text-white">
+                                        {item['icon']}
+                                        {item['title']}
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+                </Link>
+            </SheetClose>
+                {item['hasItems'] &&
+                    <div onClick={toggleDrop} className=" text-white hover:bg-purple-800 rounded-lg p-2 mr-2">{isopen ?
+                        <MdArrowDownward/> : <MdChevronRight/>}</div>}
+            </div>
+
+            <div className="ml-6 ">
+                {isopen && item['items'].map((a) => (
+                    <Link key={a['title']} href={'/stores/' + path.storeid + a['url']}>
+                        <div className="p-2 hover:bg-purple-800 rounded flex justify-between items-center text-white">
+                            <h1 className=" flex"> {a['name']}</h1>
+                            <MdChevronRight/>
+                        </div>
+                    </Link>
+                ))}
+
+            </div>
+        </div>
+
+    );
 }
 
 

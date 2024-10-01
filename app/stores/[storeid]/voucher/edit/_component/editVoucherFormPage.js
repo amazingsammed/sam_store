@@ -52,7 +52,7 @@ export default function EditVoucherFormPage(prop) {
             ...newitem,
             "name": item.name,
             'rate': item.salesprice,
-            "uuidt": item.uuidt,
+            "uuid": item.uuid,
         })
     }
 

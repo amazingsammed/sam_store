@@ -15,7 +15,7 @@ model chart_of_account {
   account_group   String?   @db.VarChar(255)
   account_type    Int?
   opening_balance Decimal?  @default(0.00) @db.Decimal(17, 2)
-  description     String?   @db.VarChar(4)
+  description     String?   @db.VarChar(255)
   storeid         String?   @db.VarChar(255)
   createdby       String?   @db.VarChar(255)
   createddate     DateTime? @db.DateTime(0)
@@ -23,47 +23,41 @@ model chart_of_account {
 }
 
 model customer {
-  id        Int       @id @default(autoincrement())
-  coa_uuid  String    @db.VarChar(255)
-  name      String?   @db.VarChar(255)
-  email     String?   @db.VarChar(255)
-  address   String?   @db.VarChar(255)
-  phone     String?   @db.VarChar(255)
-  type      Int?
-  date      DateTime? @db.DateTime(0)
-  createdby String?   @db.VarChar(255)
-  status    Int?
-  storeid   String?   @db.VarChar(255)
-
-  @@index([coa_uuid(length: 250)], map: "uuid")
-  @@index([coa_uuid], map: "uuid_2")
+  id         Int       @id @default(autoincrement())
+  coa_uuid   String    @unique(map: "coa_uuid") @db.VarChar(255)
+  name       String?   @db.VarChar(255)
+  email      String?   @db.VarChar(255)
+  address    String?   @db.VarChar(255)
+  phone      String?   @db.VarChar(255)
+  type       Int?
+  date       DateTime? @db.DateTime(0)
+  createdby  String?   @db.VarChar(255)
+  status     Int?      @default(1)
+  storeid    String?   @db.VarChar(255)
+  editedby   String?   @db.VarChar(255)
+  editeddate DateTime? @db.DateTime(0)
 }
 
 model stock_item {
-  id               Int               @default(autoincrement())
-  name             String?           @default("") @db.VarChar(1024)
-  group            Int?
-  uuidt            String            @unique(map: "uuidt") @db.VarChar(255)
-  shortname        String?           @default("") @db.VarChar(256)
-  part_number      String?           @default("") @db.VarChar(256)
-  unit             Int?
-  description      String?           @db.VarChar(255)
-  status           Int?              @default(1)
-  createdby        String?           @db.VarChar(255)
-  storeid          String?           @db.VarChar(255)
-  createddate      DateTime?         @db.DateTime(0)
-  is_active        Int?              @default(1)
-  salesprice       Decimal?          @db.Decimal(10, 2)
-  purchaseprice    Decimal?          @db.Decimal(10, 2)
-  warninglimit     Int?
-  is_service       Int?              @default(0)
-  stock_item_group stock_item_group? @relation(fields: [group], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "stock_item_ibfk_1")
-  stock_item_unit  stock_item_unit?  @relation(fields: [unit], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "stock_item_ibfk_2")
+  id            Int       @default(autoincrement())
+  name          String?   @default("") @db.VarChar(1024)
+  group         Int       @default(1)
+  uuid          String    @unique(map: "uuidt") @db.VarChar(255)
+  shortname     String?   @default("") @db.VarChar(256)
+  part_number   String?   @default("") @db.VarChar(256)
+  unit          Int       @default(1)
+  description   String?   @db.VarChar(255)
+  status        Int?      @default(1)
+  createdby     String?   @db.VarChar(255)
+  storeid       String?   @db.VarChar(255)
+  createddate   DateTime? @db.DateTime(0)
+  is_active     Int?      @default(1)
+  salesprice    Decimal?  @db.Decimal(10, 2)
+  purchaseprice Decimal?  @db.Decimal(10, 2)
+  warninglimit  Int?
+  is_service    Int?      @default(0)
 
-  @@id([id, uuidt])
-  @@index([group], map: "group")
-  @@index([id], map: "id")
-  @@index([unit], map: "unit")
+  @@id([id, uuid])
 }
 
 model stock_item_category {
@@ -84,21 +78,19 @@ model stock_item_group {
   createddate         DateTime?            @db.DateTime(0)
   storeid             String?              @db.VarChar(255)
   status              Int?                 @default(1)
-  stock_item          stock_item[]
   stock_item_category stock_item_category? @relation(fields: [category], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "stock_item_group_ibfk_1")
 
   @@index([category], map: "category")
 }
 
 model stock_item_unit {
-  id          Int          @id @default(autoincrement())
-  name        String       @default("") @db.VarChar(1024)
-  description String?      @db.VarChar(255)
-  createdby   String?      @db.VarChar(255)
-  createddate DateTime?    @db.DateTime(0)
-  storeid     String?      @db.VarChar(255)
-  status      Int?         @default(1)
-  stock_item  stock_item[]
+  id          Int       @id @default(autoincrement())
+  name        String    @default("") @db.VarChar(1024)
+  description String?   @db.VarChar(255)
+  createdby   String?   @db.VarChar(255)
+  createddate DateTime? @db.DateTime(0)
+  storeid     String?   @db.VarChar(255)
+  status      Int?      @default(1)
 }
 
 model store {

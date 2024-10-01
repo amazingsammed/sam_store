@@ -49,7 +49,7 @@ function CoagAction({element}) {
                     {element.status === 0 ? 'Activate' : 'Deactivate'} </DropdownMenuItem>
                 <DropdownMenuSeparator/>
                 <DropdownMenuItem>
-                    <Link href={`${path}/${element.uuidt}`}>
+                    <Link href={`${path}/${element.uuid}`}>
                         View Item Details
                     </Link>
                 </DropdownMenuItem>

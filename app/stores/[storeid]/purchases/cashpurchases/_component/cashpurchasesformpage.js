@@ -37,7 +37,7 @@ const    router = useRouter();
             ...newitem,
             "name": item.name,
             'rate': item.purchaseprice,
-            "uuidt": item.uuidt,
+            "uuid": item.uuid,
         })
     }
 

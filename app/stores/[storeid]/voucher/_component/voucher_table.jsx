@@ -9,7 +9,7 @@ export function VoucherTable(prop) {
 
   return (
       <div className="">
-        <Headerlisttile title='Voucher List' subtitle='All Vouchers are listed here' bname="Add Voucher" ontap="items/addItem">
+        <Headerlisttile title='Voucher List' subtitle='All Vouchers are listed here' bname="Add Voucher" ontap="voucher/config">
           <DataTable columns={voucherColumns} data={tabledata} filter={'vouchertype'}/>
         </Headerlisttile>
       </div>

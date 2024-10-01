@@ -12,10 +12,10 @@ export default function HomeNav(){
             'title': "Home",
             'url': "/"
         },
-        {
-            'title': "About",
-            'url': "/about"
-        },
+        // {
+        //     'title': "About",
+        //     'url': "/about"
+        // },
         {
             'title': "Documentation",
             'url': "/docs/get-started"
