@@ -1,12 +1,3 @@
-import { Button } from "@/components/ui/button"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {MoreHorizontal} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
 import CustomerActions from "@/app/stores/[storeid]/sales/customer/_components/customer_actions";
 

@@ -11,7 +11,6 @@ import {
 import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
 import {useParams, usePathname, useRouter} from "next/navigation";
-import {deleteStockItem, editStockItem} from "@/app/_actions/stock_item";
 import {useFormState} from "react-dom";
 import {
     Dialog, DialogClose,
@@ -21,7 +20,6 @@ import {
     DialogTitle,
     DialogTrigger
 } from "@/components/ui/dialog";
-import CTextfield, {CDropDownWithOnChange} from "@/components/ktextfield";
 import {cn} from "@/lib/utils";
 import {deactivateCustomers, editCustomer} from "@/app/_actions/customer";
 

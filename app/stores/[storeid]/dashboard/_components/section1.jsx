@@ -173,7 +173,7 @@ export const Section1 = () => {
     )
 }
 
-var summary = [
+const summary = [
     {
         'title': "Chart of Accounts",
         "url": ""
@@ -194,9 +194,9 @@ var summary = [
         'title': "Others",
         "url": ""
     }
-]
+];
 
-var salessection = [
+const salessection = [
     {
         'title': "Cash Sales",
         "url": ""
@@ -222,9 +222,9 @@ var salessection = [
         "url": ""
     }
 
-]
+];
 
-var purchasesection = [
+const purchasesection = [
     {
         'title': "Cash Purchases",
         "url": ""
@@ -246,5 +246,5 @@ var purchasesection = [
         "url": ""
     }
 
-]
+];
 

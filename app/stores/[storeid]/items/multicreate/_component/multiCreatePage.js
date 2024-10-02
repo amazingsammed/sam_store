@@ -4,7 +4,6 @@ import React, {useState} from 'react';
 import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {MdCheck, MdDeleteOutline} from "react-icons/md";
 import {HeaderWithButton} from "@/components/headerlisttile";
-import {createCashSales} from "@/app/_actions/sales";
 import {useParams, useRouter} from "next/navigation";
 import {addManyProduct} from "@/app/_actions/stock_item";
 
@@ -70,16 +69,6 @@ function MultiCreatePage() {
     }
 
 
-    function GetTotalSales() {
-        let total = 0.0;
-        if (list.length === 0) {
-            return 0
-        }
-        list.forEach(item => {
-            total = (item.salesprice * item.quantity) + total;
-        })
-        return total;
-    }
 
     function GetTotalPurchases() {
         let total = 0.0;
@@ -87,7 +76,7 @@ function MultiCreatePage() {
             return 0
         }
         list.forEach(item => {
-            total = (item.purchaseprice * item.quantity) + total;
+            total = (item.rate * item.quantity) + total;
         })
         return total;
     }
@@ -156,9 +145,9 @@ function MultiCreatePage() {
                                         <TableRow>
                                             <TableCell className="font-medium w-[10]">Total Items
                                                 = {list.length} </TableCell>
-                                            <TableCell className="font-medium w-[10]">All Sales by Qty = {
-                                                <GetTotalSales/>} </TableCell>
-                                            <TableCell className="font-medium w-[10]">All Purchases by Qty = {
+                                            <TableCell className="font-medium w-[10]"> </TableCell>
+                                            <TableCell className="font-medium w-[10]"> </TableCell>
+                                            <TableCell className="font-medium w-[10]">Total Amount = {
                                                 <GetTotalPurchases/>} </TableCell>
                                         </TableRow>
                                     </TableFooter>

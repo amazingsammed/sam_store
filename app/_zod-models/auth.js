@@ -23,4 +23,11 @@ export const LoginFormSchema = z.object({
     password: z.string().min(8, { message: 'Password field must be at least 8 characters long' }).trim(),
 });
 
+export const CashPurchasesSchema = z.object({
+    name: z.string().min(1,{ message: 'One row is missing item name' }),
+    uuid: z.string().uuid({ message: 'Invalid UUID for item' }),
+    quantity: z.number().int().positive({ message: 'Quantity must be a positive integer.' }),
+    rate: z.number().positive({ message: 'rate must be a positive integer.' }),
+});
+
 

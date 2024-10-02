@@ -10,8 +10,8 @@ export default async function AddItemForm() {
 
     useEffect(() => {
             const fetcher = async () => {
-                var a = await getItemsgroupList();
-                var b = await getItemsUnitList();
+                const a = await getItemsgroupList();
+                const b = await getItemsUnitList();
                 if (a.length === 0) {
 
                 } else {
