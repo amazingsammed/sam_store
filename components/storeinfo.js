@@ -3,12 +3,16 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, usePathname, useRouter} from "next/navigation";
 
-import {MdLogout, MdStore} from "react-icons/md";
+import {MdLogout, MdSave, MdStore} from "react-icons/md";
 import Link from "next/link";
 import {signOut} from "next-auth/react";
 import {Button} from "@/components/ui/button";
+import {toast, Toaster} from "sonner";
+
+
 
 function Storeinfo(props) {
+
     const path = useParams();
     const pathName = usePathname();
     const router = useRouter();
@@ -65,5 +69,6 @@ function Storeinfo(props) {
         </div>
     );
 }
+
 
 export default Storeinfo;

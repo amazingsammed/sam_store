@@ -10,6 +10,7 @@ import {useFormState} from "react-dom";
 import {CashPurchasesSchema} from "@/app/_zod-models/auth";
 import {z} from "zod";
 import {createCashPurchases} from "@/app/_actions/purchases";
+import {toast, Toaster} from "sonner";
 
 
 export default function CashPurchasesFormPage(prop) {
@@ -66,19 +67,22 @@ export default function CashPurchasesFormPage(prop) {
         if (!validatedFields.success) {
             const errors = validatedFields.error.errors.map(err => err.message);
             setErrorMessages(errors);
+            toast.error('Incorrect data input')
             return [];
         }
         setErrorMessages([]);
-        await createCashPurchases(list, path.storeid);
-        await router.back();
-        setTimeout(() => {
-            router.refresh();
-        }, 500);
+        toast.success('Valid input');
+        // await createCashPurchases(list, path.storeid);
+        // await router.back();
+        // setTimeout(() => {
+        //     router.refresh();
+        // }, 500);
     }
     const [state, action] = useFormState(handleSave, undefined);
 
     return (
         <div className="grid grid-cols-12">
+
             <div className='h-[80dvh]  justify-between col-span-10'>
                 <HeaderWithButton title='Cash Purchases Form'
                                   subtitle='This for is used to record purchases made with cash only'

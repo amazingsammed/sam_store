@@ -5,7 +5,7 @@ import {SessionProvider} from "next-auth/react";
 function SessionWrapper({children}) {
     return (
         <SessionProvider>
-            {children}
+            <main>{children}</main>
         </SessionProvider>
     );
 }

@@ -53,21 +53,21 @@ export function SignupForm() {
             };
         }
         setHasLogged(false);
-        // try {
-        //
-        //     const res = await fetch("/api/signup", {
-        //         method: 'POST',
-        //         body: JSON.stringify(validatedFields.data),
-        //         headers: {"Content-Type": "application/json"}
-        //     })
-        //     if (res.status === 201) {
-        //         await router.push('/auth/login')
-        //     }else {
-        //         console.log(res.body);
-        //     }
-        // } catch (e) {
-        //     console.log(e);
-        // }
+        try {
+
+            const res = await fetch("/api/signup", {
+                method: 'POST',
+                body: JSON.stringify(validatedFields.data),
+                headers: {"Content-Type": "application/json"}
+            })
+            if (res.status === 201) {
+                await router.push('/auth/login')
+            }else {
+                console.log(res.body);
+            }
+        } catch (e) {
+            console.log(e);
+        }
 
         setHasLogged(true);
     }
