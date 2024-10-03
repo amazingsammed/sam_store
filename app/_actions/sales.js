@@ -1,6 +1,6 @@
 'use server';
 import {PrimeChecker} from "@/app/_actions/_checker";
-import {CleanResults, queryClean} from "@/app/shared/sharedfunctions";
+import {mapToJson, queryClean} from "@/app/shared/sharedfunctions";
 import prisma from "@/lib/prisma";
 import {v4 as uuidv4} from "uuid";
 
@@ -99,7 +99,7 @@ WHERE
 ORDER BY
 \ttrn_inventory.id ASC
         `;
-        return CleanResults(results);
+        return mapToJson(results);
     } catch (e) {
 
         console.log(e);

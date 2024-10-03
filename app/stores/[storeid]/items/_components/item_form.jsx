@@ -15,48 +15,46 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {addProduct} from "@/app/_actions/stock_item";
 import {useParams, useRouter} from "next/navigation";
 import {getStockGroup, getStockUnits} from "@/app/_actions/stock_item_options";
+import {toast} from "sonner";
+import {useFormState} from "react-dom";
 
 
 
 
 export function AddAnItem() {
-    const [groups, setGroups] = useState([{'name': "electronics",}]);
-    const [units, setUnits] = useState([{'name': "bags",}]);
+    const [groups, setGroups] = useState([{'name': "others",'id':1}]);
+    const [units, setUnits] = useState([{'name': "others",'id':1}]);
     const [hasopenbalance ,setHasopenbalance] = useState(false);
     const [isService ,setisService] = useState(false);
+    const ref = useRef<HTMLFormElement>(null);
 
     useEffect(() => {
             const fetcher = async () => {
-                const a = await getStockGroup(path.storeid);
-                const b = await getStockUnits(path.storeid);
-                if (a.length === 0) {
+                try {
+                    const newGroups = await getStockGroup(path.storeid);
+                    const newUnits = await getStockUnits(path.storeid);
+console.log(newUnits);
+                    // Combine previous state with new fetched data
+                    setGroups(prevGroups => [
+                        ...new Set([...prevGroups, ...newGroups.map(group => JSON.stringify(group))])
+                    ]);
 
-                } else {
+                    setUnits(prevUnits => [
+                        ...new Set([...prevUnits, ...newUnits.map(unit => JSON.stringify(unit))])
+                    ]);
 
-                    setGroups(a);
-                }
-                if (b.length === 0) {
-
-                } else {
-
-                    setUnits(b);
+                } catch (error) {
+                    toast.error('Failed to fetch data');
                 }
             };
             fetcher();
 
         },
         []);
-
-
-
-
-
-
-
     function handleCheckBoxChange(e) {
 
         const {name, checked} = e.target;
@@ -64,13 +62,22 @@ export function AddAnItem() {
     }
     const path= useParams();
     const router = useRouter()
-    async function handleAddproduct(elements) {
-        await addProduct(elements, path.storeid);
-        setTimeout(()=>{
-            router.refresh();
-        }, 500);
-    }
+    async function handleAddproduct(a,elements) {
+        try {
+            const stock = await addProduct(elements, path.storeid);
+            if (stock) {
+                ref.current?.reset();
+                toast.success('Item Added Successfully');
+                setTimeout(() => {
+                    router.refresh();
+                }, 500);
+            }
+        } catch (error) {
+            toast.error('Failed to add item');
+        }
 
+    }
+    const [state, action] = useFormState(handleAddproduct, undefined);
 
     return (
         <Dialog>
@@ -78,7 +85,7 @@ export function AddAnItem() {
                 <Button>Create Product</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[434]">
-                <form action={handleAddproduct}>
+                <form action={action}>
                     <DialogHeader>
                         <DialogTitle>Create New Item</DialogTitle>
                         <DialogDescription>

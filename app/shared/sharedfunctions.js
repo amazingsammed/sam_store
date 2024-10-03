@@ -31,7 +31,7 @@ function formDataToJson(formData) {
 export function queryClean(a){
     return a;
 }
-export function CleanResults(data){
+export function mapToJson(data){
     if(data===undefined || data===null || data.length===0){
         return [];
     }

@@ -3,7 +3,7 @@
 import {PrimeChecker} from "@/app/_actions/_checker";
 import {v4 as uuidv4} from "uuid";
 import prisma from "@/lib/prisma";
-import {CleanResults, queryClean} from "@/app/shared/sharedfunctions";
+import {mapToJson, queryClean} from "@/app/shared/sharedfunctions";
 
 function listToPurchasesInventory(data, guid) {
     const results = [];
@@ -32,7 +32,7 @@ export async function createCashPurchases(data, storeid) {
         const guid = uuidv4();
         const [results, total ] = listToPurchasesInventory(data, guid);
         console.log(results,'results')
-        await prisma.voucher.create({
+       const voucher = await prisma.voucher.create({
             data: {
                 uuid: guid,
                 date: new Date(),
@@ -46,11 +46,11 @@ export async function createCashPurchases(data, storeid) {
                 storeid: storeid,
             }
         });
-        await prisma.trn_inventory.createMany({
+        const inventory =  await prisma.trn_inventory.createMany({
                 data: results
             }
         );
-        await prisma.trn_accounting.createMany({
+        const accounting = await prisma.trn_accounting.createMany({
             data: [
                 {   voucher_uuid: guid,
                     vouchername: 'Cash',
@@ -66,7 +66,7 @@ export async function createCashPurchases(data, storeid) {
                 },
             ],
         });
-
+return [voucher ,accounting ,inventory];
     } catch (e) {
 
         console.log(e);
@@ -103,7 +103,7 @@ WHERE
 ORDER BY
 \ttrn_inventory.id ASC
 `;
-        return CleanResults(results);
+        return mapToJson(results);
     } catch (e) {
 
         console.log(e);

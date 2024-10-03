@@ -71,12 +71,17 @@ export default function CashPurchasesFormPage(prop) {
             return [];
         }
         setErrorMessages([]);
-        toast.success('Valid input');
-        // await createCashPurchases(list, path.storeid);
-        // await router.back();
-        // setTimeout(() => {
-        //     router.refresh();
-        // }, 500);
+       const [voucher ,accounting ,inventory] = await createCashPurchases(list, path.storeid);
+       if(voucher &&accounting&&inventory){
+
+        await router.back();
+        setTimeout(() => {
+            router.refresh();
+        }, 500);
+        toast.success('Cash purchases success');
+       }else {
+           toast.error('Something went wrong');
+       }
     }
     const [state, action] = useFormState(handleSave, undefined);
 

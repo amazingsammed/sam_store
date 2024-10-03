@@ -2,16 +2,17 @@
 
 import {CTextfieldR, CTextfieldNum, CCheckBox, CDropDown} from '@/components/ktextfield'
 import {useParams, useRouter} from "next/navigation";
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {addProduct} from "@/app/_actions/stock_item";
 import {Button} from "@/components/ui/button";
 import {getStockGroup, getStockUnits} from "@/app/_actions/stock_item_options";
 
 export default async function AddItemForm() {
-    const [groups, setGroups] = useState([{'name': "electronics",}]);
-    const [units, setUnits] = useState([{'name': "bags",}]);
+    const [groups, setGroups] = useState([{'name': "others",'id':1}]);
+    const [units, setUnits] = useState([{'name': "bags",'id':1}]);
     const [hasopenbalance ,setHasopenbalance] = useState(false);
     const [isService ,setisService] = useState(false);
+    const ref = useRef<HTMLFormElement>(null);
 
     useEffect(() => {
             const fetcher = async () => {
@@ -21,13 +22,13 @@ export default async function AddItemForm() {
 
                 } else {
 
-                    setGroups(a);
+                    setGroups(...groups,a);
                 }
                 if (b.length === 0) {
 
                 } else {
 
-                    setUnits(b);
+                    setUnits(...units,b);
                 }
             };
             fetcher();

@@ -2,7 +2,7 @@
 
 import {PrimeChecker} from "@/app/_actions/_checker";
 import prisma from "@/lib/prisma";
-import {CleanResults, queryClean} from "@/app/shared/sharedfunctions";
+import {mapToJson, queryClean} from "@/app/shared/sharedfunctions";
 
 export async function getVoucherList(storeid) {
     try {
@@ -29,7 +29,7 @@ WHERE
 GROUP BY
 \tvoucher.uuid
 `;
-        return CleanResults(results);
+        return mapToJson(results);
     } catch (e) {
         console.log(e);
     }
@@ -84,7 +84,7 @@ AND
 \tstock_item.uuid = trn_inventory.item_uuid
 `;
         console.log(results, 'getSingleVoucherList');
-        return CleanResults(results);
+        return mapToJson(results);
     } catch (e) {
         console.log(e);
     }

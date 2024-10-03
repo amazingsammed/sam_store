@@ -1,6 +1,6 @@
 'use server'
 
-import {formdataToJson, queryClean} from "@/app/shared/sharedfunctions";
+import {formdataToJson, mapToJson, queryClean} from "@/app/shared/sharedfunctions";
 import prisma from "@/lib/prisma";
 import {PrimeChecker} from "@/app/_actions/_checker";
 import {v4 as uuidv4} from "uuid";
@@ -147,13 +147,13 @@ export async function addProduct(data, storeid) {
         const guid = uuidv4();
         const guidx = uuidv4();
         const total = parseFloat(element.purchaseprice)* parseInt(element.quantity)
-        const savedElement = await prisma.stock_item.create({
+        const stock = await prisma.stock_item.create({
             data: {
                 name: element.name,
                 uuid: guidx,
                 shortname: element.shortname,
-                group: parseInt(element.group??1),
-                unit: parseInt(element.unit??1),
+                group: element.group?parseInt(element.group):1,
+                unit: element.unit?parseInt(element.unit):1,
                 salesprice: parseFloat(element.salesprice),
                 purchaseprice: parseFloat(element.purchaseprice),
                 warninglimit: parseInt(element.warninglimit),
@@ -205,7 +205,7 @@ export async function addProduct(data, storeid) {
                 ],
             });
         }
-
+return mapToJson(stock);
     } catch (e) {
         console.log(e);
     }

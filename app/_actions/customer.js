@@ -1,7 +1,7 @@
 'use server';
 import {PrimeChecker} from "@/app/_actions/_checker";
 import prisma from "@/lib/prisma";
-import {CleanResults, formdataToJson} from "@/app/shared/sharedfunctions";
+import {mapToJson, formdataToJson} from "@/app/shared/sharedfunctions";
 import {v4 as uuidv4} from "uuid";
 
 export async function getCustomers(storeid) {
@@ -14,7 +14,7 @@ export async function getCustomers(storeid) {
                 storeid: storeid,
             }
         });
-        return CleanResults(data);
+        return mapToJson(data);
     } catch (e) {
         return [];
     }
