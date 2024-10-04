@@ -31,7 +31,7 @@ export async function createCashSales(data, storeid) {
         const guid = uuidv4();
         const [results, total ] = listToInventory(data, guid, storeid, userid);
         console.log(results,'results')
-        await prisma.voucher.create({
+       const voucher = await prisma.voucher.create({
             data: {
                 uuid: guid,
                 date: new Date(),
@@ -45,11 +45,11 @@ export async function createCashSales(data, storeid) {
                 storeid: storeid,
             }
         });
-        await prisma.trn_inventory.createMany({
+       const inventory = await prisma.trn_inventory.createMany({
                 data: results
             }
         )
-        await prisma.trn_accounting.createMany({
+       const accounting = await prisma.trn_accounting.createMany({
            data: [
                {   voucher_uuid: guid,
                    vouchername: 'Sales',
@@ -65,6 +65,7 @@ export async function createCashSales(data, storeid) {
                },
            ],
         });
+       return [voucher, accounting,inventory];
     } catch (e) {
 
         console.log(e);

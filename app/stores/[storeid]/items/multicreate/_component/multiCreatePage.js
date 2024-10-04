@@ -6,6 +6,9 @@ import {MdCheck, MdDeleteOutline} from "react-icons/md";
 import {HeaderWithButton} from "@/components/headerlisttile";
 import {useParams, useRouter} from "next/navigation";
 import {addManyProduct} from "@/app/_actions/stock_item";
+import {z} from "zod";
+import {CashPurchasesSchema, ItemMultiCreate} from "@/app/_zod-models/auth";
+import {toast} from "sonner";
 
 
 function MultiCreatePage() {
@@ -14,6 +17,7 @@ function MultiCreatePage() {
     const [success, setSuccess] = useState(false);
     const [list, setList] = useState([]);
     const router = useRouter();
+    const [errorMessages, setErrorMessages] = useState([]);
     const [newitem, setnewitem] = useState({
         "name": '',
         'quantity': 0,
@@ -36,7 +40,8 @@ function MultiCreatePage() {
     }
 
     function handlechange(e) {
-        setnewitem({...newitem, [e.target.name]: e.target.value});
+        const { name, value } = e.target;
+        setnewitem({...newitem,   [name]: name === 'quantity' || name === 'rate' ? Number(value) : value});
     }
 
 
@@ -50,20 +55,34 @@ function MultiCreatePage() {
 
     async function handleSave() {
         if (list.length === 0) {
+            toast.error('List is empty')
             return;
         }
+        const arrayZ = z.array(ItemMultiCreate)
+        const validatedFields = arrayZ.safeParse(list);
+        if (!validatedFields.success) {
+            const errors = validatedFields.error.errors.map(err => err.message);
+            setErrorMessages(errors);
+            toast.error('Incorrect data input')
+            return [];
+        }
+        setErrorMessages([]);
+        console.log(validatedFields);
         const [stock, voucher, inventory, account] = await addManyProduct(list, path.storeid);
         console.log(stock, voucher, inventory, account);
         if (stock && voucher && inventory && account) {
             if (stock.count === list.length && account.count === list.length * 2) {
+                toast.success("Items Added Successfully");
                 await router.back();
                 setTimeout(() => {
                     router.refresh();
                 }, 500);
             }else {
+                toast.error("Something went wrong : MCPe")
                 console.log(stock, voucher, inventory, account);
             }
         }else {
+            toast.error("Something went wrong : MCPe")
             console.log(stock, voucher, inventory, account);
         }
     }
@@ -145,7 +164,15 @@ function MultiCreatePage() {
                                         <TableRow>
                                             <TableCell className="font-medium w-[10]">Total Items
                                                 = {list.length} </TableCell>
-                                            <TableCell className="font-medium w-[10]"> </TableCell>
+                                            <TableCell className="w-[30]">
+                                                {errorMessages.length > 0 && (
+                                                    <div>
+                                                        {errorMessages.map((error, index) => (
+                                                            <p key={index} className="text-sm text-red-500">{error}</p>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </TableCell>
                                             <TableCell className="font-medium w-[10]"> </TableCell>
                                             <TableCell className="font-medium w-[10]">Total Amount = {
                                                 <GetTotalPurchases/>} </TableCell>

@@ -5,7 +5,7 @@ import CashPurchasesFormPage from "@/app/stores/[storeid]/purchases/cashpurchase
 async function Page(props) {
     const data = await getProducts(props.params.storeid);
     return (
-        <div className="">
+        <div className="max-w-screen-xl mx-auto">
         <CashPurchasesFormPage cacheditems={data}/>
         </div>
     );

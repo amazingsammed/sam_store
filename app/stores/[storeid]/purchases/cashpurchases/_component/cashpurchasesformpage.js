@@ -60,10 +60,9 @@ export default function CashPurchasesFormPage(prop) {
         if (list.length === 0) {
             return;
         }
-        console.log(list)
         const arrayZ = z.array(CashPurchasesSchema)
         const validatedFields = arrayZ.safeParse(list);
-        console.log(validatedFields);
+
         if (!validatedFields.success) {
             const errors = validatedFields.error.errors.map(err => err.message);
             setErrorMessages(errors);
@@ -80,13 +79,13 @@ export default function CashPurchasesFormPage(prop) {
         }, 500);
         toast.success('Cash purchases success');
        }else {
-           toast.error('Something went wrong');
+           toast.error('Something went wrong : CPFp');
        }
     }
     const [state, action] = useFormState(handleSave, undefined);
 
     return (
-        <div className="grid grid-cols-12">
+        <div>
 
             <div className='h-[80dvh]  justify-between col-span-10'>
                 <HeaderWithButton title='Cash Purchases Form'

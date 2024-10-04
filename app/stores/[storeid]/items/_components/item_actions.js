@@ -1,5 +1,5 @@
 'use client'
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
 import {
     DropdownMenu,
@@ -22,6 +22,9 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import {cn} from "@/lib/utils";
+import {getStockGroup, getStockUnits} from "@/app/_actions/stock_item_options";
+import {toast} from "sonner";
+import {mapToJson} from "@/app/shared/sharedfunctions";
 
 function ItemActions({element}) {
     const param = useParams();
@@ -64,6 +67,8 @@ export default ItemActions;
 
 
  function EditItemForm(prop) {
+     const [groups, setGroups] = useState([{'name': "others",'id':1}]);
+     const [units, setUnits] = useState([{'name': "others",'id':1}]);
     const [data,setData]=useState({
         'shortname':prop.prop.shortname,
         'name':prop.prop.name,
@@ -71,12 +76,36 @@ export default ItemActions;
         'salesprice':prop.prop.salesprice,
         'purchaseprice':prop.prop.purchaseprice,
         'uuid':prop.prop.uuid,
-
+        'unit':Number(prop.prop.unit),
+        'group':Number(prop.prop.group),
     });
     const path= useParams();
     const router = useRouter();
+
+     useEffect(() => {
+             const fetcher = async () => {
+                 try {
+                     const newGroups = await getStockGroup(path.storeid);
+                     const newUnits = await getStockUnits(path.storeid);
+                     console.log(mapToJson(newUnits));
+                     // Combine previous state with new fetched data
+                     await setGroups(prevGroups => [
+                         ...new Set([...prevGroups, ...newGroups.map(group => mapToJson(group))])
+                     ]);
+
+                     await setUnits(prevUnits => [
+                         ...new Set([...prevUnits, ...newUnits.map(unit => mapToJson(unit))])
+                     ]);
+                 } catch (error) {
+                     toast.error('Failed to fetch some data : ItemForm');
+                 }
+             };
+             fetcher();
+
+         },
+         []);
     async function handleEditStockitem(state,datax) {
-        console.log(prop.prop , 'prop');
+        console.log(data);
         await editStockItem(datax,path.storeid);
         router.refresh();
     }
@@ -87,6 +116,7 @@ export default ItemActions;
             [e.target.name]: e.target.value
         })
     }
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -108,6 +138,20 @@ export default ItemActions;
                         <CTextfieldR label="Item name" value={data.name} onchange={onChange} name="name"/>
                         <CTextfield label="Item description" value={data.description} onchange={onChange}
                                     name="description"/>
+                        <CDropDown
+                            label="Group"
+                            name='group'
+                            items={groups}
+                            onchange={onChange}
+                            value={data.group}
+                        />
+                        <CDropDown
+                            label="Units"
+                            name='unit'
+                            onchange={onChange}
+                            items={units}
+                            value={data.unit}
+                        />
                         <CTextfieldNum label="Sales Price" value={data.salesprice} onchange={onChange}
                                        name="salesprice"/>
                         <CTextfieldNum label="Purchase Price" value={data.purchaseprice} onchange={onChange}
@@ -164,6 +208,27 @@ function CTextfieldNum(prop) {
                 value={prop.value}
                 onChange={prop.onchange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={prop.label} />
+        </div>
+    )
+}
+
+export function CDropDown  (prop)  {
+    return (
+        <div className="max-w-sm ">
+            <label form={prop.label + "checkbox"} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white ">{"Select "+ prop.label}</label>
+            <select id={prop.label + "checkbox"}
+                onChange={prop.onchange}
+                    name={prop.name}
+                    value={prop.value}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="">{"Choose a "+prop.label}</option>
+                {prop.items.map((val,i)=>{
+                    return(
+                        <option value={val.value?val.value:val.id?val.id:val.name} key={i}>{val.name}</option>
+                    );
+                })}
+
+            </select>
         </div>
     )
 }

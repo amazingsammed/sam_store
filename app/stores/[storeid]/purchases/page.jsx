@@ -5,7 +5,7 @@ import {getPurchasesList} from "@/app/_actions/purchases";
 async function Page(props) {
     const data = await getPurchasesList(props.params.storeid);
     return (
-        <div>
+        <div className="max-w-screen-xl mx-auto">
             {/*<DataTableDemo />*/}
             <PurchasesListPage data={data}/>
         </div>

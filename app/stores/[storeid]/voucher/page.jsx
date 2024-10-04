@@ -5,7 +5,7 @@ import {getVoucherList} from "@/app/_actions/voucher";
 async function Page(params) {
     const data = await getVoucherList(params.params.storeid);
     return (
-        <div>
+        <div className="max-w-screen-xl mx-auto">
             <VoucherTable data={data}/>
         </div>
     );

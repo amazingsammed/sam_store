@@ -3,7 +3,7 @@ import Reportspage from "@/app/stores/[storeid]/report/_components/reportspage";
 
 function Page({params}) {
     return (
-        <div>
+        <div className="max-w-screen-xl mx-auto">
             <Reportspage/>
         </div>
     );

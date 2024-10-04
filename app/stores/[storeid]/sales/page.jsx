@@ -6,7 +6,7 @@ import {getSalesList} from "@/app/_actions/sales";
 async function Page(props) {
     const data = await getSalesList(props.params.storeid);
     return (
-        <div className="max-w-screen-xl">
+        <div className="max-w-screen-xl mx-auto">
             <SalesPage data={data}/>
         </div>
     );

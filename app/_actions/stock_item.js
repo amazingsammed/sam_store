@@ -82,6 +82,8 @@ SELECT
 \tstock_item.salesprice, 
 \tstock_item.purchaseprice, 
 \tstock_item.uuid,
+\tstock_item.unit,
+\tstock_item.group,
 \tstock_item.\`status\`, 
 \tstock_item_group.\`name\` AS \`group\`
 FROM
@@ -228,6 +230,8 @@ export async function editStockItem(data, storeid) {
                 salesprice: parseFloat(element.salesprice),
                 purchaseprice: parseFloat(element.purchaseprice),
                 description: element.description,
+                unit: element.unit===""?1:Number(element.unit),
+                group : element.group===""?1:Number(element.group)
             }
         });
         console.log(savedElement, 'update stock')

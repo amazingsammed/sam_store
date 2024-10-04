@@ -21,6 +21,8 @@ import {useParams, useRouter} from "next/navigation";
 import {getStockGroup, getStockUnits} from "@/app/_actions/stock_item_options";
 import {toast} from "sonner";
 import {useFormState} from "react-dom";
+import MySubmitButton from "@/components/mybuttons";
+import {mapToJson} from "@/app/shared/sharedfunctions";
 
 
 
@@ -30,25 +32,23 @@ export function AddAnItem() {
     const [units, setUnits] = useState([{'name': "others",'id':1}]);
     const [hasopenbalance ,setHasopenbalance] = useState(false);
     const [isService ,setisService] = useState(false);
-    const ref = useRef<HTMLFormElement>(null);
 
     useEffect(() => {
             const fetcher = async () => {
                 try {
                     const newGroups = await getStockGroup(path.storeid);
                     const newUnits = await getStockUnits(path.storeid);
-console.log(newUnits);
+                    console.log(mapToJson(newUnits));
                     // Combine previous state with new fetched data
-                    setGroups(prevGroups => [
-                        ...new Set([...prevGroups, ...newGroups.map(group => JSON.stringify(group))])
+                   await setGroups(prevGroups => [
+                        ...new Set([...prevGroups, ...newGroups.map(group => mapToJson(group))])
                     ]);
 
-                    setUnits(prevUnits => [
-                        ...new Set([...prevUnits, ...newUnits.map(unit => JSON.stringify(unit))])
+                   await setUnits(prevUnits => [
+                        ...new Set([...prevUnits, ...newUnits.map(unit => mapToJson(unit))])
                     ]);
-
                 } catch (error) {
-                    toast.error('Failed to fetch data');
+                    toast.error('Failed to fetch some data : ItemForm');
                 }
             };
             fetcher();
@@ -66,7 +66,6 @@ console.log(newUnits);
         try {
             const stock = await addProduct(elements, path.storeid);
             if (stock) {
-                ref.current?.reset();
                 toast.success('Item Added Successfully');
                 setTimeout(() => {
                     router.refresh();
@@ -137,8 +136,7 @@ console.log(newUnits);
 
 
                         <DialogFooter >
-                            <Button type="submit" >Add Item
-                            </Button>
+                            <MySubmitButton name="Add Item"/>
                             <DialogClose>
                                 <Button variant="outline" type="button">Close</Button>
                             </DialogClose>

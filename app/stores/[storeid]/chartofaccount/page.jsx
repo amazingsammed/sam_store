@@ -5,7 +5,7 @@ import {Cartofaccount} from "@/app/stores/[storeid]/chartofaccount/_components/c
 async function Page(params) {
     const data = await getChartOfAccount(params.params.storeid);
     return (
-        <div className="max-w-screen-xl">
+        <div className="max-w-screen-xl mx-auto">
             <Cartofaccount data={data}/>
         </div>
     );

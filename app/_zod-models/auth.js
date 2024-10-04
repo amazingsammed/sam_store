@@ -30,4 +30,10 @@ export const CashPurchasesSchema = z.object({
     rate: z.number().positive({ message: 'rate must be a positive integer.' }),
 });
 
+export const ItemMultiCreate = z.object({
+    name: z.string().min(1,{ message: 'One row is missing item name' }),
+    quantity: z.number().int().positive({ message: 'Quantity must be a positive integer.' }),
+    rate: z.number().positive({ message: 'rate must be a positive integer.' }),
+});
+
 

@@ -6,7 +6,7 @@ export default async function Page(params) {
     // if (!result) {
     //     redirect("/stores");
     // }
-    return <div>
+    return <div className="max-w-screen-xl mx-auto">
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card>

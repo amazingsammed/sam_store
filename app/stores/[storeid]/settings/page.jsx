@@ -5,7 +5,7 @@ import {Settingspage} from "@/app/stores/[storeid]/settings/_component/settingsp
 
 function Page() {
     return (
-        <div>
+        <div className="max-w-screen-xl mx-auto">
             <Settingspage/>
         </div>
     );

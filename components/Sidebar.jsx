@@ -38,7 +38,7 @@ const theSidemenu = [
         'title': "Dashboard",
         'icon': <MdDashboard size={size}/>,
         'hasItems': false,
-        'url': "/dashboard"
+        'url': "/"
     },
 
     {
