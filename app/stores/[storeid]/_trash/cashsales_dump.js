@@ -4,7 +4,7 @@
 // import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 // import {MdCheck, MdDeleteOutline} from "react-icons/md";
 // import Headerlisttile from "@/components/headerlisttile";
-// import {ItemListCombo} from "@/app/stores/[storeid]/sales/cashsales/_component/itemlistcombo";
+// import {ItemListCombo} from "@/app/stores/[storeid]/cashsales/cashsales/_component/itemlistcombo";
 // import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList} from "@/components/ui/command";
 // import {Check} from "lucide-react";
 // import {cn} from "@/lib/utils";
@@ -53,7 +53,7 @@
 //         <div className="grid grid-cols-12">
 //
 //             <div className='h-[80dvh]  justify-between col-span-10'>
-//                 <Headerlisttile title='Cash Sales' subtitle='Account Name : Cash' bname="Save" ontap={handleSave}/>
+//                 <Headerlisttile title='Cash Invoice' subtitle='Account Name : Cash' bname="Save" ontap={handleSave}/>
 //                 <div className="p-4 mb-auto overflow-y-auto ">
 //                     <form action={handlesubmit}>
 //                         <div className="overflow-y-auto ">

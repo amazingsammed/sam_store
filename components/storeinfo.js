@@ -49,7 +49,7 @@ function Storeinfo(props) {
         fetchPosts()
     }, [])
     return (
-        <div className=" h-16  hidden lg:flex justify-between flex-row max-w-screen-xl  mx-auto rounded bg-white pr-10 items-center">
+        <div className=" h-16 hidden lg:flex justify-between flex-row max-w-screen-xl  mx-auto rounded bg-white items-center fixed w-full ">
             <div>
            <h1 className="col-span-10 text-3xl font-bold">{role.storename +"\'s store"} </h1>
                 {/*<p> Current User : {role.name}</p>*/}

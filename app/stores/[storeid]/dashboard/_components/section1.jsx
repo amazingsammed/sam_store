@@ -130,7 +130,7 @@ export const Section1 = () => {
             {/*    ))}*/}
             {/*</div>*/}
             {/*<h1 className="text-4xl font-bold py-5">*/}
-            {/*    Sales Options*/}
+            {/*    Invoice Options*/}
             {/*</h1>*/}
 
             {/*<div className=' grid gap-6 mb-6 md:grid-cols-3 '>*/}
@@ -198,7 +198,7 @@ const summary = [
 
 const salessection = [
     {
-        'title': "Cash Sales",
+        'title': "Cash Invoice",
         "url": ""
     },
     {
@@ -210,7 +210,7 @@ const salessection = [
         "url": ""
     },
     {
-        'title': "Sales Orders",
+        'title': "Invoice Orders",
         "url": ""
     },
     {

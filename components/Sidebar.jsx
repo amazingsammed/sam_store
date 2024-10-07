@@ -5,9 +5,9 @@ import {
     MdArrowDownward,
     MdChevronRight,
     MdDashboard,
-    MdInventory, MdNote,
+    MdInventory, MdLogout, MdNote,
     MdReport,
-    MdSettings
+    MdSettings, MdStore
 } from "react-icons/md";
 import React, {useEffect, useState} from "react";
 
@@ -23,6 +23,8 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
+import {Button} from "@/components/ui/button";
+import {signOut} from "next-auth/react";
 
 
 const size = 24;
@@ -47,22 +49,22 @@ const theSidemenu = [
         'hasItems': true,
         'url': "/sales",
         'items': [
-            {
-                'name': "Quote",
-                'url': "/sales/quote"
-            },
-            {
-                'name': "Sales Order",
-                'url': "/sales/salesorder"
-            },
-            {
-                'name': "Invoice",
-                'url': "/sales/invoice"
-            },
-            {
-                'name': "Refund",
-                'url': "/sales/refund"
-            },
+            // {
+            //     'name': "Quote",
+            //     'url': "/sales/quote"
+            // },
+            // {
+            //     'name': "Invoice Order",
+            //     'url': "/sales/salesorder"
+            // },
+            // {
+            //     'name': "Invoice",
+            //     'url': "/sales/invoice"
+            // },
+            // {
+            //     'name': "Refund",
+            //     'url': "/sales/refund"
+            // },
             {
                 'name': "Customers",
                 'url': "/sales/customer"
@@ -165,7 +167,10 @@ export default function SideBar() {
     const pathName = usePathname();
     const router = useRouter();
     const [role, setRole] = useState(null)
-
+    async function handleSignout() {
+        await signOut('credential');
+        router.refresh();
+    }
 
 
     useEffect(() => {
@@ -213,17 +218,22 @@ export default function SideBar() {
                 </div>}
             </ul>
 
-            {/*<div className=" px-4  items-center text-white ">*/}
-            {/*    <Button className="w-[13rem] items-end" onClick={handleSignout}>*/}
-            {/*    <MdLogout size={24}/>*/}
-            {/*    <span className=" pl-4  text-white">Log out</span>*/}
-            {/*    </Button>*/}
-            {/*</div>*/}
+            <div className="flex flex-row items-center gap-4 p-4 justify-between">
+                <Link href={'/stores'}>
+                    <Button variant="outline" className="gap-2">
+                       <div className="hidden lg:block">
+                        Change Store
+                       </div>
+                    </Button>
+                </Link>
+                <Button className="gap-2  " onClick={handleSignout}>
+                    {<MdLogout/>}
+                    <div className="hidden lg:block">
+                        Logout
+                    </div>
 
-            {/*<div className=" p-4 border-b flex flex-row items-center  text-white">*/}
-            {/*    <MdMenu size={30}/>*/}
-
-            {/*</div>*/}
+                </Button>
+            </div>
 
 
         </nav>

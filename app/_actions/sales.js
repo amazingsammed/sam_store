@@ -36,7 +36,7 @@ export async function createCashSales(data, storeid) {
                 uuid: guid,
                 date: new Date(),
                 voucher_type: 22,
-                narration: "Cash Sales",
+                narration: "Cash Invoice",
                 party_name: 'Sales',
                 is_invoice: 0,
                 is_inventory_voucher: 1,

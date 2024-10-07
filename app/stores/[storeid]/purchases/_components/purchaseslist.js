@@ -22,7 +22,7 @@ export  function PurchasesListPage(prop) {
             {/*            <TableHead>Rate</TableHead>*/}
             {/*            <TableHead>Amount</TableHead>*/}
             {/*            <TableHead>Account</TableHead>*/}
-            {/*            <TableHead>Sales Person</TableHead>*/}
+            {/*            <TableHead>Invoice Person</TableHead>*/}
             {/*            <TableHead className="text-right">action</TableHead>*/}
             {/*        </TableRow>*/}
             {/*    </TableHeader>*/}

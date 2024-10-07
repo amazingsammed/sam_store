@@ -5,7 +5,7 @@ function Page(props) {
     return (
         <div>
       <h1>Members</h1>
-             < MembersTable />
+
 
         </div>
     );

@@ -1,28 +1,7 @@
 import {DateFormat} from "@/app/shared/sharedfunctions";
 
-export const salesColumns = [
-    // {
-    //     id: "select",
-    //     header: ({ table }) => (
-    //         <Checkbox
-    //             checked={
-    //                 table.getIsAllPageRowsSelected() ||
-    //                 (table.getIsSomePageRowsSelected() && "indeterminate")
-    //             }
-    //             onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //             aria-label="Select all"
-    //         />
-    //     ),
-    //     cell: ({ row }) => (
-    //         <Checkbox
-    //             checked={row.getIsSelected()}
-    //             onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //             aria-label="Select row"
-    //         />
-    //     ),
-    //     enableSorting: false,
-    //     enableHiding: false,
-    // },
+export const InvoiceColumns = [
+
 
     {
         accessorKey: "date",
@@ -32,24 +11,28 @@ export const salesColumns = [
         }
     },
     {
-        accessorKey: "shortname",
-        header: "Code",
+        accessorKey: "invoice",
+        header: "Invoice Number",
     },
     {
-        accessorKey: "itemname",
-        header: "Item Name",
+        accessorKey: "ref",
+        header: "Reference",
     },
     {
-        accessorKey: "quantity",
-        header: "Quantity",
+        accessorKey: "customer",
+        header: "Customer",
     },
     {
-        accessorKey: "rate",
-        header: "Rate",
+        accessorKey: "salesperson",
+        header: "Sales Person",
     },
     {
         accessorKey: "amount",
         header: "Amount",
+    },
+    {
+        accessorKey: "status",
+        header: "Status",
     },
     // {
     //     accessorKey: "party_name",
@@ -57,7 +40,7 @@ export const salesColumns = [
     // },
     // {
     //     accessorKey: "salesperson",
-    //     header: "Sales Person",
+    //     header: "Invoice Person",
     // },
     // {
     //     id: "actions",

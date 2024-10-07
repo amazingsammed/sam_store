@@ -36,7 +36,7 @@ export const itemsColumns = [
         header: "Name",
     },
     {
-        accessorKey: "group",
+        accessorKey: "groups",
         header: "Group",
     },
 

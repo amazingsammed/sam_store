@@ -83,9 +83,9 @@ SELECT
 \tstock_item.purchaseprice, 
 \tstock_item.uuid,
 \tstock_item.unit,
-\tstock_item.group,
+\tstock_item.\`group\` ,
 \tstock_item.\`status\`, 
-\tstock_item_group.\`name\` AS \`group\`
+\tstock_item_group.\`name\` AS \`groups\`
 FROM
 \tstock_item,
 \tstock_item_group,
@@ -95,6 +95,7 @@ WHERE
 \tstock_item.unit = stock_item_unit.id AND
 \tstock_item.storeid = ${queryClean(storeid)} 
         `;
+        console.log(JSON.parse(JSON.stringify(data)),'all items');
         return JSON.parse(JSON.stringify(data));
     } catch (e) {
         return [];

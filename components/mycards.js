@@ -70,4 +70,24 @@ export function HomeCard({element}) {
     );
 }
 
+export function DashBoardCard({title,value,date}) {
+    return (
+        <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                    {title?title:'Total'}
+                </CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="text-2xl font-bold">{value?value:"0.00"}</div>
+                <p className="text-xs text-muted-foreground">
+                    {date?date:'today'}
+                </p>
+            </CardContent>
+        </Card>
+    );
+}
+
+
+
 export default ReportCard;

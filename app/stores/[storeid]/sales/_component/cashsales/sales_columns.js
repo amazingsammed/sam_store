@@ -1,6 +1,6 @@
 import {DateFormat} from "@/app/shared/sharedfunctions";
 
-export const purchasesColumns = [
+export const salesColumns = [
     // {
     //     id: "select",
     //     header: ({ table }) => (
@@ -23,6 +23,7 @@ export const purchasesColumns = [
     //     enableSorting: false,
     //     enableHiding: false,
     // },
+
     {
         accessorKey: "date",
         header: "Date",

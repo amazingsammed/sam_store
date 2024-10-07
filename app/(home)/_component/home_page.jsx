@@ -21,13 +21,13 @@ const basicReport = [
     },
     {
         "title": "Voucher Entry System",
-        "description": "Facilitates recording all financial transactions using vouchers such as sales, purchase, payment, and receipt entries.",
+        "description": "Facilitates recording all financial transactions using vouchers such as cashsales, purchase, payment, and receipt entries.",
         'icon': <MdForum/>,
     },
 
     {
         'title':"Inventory Management",
-        'description':"Manages stock levels, tracks purchases and sales, and provides real-time inventory reports for each store.",
+        'description':"Manages stock levels, tracks purchases and cashsales, and provides real-time inventory reports for each store.",
         'icon': <MdInventory2/>,
     },
     {

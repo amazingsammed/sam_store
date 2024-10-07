@@ -5,6 +5,7 @@ import Link from "next/link";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 
 import Storeheader from "@/app/stores/_component/storeheader";
+import {MdCircle, MdLocationCity, MdPhone, MdStore} from "react-icons/md";
 
 function Storelist(prop) {
     const stores = prop.datax;
@@ -19,25 +20,28 @@ function Storelist(prop) {
 
                         <Card key={i}>
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-2xl font-bold">
-                                    {store['storename']}
+                                <CardTitle className="text-sm font-medium ">
+                                    <div className="flex flex-row gap-2">
+                                        <MdStore size="32"/>
+                                        <div className="flex flex-col  gap-2">
+
+                                            <div className="text-2xl font-bold">{store['storename']}</div>
+                                            <div>{store['storeaddress']}</div>
+
+                                        </div>
+                                    </div>
                                 </CardTitle>
+
                             </CardHeader>
                             <CardContent>
-                                <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                   <p>
+                                <hr/>
 
-                                    Location :
-                                   </p>
-                                    {store['storeaddress']}
-                                </div>
-                                <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <p>Phone :</p>
+                                <p>{store['storeaddress']}</p>
                                     <p>{store['storephone']}</p>
-                                </div>
+
                             </CardContent>
                             <CardDescription className="flex flex-row items-center justify-between space-y-0 p-4">
-                                active
+                                Free Version
                             </CardDescription>
                         </Card>
                     </Link>

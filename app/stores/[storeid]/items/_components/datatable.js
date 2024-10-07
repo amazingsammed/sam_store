@@ -155,9 +155,15 @@ export function DataTable({
                     Next
                 </Button>
             </div>
+            <div className="grid grid-cols-2">
+
             <div className="flex-1 text-sm text-muted-foreground">
                 {table.getFilteredSelectedRowModel().rows.length} of{" "}
                 {table.getFilteredRowModel().rows.length} row(s) selected.
+            </div>
+            <div className="flex-1 text-sm text-muted-foreground">
+                {table.getFilteredRowModel().rows.length} Items in Table.
+            </div>
             </div>
         </div>
 

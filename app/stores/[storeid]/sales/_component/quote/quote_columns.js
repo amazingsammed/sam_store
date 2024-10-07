@@ -1,6 +1,6 @@
 import {DateFormat} from "@/app/shared/sharedfunctions";
 
-export const purchasesColumns = [
+export const quoteColumns = [
     // {
     //     id: "select",
     //     header: ({ table }) => (
@@ -23,6 +23,7 @@ export const purchasesColumns = [
     //     enableSorting: false,
     //     enableHiding: false,
     // },
+
     {
         accessorKey: "date",
         header: "Date",
@@ -31,20 +32,20 @@ export const purchasesColumns = [
         }
     },
     {
-        accessorKey: "shortname",
-        header: "Code",
+        accessorKey: "quote",
+        header: "Quote",
     },
     {
-        accessorKey: "itemname",
-        header: "Item Name",
+        accessorKey: "customer",
+        header: "Customer",
     },
     {
-        accessorKey: "quantity",
-        header: "Quantity",
+        accessorKey: "salesperson",
+        header: "Sales Person",
     },
     {
-        accessorKey: "rate",
-        header: "Rate",
+        accessorKey: "status",
+        header: "Status",
     },
     {
         accessorKey: "amount",
