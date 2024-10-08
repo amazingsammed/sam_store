@@ -6,7 +6,7 @@ import {
     DropdownMenuLabel, DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import {Button} from "nextra/components";
+import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
 
 export const UnitColumns = [

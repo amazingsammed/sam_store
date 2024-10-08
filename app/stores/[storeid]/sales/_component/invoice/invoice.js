@@ -1,5 +1,5 @@
 import React from 'react';
-import  {HeaderListTileDialog} from "@/components/headerlisttile";
+import Headerlisttile, {HeaderListTileDialog} from "@/components/headerlisttile";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
 import {InvoiceColumns} from "@/app/stores/[storeid]/sales/_component/invoice/invoice_columns";
 import {CustomerForm} from "@/app/stores/[storeid]/sales/customer/_components/addcustomer";
@@ -9,12 +9,10 @@ function Invoice(props) {
     // const data = await getSalesList(props.params.storeid);
     const  tabledata = []
     return (
-        <HeaderListTileDialog title='Invoices' subtitle='All Invoices are listed here' bname="Create" buttonx={
-            <InvoiceForm/>
-        }
-                        ontap="sales/cashsales">
+        <Headerlisttile title='Invoices' subtitle='All Invoices are listed here' bname="Create invoice"
+                        ontap="sales/createinvoice">
             <DataTable columns={InvoiceColumns} data={tabledata} filter={'itemname'}/>
-        </HeaderListTileDialog>
+        </Headerlisttile>
     );
 }
 

@@ -36,7 +36,7 @@ export function InvoiceForm() {
     const router = useRouter();
 
     async function handleCreateCustomer(formData) {
-        await addCustomer(formData,path.storeid);
+        // await addCustomer(formData,path.storeid);
     }
 
     return (

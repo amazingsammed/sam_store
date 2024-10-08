@@ -11,6 +11,9 @@ import {
 import {MdMoreVert} from "react-icons/md";
 import {HeaderListTileDialog} from "@/components/headerlisttile";
 import {AddUnitsDialog} from "@/app/stores/[storeid]/items/units/_component/unitsform";
+import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
+import {UnitColumns} from "@/app/stores/[storeid]/items/_components/units/units_columns";
+import React from "react";
 
 export  function UnitsTable(prop) {
     const tabledata = prop.elements;
@@ -19,31 +22,7 @@ export  function UnitsTable(prop) {
             <HeaderListTileDialog title='Unit List' subtitle='All items are listed here' bname="New Item" buttonx ={
                 <AddUnitsDialog/>
             }>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Number</TableHead>
-                        <TableHead >Name</TableHead>
-                        <TableHead>Action</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {tabledata.map((element,i) => (
-                        <TableRow key={i}>
-                            <TableCell >{i+1}</TableCell>
-                            <TableCell className="font-medium">{element.name}</TableCell>
-                            <TableCell ><MdMoreVert /></TableCell>
-
-                        </TableRow>
-                    ))}
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TableCell colSpan={5}>{tabledata.length} items</TableCell>
-                        <TableCell className="text-right"> </TableCell>
-                    </TableRow>
-                </TableFooter>
-            </Table>
+                <DataTable columns={UnitColumns} data={tabledata} filter={'name'}/>
             </HeaderListTileDialog>
 
         </div>

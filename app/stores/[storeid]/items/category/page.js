@@ -2,7 +2,7 @@ import React from 'react';
 import {CategoryTable} from "@/app/stores/[storeid]/items/category/_component/categorytable";
 import {getStockCategory} from "@/app/_actions/stock_item_options";
 
-async function CategoryPage(props) {
+async function Page(props) {
     const data = await getStockCategory(props.params.storeid);
     return (
         <div>
@@ -11,4 +11,4 @@ async function CategoryPage(props) {
     );
 }
 
-export default CategoryPage;
+export default Page;

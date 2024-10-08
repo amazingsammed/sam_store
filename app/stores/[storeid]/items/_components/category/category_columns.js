@@ -1,5 +1,5 @@
 import {DateFormat} from "@/app/shared/sharedfunctions";
-import {Button} from "nextra/components";
+import {Button} from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,

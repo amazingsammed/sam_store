@@ -11,6 +11,9 @@ import {
 import {MdMoreVert} from "react-icons/md";
 import {HeaderListTileDialog} from "@/components/headerlisttile";
 import {AddCategoryDialog} from "@/app/stores/[storeid]/items/category/_component/category_form";
+import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
+import {CategoryColumns} from "@/app/stores/[storeid]/items/_components/category/category_columns";
+import React from "react";
 
 export  function CategoryTable(prop) {
 
@@ -21,33 +24,8 @@ export  function CategoryTable(prop) {
             <HeaderListTileDialog title='Category List' subtitle='All items are listed here'  buttonx ={
                 <AddCategoryDialog/>
             }>
+                <DataTable columns={CategoryColumns} data={tabledata} filter={'name'}/>
 
-
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Number</TableHead>
-                        <TableHead >Name</TableHead>
-                        <TableHead >Action</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {tabledata.map((element,i) => (
-                        <TableRow key={i}>
-                            <TableCell >{i+1}</TableCell>
-                            <TableCell className="font-medium">{element.name}</TableCell>
-                            <TableCell ><MdMoreVert /></TableCell>
-
-                        </TableRow>
-                    ))}
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TableCell colSpan={5}>{tabledata.length} items</TableCell>
-                        <TableCell className="text-right"> </TableCell>
-                    </TableRow>
-                </TableFooter>
-            </Table>
             </HeaderListTileDialog>
 
         </div>

@@ -15,11 +15,11 @@ import {useParams, useRouter} from "next/navigation";
 
 
 export function AddCategoryDialog() {
-    const path = useParams();
+    const params = useParams();
     const title= "Category";
     const router = useRouter();
     async function handleCreateCategory(a) {
-        await createStockCategory(a,path.storeid);
+        await createStockCategory(a,params.storeid);
         router.refresh();
     }
     return (
