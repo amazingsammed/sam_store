@@ -1,28 +1,7 @@
 import {DateFormat} from "@/app/shared/sharedfunctions";
 
-export const quoteColumns = [
-    // {
-    //     id: "select",
-    //     header: ({ table }) => (
-    //         <Checkbox
-    //             checked={
-    //                 table.getIsAllPageRowsSelected() ||
-    //                 (table.getIsSomePageRowsSelected() && "indeterminate")
-    //             }
-    //             onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //             aria-label="Select all"
-    //         />
-    //     ),
-    //     cell: ({ row }) => (
-    //         <Checkbox
-    //             checked={row.getIsSelected()}
-    //             onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //             aria-label="Select row"
-    //         />
-    //     ),
-    //     enableSorting: false,
-    //     enableHiding: false,
-    // },
+export const PaymentColumns = [
+
 
     {
         accessorKey: "date",
@@ -32,25 +11,29 @@ export const quoteColumns = [
         }
     },
     {
-        accessorKey: "quote",
-        header: "Quote",
+        accessorKey: "ref",
+        header: "Reference",
     },
     {
-        accessorKey: "customer",
-        header: "Customer",
+        accessorKey: "payable",
+        header: "Payable",
     },
     {
-        accessorKey: "salesperson",
-        header: "Sales Person",
+        accessorKey: "supplier",
+        header: "Supplier",
     },
     {
-        accessorKey: "status",
-        header: "Status",
+        accessorKey: "method",
+        header: "Method",
     },
     {
         accessorKey: "amount",
         header: "Amount",
     },
+    // {
+    //     accessorKey: "status",
+    //     header: "Status",
+    // },
     // {
     //     accessorKey: "party_name",
     //     header: "Account",

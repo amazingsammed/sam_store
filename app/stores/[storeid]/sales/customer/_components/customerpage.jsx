@@ -24,7 +24,7 @@ export  function CustomerTable(props) {
             {/*            <TableHead>Name</TableHead>*/}
             {/*            <TableHead>Type</TableHead>*/}
             {/*            <TableHead>Balance</TableHead>*/}
-            {/*            <TableHead>Last Invoice</TableHead>*/}
+            {/*            <TableHead>Last Accountspayable</TableHead>*/}
             {/*            <TableHead>SalesPerson</TableHead>*/}
             {/*            <TableHead>Phone</TableHead>*/}
             {/*        </TableRow>*/}

@@ -152,7 +152,7 @@ export default ItemActions;
                             items={units}
                             value={data.unit}
                         />
-                        <CTextfieldNum label="Invoice Price" value={data.salesprice} onchange={onChange}
+                        <CTextfieldNum label="Accountspayable Price" value={data.salesprice} onchange={onChange}
                                        name="salesprice"/>
                         <CTextfieldNum label="Purchase Price" value={data.purchaseprice} onchange={onChange}
                                        name="purchaseprice"/>

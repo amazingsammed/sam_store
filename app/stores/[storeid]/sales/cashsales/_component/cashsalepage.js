@@ -87,7 +87,7 @@ const    router = useRouter();
     return (
         <div className="grid grid-cols-12">
             <div className='h-[80dvh]  justify-between col-span-10'>
-                <HeaderWithButton title='Cash Invoice' subtitle='Account Name : Invoice Account' bname="Save" ontap={handleSave}>
+                <HeaderWithButton title='Cash Accountspayable' subtitle='Account Name : Accountspayable Account' bname="Save" ontap={handleSave}>
 
 
                 <div className="p-4 mb-auto overflow-y-auto ">

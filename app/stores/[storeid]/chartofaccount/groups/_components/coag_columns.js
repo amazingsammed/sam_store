@@ -60,7 +60,7 @@ export const coagColumns = [
     // },
     // {
     //     accessorKey: "salesperson",
-    //     header: "Invoice Person",
+    //     header: "Accountspayable Person",
     // },
     {
         id: "actions",

@@ -37,7 +37,7 @@ function Storelist(prop) {
                                 <hr/>
 
                                 <p>{store['storeaddress']}</p>
-                                    <p>{store['storephone']}</p>
+                                <p>{store['storephone']}</p>
 
                             </CardContent>
                             <CardDescription className="flex flex-row items-center justify-between space-y-0 p-4">

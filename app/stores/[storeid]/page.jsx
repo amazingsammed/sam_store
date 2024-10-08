@@ -4,7 +4,7 @@ import {DashBoardCard} from "@/components/mycards";
 
 const dbT=[
     {
-        'title':'Total Invoice',
+        'title':'Total Accountspayable',
         "value": "1000",
         "date": "today"
     }

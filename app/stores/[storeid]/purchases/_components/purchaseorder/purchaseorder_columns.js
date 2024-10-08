@@ -1,28 +1,7 @@
 import {DateFormat} from "@/app/shared/sharedfunctions";
 
-export const quoteColumns = [
-    // {
-    //     id: "select",
-    //     header: ({ table }) => (
-    //         <Checkbox
-    //             checked={
-    //                 table.getIsAllPageRowsSelected() ||
-    //                 (table.getIsSomePageRowsSelected() && "indeterminate")
-    //             }
-    //             onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //             aria-label="Select all"
-    //         />
-    //     ),
-    //     cell: ({ row }) => (
-    //         <Checkbox
-    //             checked={row.getIsSelected()}
-    //             onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //             aria-label="Select row"
-    //         />
-    //     ),
-    //     enableSorting: false,
-    //     enableHiding: false,
-    // },
+export const purchaseOrderColumns = [
+
 
     {
         accessorKey: "date",
@@ -32,16 +11,12 @@ export const quoteColumns = [
         }
     },
     {
-        accessorKey: "quote",
-        header: "Quote",
+        accessorKey: "order",
+        header: "Order Number",
     },
     {
-        accessorKey: "customer",
-        header: "Customer",
-    },
-    {
-        accessorKey: "salesperson",
-        header: "Sales Person",
+        accessorKey: "supplier",
+        header: "Supplier",
     },
     {
         accessorKey: "status",
@@ -50,7 +25,7 @@ export const quoteColumns = [
     {
         accessorKey: "amount",
         header: "Amount",
-    },
+    }
     // {
     //     accessorKey: "party_name",
     //     header: "Account",

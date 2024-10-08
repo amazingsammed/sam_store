@@ -6,7 +6,7 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo
 const basicVoucher = [
     {
         'title':"Sales",
-        'description':"Record Invoice of various products",
+        'description':"Record Accountspayable of various products",
         'icon': <MdSanitizer/>,
         "path": "cashsales",
         "active": true,
@@ -42,7 +42,7 @@ const basicVoucher = [
 
     {
         'title':"Journal",
-        'description':"Record Invoice of various products",
+        'description':"Record Accountspayable of various products",
         'icon': <MdSanitizer/>,
         "path": "journal",
         "active": false,
@@ -50,7 +50,7 @@ const basicVoucher = [
 
     {
         'title':"Credit Note",
-        'description':"Record Invoice returns",
+        'description':"Record Accountspayable returns",
         'icon': <MdSanitizer/>,
         "path": "creditnote",
         "active": false,

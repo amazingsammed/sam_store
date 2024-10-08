@@ -31,7 +31,7 @@ export function SalesPage() {
                     <Sales/>
                 </TabsContent>
                 <TabsContent value="invoice">< Invoice/></TabsContent>
-                {/*<TabsContent value="receipt">< Invoice/></TabsContent>*/}
+                {/*<TabsContent value="receipt">< Accountspayable/></TabsContent>*/}
                 <TabsContent value="quote">< Quote/></TabsContent>
                 <TabsContent value="salesorder">< SalesOrder/></TabsContent>
                 <TabsContent value="customers"><Customer/></TabsContent>

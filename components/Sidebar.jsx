@@ -54,11 +54,11 @@ const theSidemenu = [
             //     'url': "/sales/quote"
             // },
             // {
-            //     'name': "Invoice Order",
+            //     'name': "Accountspayable Order",
             //     'url': "/sales/salesorder"
             // },
             // {
-            //     'name': "Invoice",
+            //     'name': "Accountspayable",
             //     'url': "/sales/invoice"
             // },
             // {
@@ -77,18 +77,18 @@ const theSidemenu = [
         'hasItems': true,
         'url': "/purchases",
         'items': [
-            {
-                'name': "Purchases order",
-                'url': "/purchases/purchaseorder"
-            },
-            {
-                'name': "Accounts Payables",
-                'url': "/purchases/accountspayables"
-            },
-            {
-                'name': "Payments",
-                'url': "/purchases/payments"
-            },
+            // {
+            //     'name': "Purchases order",
+            //     'url': "/purchases/purchaseorder"
+            // },
+            // {
+            //     'name': "Accounts Payables",
+            //     'url': "/purchases/accountspayables"
+            // },
+            // {
+            //     'name': "Payments",
+            //     'url': "/purchases/payments"
+            // },
             {
                 'name': "Suppliers",
                 'url': "/purchases/supplier"

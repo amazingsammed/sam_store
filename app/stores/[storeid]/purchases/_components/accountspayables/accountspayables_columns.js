@@ -1,29 +1,6 @@
 import {DateFormat} from "@/app/shared/sharedfunctions";
 
-export const quoteColumns = [
-    // {
-    //     id: "select",
-    //     header: ({ table }) => (
-    //         <Checkbox
-    //             checked={
-    //                 table.getIsAllPageRowsSelected() ||
-    //                 (table.getIsSomePageRowsSelected() && "indeterminate")
-    //             }
-    //             onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //             aria-label="Select all"
-    //         />
-    //     ),
-    //     cell: ({ row }) => (
-    //         <Checkbox
-    //             checked={row.getIsSelected()}
-    //             onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //             aria-label="Select row"
-    //         />
-    //     ),
-    //     enableSorting: false,
-    //     enableHiding: false,
-    // },
-
+export const accountspayables_columns = [
     {
         accessorKey: "date",
         header: "Date",
@@ -32,24 +9,36 @@ export const quoteColumns = [
         }
     },
     {
-        accessorKey: "quote",
-        header: "Quote",
+        accessorKey: "due_date",
+        header: "Due Date",
     },
     {
-        accessorKey: "customer",
-        header: "Customer",
+        accessorKey: "ref",
+        header: "Reference",
     },
     {
-        accessorKey: "salesperson",
-        header: "Sales Person",
+        accessorKey: "poref",
+        header: "Purchase order Reference",
     },
     {
-        accessorKey: "status",
-        header: "Status",
+        accessorKey: "payable",
+        header: "Payable",
+    },
+    {
+        accessorKey: "supplier",
+        header: "Supplier",
     },
     {
         accessorKey: "amount",
         header: "Amount",
+    },
+    {
+        accessorKey: "due",
+        header: "Due",
+    },
+    {
+        accessorKey: "status",
+        header: "Status",
     },
     // {
     //     accessorKey: "party_name",

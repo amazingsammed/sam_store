@@ -12,7 +12,7 @@ export const InvoiceColumns = [
     },
     {
         accessorKey: "invoice",
-        header: "Invoice Number",
+        header: "Accountspayable Number",
     },
     {
         accessorKey: "ref",
@@ -40,7 +40,7 @@ export const InvoiceColumns = [
     // },
     // {
     //     accessorKey: "salesperson",
-    //     header: "Invoice Person",
+    //     header: "Accountspayable Person",
     // },
     // {
     //     id: "actions",

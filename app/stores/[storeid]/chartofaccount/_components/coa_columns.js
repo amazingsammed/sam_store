@@ -69,7 +69,7 @@ export const coaColumns = [
     // },
     // {
     //     accessorKey: "salesperson",
-    //     header: "Invoice Person",
+    //     header: "Accountspayable Person",
     // },
     {
         id: "actions",

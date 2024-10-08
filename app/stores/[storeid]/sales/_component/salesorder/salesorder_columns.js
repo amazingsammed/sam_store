@@ -61,7 +61,7 @@ export const salesorderColumns = [
     // },
     // {
     //     accessorKey: "salesperson",
-    //     header: "Invoice Person",
+    //     header: "Accountspayable Person",
     // },
     // {
     //     id: "actions",

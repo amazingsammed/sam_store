@@ -2,6 +2,12 @@
 import Headerlisttile from "../../../../../components/headerlisttile";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
 import {purchasesColumns} from "@/app/stores/[storeid]/purchases/_components/purchases_columns";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import {Customer} from "@/app/stores/[storeid]/sales/_component/customers/customerpage";
+import React from "react";
+import Accountspayable from "@/app/stores/[storeid]/purchases/_components/accountspayables/accountspayable";
+import Purchaseorder from "@/app/stores/[storeid]/purchases/_components/purchaseorder/purchaseorder";
+import Payments from "@/app/stores/[storeid]/purchases/_components/payments/payments";
 
 export  function PurchasesListPage(prop) {
 
@@ -9,46 +15,34 @@ export  function PurchasesListPage(prop) {
 
     return (
         <div className="">
-            <Headerlisttile title='Purchases List' subtitle='All Purchases Vouchers are listed here' bname="Create" ontap = "purchases/cashpurchases">
+            <h1 className="text-3xl my-4 font-bold">Purchases Page</h1>
+            <Tabs defaultValue='cashpurchases'>
+                <div className="flex items-center">
+                    <TabsList>
+                        <TabsTrigger value="cashpurchases">Cash Purchases</TabsTrigger>
+                        <TabsTrigger value="porder">Purchase Order</TabsTrigger>
+                        <TabsTrigger value="payable">Accounts Payable</TabsTrigger>
+                        <TabsTrigger value="payment">Payment</TabsTrigger>
+                        <TabsTrigger value="supplier" className="hidden sm:flex">
+                            Suppliers
+                        </TabsTrigger>
+                        <TabsTrigger value="report" className="hidden sm:flex">
+                            Report
+                        </TabsTrigger>
+                    </TabsList>
+                </div>
+                <TabsContent value="cashpurchases">
+            <Headerlisttile title='Purchases List' subtitle='All Purchases Vouchers are listed here' bname="Create"
+                            ontap="purchases/cashpurchases">
                 <DataTable columns={purchasesColumns} data={tabledata} filter={'itemname'}/>
             </Headerlisttile>
-            {/*<Table>*/}
-            {/*    <TableHeader>*/}
-            {/*        <TableRow>*/}
-            {/*            <TableHead >Date</TableHead>*/}
-            {/*            <TableHead>Item code</TableHead>*/}
-            {/*            <TableHead className="w-[300px]">Item name</TableHead>*/}
-            {/*            <TableHead>Quantity</TableHead>*/}
-            {/*            <TableHead>Rate</TableHead>*/}
-            {/*            <TableHead>Amount</TableHead>*/}
-            {/*            <TableHead>Account</TableHead>*/}
-            {/*            <TableHead>Invoice Person</TableHead>*/}
-            {/*            <TableHead className="text-right">action</TableHead>*/}
-            {/*        </TableRow>*/}
-            {/*    </TableHeader>*/}
-            {/*    <TableBody>*/}
-            {/*        {tabledata.map((element,index) => (*/}
-            {/*            <TableRow key={index}>*/}
-            {/*                <TableCell className="font-medium">{element.date}</TableCell>*/}
-            {/*                <TableCell>{element.shortname}</TableCell>*/}
-            {/*                <TableCell>{element.itemname}</TableCell>*/}
-            {/*                <TableCell>{element.quantity}</TableCell>*/}
-            {/*                <TableCell>{element.rate}</TableCell>*/}
-            {/*                <TableCell>{element.amount}</TableCell>*/}
-            {/*                <TableCell>{element.party_name}</TableCell>*/}
-            {/*                <TableCell>{element.salesperson}</TableCell>*/}
-            {/*                <TableCell><MdMoreVert/></TableCell>*/}
+                </TabsContent>
+                <TabsContent value="porder"><Purchaseorder/></TabsContent>
+                <TabsContent value="payable">< Accountspayable/></TabsContent>
+                <TabsContent value="payment">< Payments/></TabsContent>
+                <TabsContent value="supplier"><Customer/></TabsContent>
+            </Tabs>
 
-            {/*            </TableRow>*/}
-            {/*        ))}*/}
-            {/*    </TableBody>*/}
-            {/*    <TableFooter>*/}
-            {/*        <TableRow>*/}
-            {/*            <TableCell colSpan={3}>Total</TableCell>*/}
-            {/*            <TableCell className="text-right">$2,500.00</TableCell>*/}
-            {/*        </TableRow>*/}
-            {/*    </TableFooter>*/}
-            {/*</Table>*/}
         </div>
 
     );
