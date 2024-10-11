@@ -1,6 +1,6 @@
 "use client"
 import React, {useState} from 'react';
-import {CTextfieldR} from "@/components/ktextfield";
+import {CTextfieldR} from "@/components/app/ktextfield";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {Button} from "@/components/ui/button";

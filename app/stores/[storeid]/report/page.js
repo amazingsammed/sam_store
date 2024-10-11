@@ -1,11 +1,12 @@
 import React from 'react';
 import Reportspage from "@/app/stores/[storeid]/report/_components/reportspage";
+import Container from "@/components/app/container";
 
 function Page({params}) {
     return (
-        <div className="max-w-screen-xl mx-auto">
+        <Container >
             <Reportspage/>
-        </div>
+        </Container>
     );
 }
 

@@ -1,5 +1,5 @@
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import {DashBoardCard} from "@/components/mycards";
+import {DashBoardCard} from "@/components/app/mycards";
+import Container from "@/components/app/container";
 
 
 const dbT=[
@@ -14,8 +14,7 @@ export default async function Page(params) {
     // if (!result) {
     //     redirect("/stores");
     // }
-    return <div className="max-w-screen-xl mx-auto">
-
+    return <Container >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">{
             dbT.map((item, index)=>{
                 return (
@@ -23,9 +22,6 @@ export default async function Page(params) {
             );
         })
         }
-
-
         </div>
-
-    </div>;
+    </Container>;
 }

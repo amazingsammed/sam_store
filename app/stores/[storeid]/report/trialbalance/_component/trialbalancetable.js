@@ -1,6 +1,6 @@
 
 import React from 'react';
-import  {HeaderListTileDialog} from "@/components/headerlisttile";
+import  {HeaderListTileDialog} from "@/components/app/headerlisttile";
 import {trialbalanceColumns} from "@/app/stores/[storeid]/report/trialbalance/_component/trialbalance_columns";
 import {DataTable} from "@/app/stores/[storeid]/report/trialbalance/_component/datatable";
 

@@ -3,11 +3,11 @@
 import React, {useState} from 'react';
 import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {MdCheck, MdDeleteOutline} from "react-icons/md";
-import {HeaderWithButton} from "@/components/headerlisttile";
+import {HeaderWithButton} from "@/components/app/headerlisttile";
 import {useParams, useRouter} from "next/navigation";
 import {addManyProduct} from "@/app/_actions/stock_item";
 import {z} from "zod";
-import {CashPurchasesSchema, ItemMultiCreate} from "@/app/_zod-models/auth";
+import {ItemMultiCreate} from "@/app/_zod-models/auth";
 import {toast} from "sonner";
 
 

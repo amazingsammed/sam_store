@@ -3,7 +3,6 @@
 import "./globals.css";
 import SessionWrapper from "@/app/_wrapper";
 
-import { Inter } from "next/font/google";
 import {Toaster} from "sonner";
 import React from "react";
 

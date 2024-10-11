@@ -1,8 +1,6 @@
 import React from 'react';
-import Headerlisttile from "@/components/headerlisttile";
+import Headerlisttile from "@/components/app/headerlisttile";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
-import {salesColumns} from "@/app/stores/[storeid]/sales/_component/cashsales/sales_columns";
-import {getSalesList} from "@/app/_actions/sales";
 import {quoteColumns} from "@/app/stores/[storeid]/sales/_component/quote/quote_columns";
 
 function Quote(props) {

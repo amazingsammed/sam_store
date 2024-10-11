@@ -16,9 +16,6 @@ export  function ItemsPage(prop) {
                         <TabsTrigger value="category">Category</TabsTrigger>
                         <TabsTrigger value="group">Group</TabsTrigger>
                         <TabsTrigger value="unit">Units</TabsTrigger>
-                        <TabsTrigger value="report" className="hidden sm:flex">
-                            Report
-                        </TabsTrigger>
                     </TabsList>
                 </div>
                 <TabsContent value="item">

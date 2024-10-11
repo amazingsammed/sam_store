@@ -1,10 +1,7 @@
 
 
-import SideBar from "@/components/Sidebar";
-import StoreHeader from "@/app/stores/[storeid]/_component/store_header";
-import Storeinfo from "@/components/storeinfo";
-
-
+import SideBar from "@/components/app/Sidebar";
+import StoreHeader from "@/components/app/store_header";
 
 
 export default async function Layout({children}) {

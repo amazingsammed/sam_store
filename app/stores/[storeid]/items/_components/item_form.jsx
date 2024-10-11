@@ -5,7 +5,7 @@ import {
     CDropDown,
     CTextfieldNum,
     CCheckBox
-} from '@/components/ktextfield'
+} from '@/components/app/ktextfield'
 import {
     Dialog, DialogClose,
     DialogContent,
@@ -15,13 +15,13 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {addProduct} from "@/app/_actions/stock_item";
 import {useParams, useRouter} from "next/navigation";
 import {getStockGroup, getStockUnits} from "@/app/_actions/stock_item_options";
 import {toast} from "sonner";
 import {useFormState} from "react-dom";
-import MySubmitButton from "@/components/mybuttons";
+import MySubmitButton from "@/components/app/mybuttons";
 import {mapToJson} from "@/app/shared/sharedfunctions";
 
 

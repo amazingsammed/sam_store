@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react';
-import Link from "next/link";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {usePathname} from "next/navigation";
-import MembersTable from "@/app/stores/[storeid]/settings/_component/_members/members_table";
+import MembersTable from "@/app/stores/[storeid]/settings/_component/members/members_table";
+import {Cartofaccount} from "@/app/stores/[storeid]/settings/_component/chartofaccount/coa_table";
+import {GroupTablePage} from "@/app/stores/[storeid]/settings/_component/accountgroups/group_table";
 
 
 export function Settingspage(props) {
@@ -21,7 +21,6 @@ export function Settingspage(props) {
 
 
 function SettingsMenu({children}) {
-    const path = usePathname();
     return (
         <div>
             <h1 className="text-3xl my-4 font-bold">Settings</h1>
@@ -32,13 +31,15 @@ function SettingsMenu({children}) {
                         <TabsTrigger value="members">Members</TabsTrigger>
                         <TabsTrigger value="store">Store Details</TabsTrigger>
                         <TabsTrigger value="account">Accounts</TabsTrigger>
-                        <TabsTrigger value="others" className="hidden sm:flex">
-                            Others
+                        <TabsTrigger value="accountgroup" className="hidden sm:flex">
+                            Accounts Group
                         </TabsTrigger>
                     </TabsList>
                 </div>
-                <TabsContent value="general">< MembersTable /></TabsContent>
+
                 <TabsContent value="members">< MembersTable /></TabsContent>
+                <TabsContent value="account">< Cartofaccount /></TabsContent>
+                <TabsContent value="accountgroup">< GroupTablePage /></TabsContent>
             </Tabs>
         </div>
     );

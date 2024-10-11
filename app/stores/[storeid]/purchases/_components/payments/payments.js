@@ -1,8 +1,6 @@
 import React from 'react';
-import  {HeaderListTileDialog} from "@/components/headerlisttile";
+import  {HeaderListTileDialog} from "@/components/app/headerlisttile";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
-import {InvoiceColumns} from "@/app/stores/[storeid]/sales/_component/invoice/invoice_columns";
-import {CustomerForm} from "@/app/stores/[storeid]/sales/customer/_components/addcustomer";
 import {InvoiceForm} from "@/app/stores/[storeid]/sales/_component/invoice/addinvoice";
 import {PaymentColumns} from "@/app/stores/[storeid]/purchases/_components/payments/payments_columns";
 

@@ -11,7 +11,7 @@ import {
 
 
 import {AddLedgerDialog} from "@/app/stores/[storeid]/_trash/account/ledgers/_components/addItemForm";
-import {HeaderListTileDialog} from "@/components/headerlisttile";
+import {HeaderListTileDialog} from "@/components/app/headerlisttile";
 
 
 

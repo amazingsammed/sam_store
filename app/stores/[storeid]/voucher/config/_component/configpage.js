@@ -1,6 +1,6 @@
 import React from 'react';
-import ReportCard, {VoucherCard} from "@/components/mycards";
-import {MdBalance, MdSanitizer} from "react-icons/md";
+import {VoucherCard} from "@/components/app/mycards";
+import {MdSanitizer} from "react-icons/md";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 
 const basicVoucher = [
@@ -8,7 +8,7 @@ const basicVoucher = [
         'title':"Sales",
         'description':"Record Accountspayable of various products",
         'icon': <MdSanitizer/>,
-        "path": "cashsales",
+        "path": "sales_list",
         "active": true,
     },
     {

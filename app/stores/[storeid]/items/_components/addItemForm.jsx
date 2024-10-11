@@ -1,6 +1,6 @@
 "use client";
 
-import {CTextfieldR, CTextfieldNum, CCheckBox, CDropDown} from '@/components/ktextfield'
+import {CTextfieldR, CTextfieldNum, CCheckBox, CDropDown} from '@/components/app/ktextfield'
 import {useParams, useRouter} from "next/navigation";
 import {useState, useEffect, useRef} from 'react';
 import {addProduct} from "@/app/_actions/stock_item";

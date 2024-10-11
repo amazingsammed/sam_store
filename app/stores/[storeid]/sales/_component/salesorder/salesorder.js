@@ -1,5 +1,5 @@
 import React from 'react';
-import Headerlisttile from "@/components/headerlisttile";
+import Headerlisttile from "@/components/app/headerlisttile";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
 
 import {salesorderColumns} from "@/app/stores/[storeid]/sales/_component/salesorder/salesorder_columns";

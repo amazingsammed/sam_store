@@ -22,6 +22,17 @@ model chart_of_account {
   status          Int?      @default(1)
 }
 
+model chart_of_account_group {
+  id          Int       @id @default(autoincrement())
+  uuid        String    @unique(map: "uuid") @db.VarChar(255)
+  name        String?   @db.VarChar(255)
+  accountid   Int?
+  createdby   String?   @db.VarChar(255)
+  storeid     String?   @db.VarChar(255)
+  createddate DateTime? @db.DateTime(0)
+  status      Int?      @default(1)
+}
+
 model customer {
   id         Int       @id @default(autoincrement())
   coa_uuid   String    @unique(map: "coa_uuid") @db.VarChar(255)
@@ -36,6 +47,22 @@ model customer {
   storeid    String?   @db.VarChar(255)
   editedby   String?   @db.VarChar(255)
   editeddate DateTime? @db.DateTime(0)
+}
+
+model default_coa {
+  id              Int     @default(autoincrement())
+  uuid            String  @db.VarChar(255)
+  account_code    String  @default("") @db.VarChar(256)
+  account_name    String  @default("") @db.VarChar(1024)
+  account_group   String  @default("") @db.VarChar(1024)
+  account_type    Int     @db.TinyInt
+  opening_balance Decimal @default(0.00) @db.Decimal(17, 2)
+  description     String? @db.VarChar(4)
+  storeid         String? @db.VarChar(255)
+  createdby       String? @db.VarChar(255)
+
+  @@id([id, uuid])
+  @@index([uuid], map: "uuid")
 }
 
 model stock_item {
@@ -127,9 +154,27 @@ model system_account_category {
   accountid Int?
 }
 
+model system_account_group {
+  id        Int     @id @default(autoincrement())
+  name      String? @db.VarChar(255)
+  accountid Int?
+  status    Int?    @default(1)
+  uuid      String  @db.VarChar(255)
+
+  @@index([uuid], map: "uuid")
+}
+
 model system_accounts {
   id   Int     @id @default(autoincrement())
   name String? @db.VarChar(255)
+}
+
+model system_roles {
+  id          Int     @id @default(autoincrement())
+  role        String? @db.VarChar(255)
+  description String? @db.VarChar(255)
+  status      Int?    @default(1)
+  uuid        String? @db.VarChar(255)
 }
 
 model trn_accounting {
@@ -174,6 +219,19 @@ model user {
   isactive    Int?      @default(1)
 }
 
+model user_store {
+  id          Int       @default(autoincrement())
+  user_uuid   String    @db.VarChar(255)
+  store_uuid  String    @db.VarChar(255)
+  role_uuid   String?   @db.VarChar(255)
+  createddate DateTime? @db.DateTime(0)
+  createdby   String?   @db.VarChar(255)
+  status      Int?      @default(1)
+
+  @@id([id, user_uuid, store_uuid])
+  @@unique([user_uuid, store_uuid], map: "user_uuid")
+}
+
 model voucher {
   id                    Int       @id @default(autoincrement())
   uuid                  String?   @unique(map: "uuid") @db.VarChar(255)
@@ -204,62 +262,4 @@ model voucher_type {
   numbering_method  String @default("") @db.VarChar(64)
   is_deemedpositive Int?   @db.TinyInt
   affects_stock     Int?   @db.TinyInt
-}
-
-model default_coa {
-  id              Int     @default(autoincrement())
-  uuid            String  @db.VarChar(255)
-  account_code    String  @default("") @db.VarChar(256)
-  account_name    String  @default("") @db.VarChar(1024)
-  account_group   String  @default("") @db.VarChar(1024)
-  account_type    Int     @db.TinyInt
-  opening_balance Decimal @default(0.00) @db.Decimal(17, 2)
-  description     String? @db.VarChar(4)
-  storeid         String? @db.VarChar(255)
-  createdby       String? @db.VarChar(255)
-
-  @@id([id, uuid])
-  @@index([uuid], map: "uuid")
-}
-
-model system_account_group {
-  id        Int     @id @default(autoincrement())
-  name      String? @db.VarChar(255)
-  accountid Int?
-  status    Int?    @default(1)
-  uuid      String  @db.VarChar(255)
-
-  @@index([uuid], map: "uuid")
-}
-
-model system_roles {
-  id          Int     @id @default(autoincrement())
-  role        String? @db.VarChar(255)
-  description String? @db.VarChar(255)
-  status      Int?    @default(1)
-  uuid        String? @db.VarChar(255)
-}
-
-model user_store {
-  id          Int       @default(autoincrement())
-  user_uuid   String    @db.VarChar(255)
-  store_uuid  String    @db.VarChar(255)
-  role_uuid   String?   @db.VarChar(255)
-  createddate DateTime? @db.DateTime(0)
-  createdby   String?   @db.VarChar(255)
-  status      Int?      @default(1)
-
-  @@id([id, user_uuid, store_uuid])
-  @@unique([user_uuid, store_uuid], map: "user_uuid")
-}
-
-model chart_of_account_group {
-  id          Int       @id @default(autoincrement())
-  uuid        String    @unique(map: "uuid") @db.VarChar(255)
-  name        String?   @db.VarChar(255)
-  accountid   Int?
-  createdby   String?   @db.VarChar(255)
-  storeid     String?   @db.VarChar(255)
-  createddate DateTime? @db.DateTime(0)
-  status      Int?      @default(1)
 }

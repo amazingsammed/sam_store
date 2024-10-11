@@ -1,6 +1,6 @@
 "use client";
 
-import {CTextfieldR} from '@/components/ktextfield'
+import {CTextfieldR} from '@/components/app/ktextfield'
 import {
     Dialog, DialogClose,
     DialogContent,

@@ -9,7 +9,7 @@ import {
     DialogTitle,
     DialogTrigger
 } from "@/components/ui/dialog";
-import { CTextfieldNum, CTextfieldR} from "@/components/ktextfield";
+import { CTextfieldNum, CTextfieldR} from "@/components/app/ktextfield";
 import {createStore} from "@/app/_actions/stores";
 import {useRouter} from "next/navigation";
 

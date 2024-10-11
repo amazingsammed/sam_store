@@ -2,7 +2,7 @@
 
 "use client";
 
-import {CTextfieldR, CDropDownWithOnChange, CTextfieldNum, CTextfieldRrow} from '@/components/ktextfield'
+import {CTextfieldR} from '@/components/app/ktextfield'
 import {
     Dialog, DialogClose,
     DialogContent,
@@ -13,8 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import {useParams, useRouter} from "next/navigation";
-import {addCustomer} from "@/app/_actions/customer";
-import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table";
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import React from "react";
 import {Card} from "@/components/ui/card";
 

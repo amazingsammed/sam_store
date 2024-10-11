@@ -2,10 +2,10 @@
 
 import React from 'react';
 import Link from "next/link";
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 
 import Storeheader from "@/app/stores/_component/storeheader";
-import {MdCircle, MdLocationCity, MdPhone, MdStore} from "react-icons/md";
+import {MdStore} from "react-icons/md";
 
 function Storelist(prop) {
     const stores = prop.datax;
@@ -33,13 +33,6 @@ function Storelist(prop) {
                                 </CardTitle>
 
                             </CardHeader>
-                            <CardContent>
-                                <hr/>
-
-                                <p>{store['storeaddress']}</p>
-                                <p>{store['storephone']}</p>
-
-                            </CardContent>
                             <CardDescription className="flex flex-row items-center justify-between space-y-0 p-4">
                                 Free Version
                             </CardDescription>

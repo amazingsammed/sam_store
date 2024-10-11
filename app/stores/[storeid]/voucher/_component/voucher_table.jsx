@@ -18,7 +18,7 @@ export function VoucherTable(prop) {
 }
 
 
-import Headerlisttile from "../../../../../components/headerlisttile";
+import Headerlisttile from "../../../../../components/app/headerlisttile";
 import {voucherColumns} from "@/app/stores/[storeid]/voucher/_component/voucher_columns";
   
 

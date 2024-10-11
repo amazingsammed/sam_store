@@ -2,7 +2,7 @@
 
 "use client";
 
-import {CTextfieldR, CDropDownWithOnChange, CTextfieldNum} from '@/components/ktextfield'
+import {CTextfieldR, CDropDownWithOnChange, CTextfieldNum} from '@/components/app/ktextfield'
 import {
     Dialog, DialogClose,
     DialogContent,

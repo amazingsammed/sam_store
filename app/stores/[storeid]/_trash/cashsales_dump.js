@@ -4,7 +4,7 @@
 // import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 // import {MdCheck, MdDeleteOutline} from "react-icons/md";
 // import Headerlisttile from "@/components/headerlisttile";
-// import {ItemListCombo} from "@/app/stores/[storeid]/cashsales/cashsales/_component/itemlistcombo";
+// import {ItemListCombo} from "@/app/stores/[storeid]/sales_list/sales_list/_component/itemlistcombo";
 // import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList} from "@/components/ui/command";
 // import {Check} from "lucide-react";
 // import {cn} from "@/lib/utils";

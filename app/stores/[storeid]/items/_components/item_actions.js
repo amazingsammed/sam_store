@@ -32,7 +32,7 @@ function ItemActions({element}) {
     const path = usePathname();
     async function handleDeleteStockItem() {
         await deleteStockItem(element,param.storeid);
-        router.refresh();
+        await router.refresh();
     }
     return (
         <DropdownMenu>

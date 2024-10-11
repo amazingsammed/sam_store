@@ -4,8 +4,8 @@ import React from "react";
 import Image from "next/image"
 import Link from 'next/link';
 import {Button} from "@/components/ui/button";
-import ReportCard, {HomeCard} from "@/components/mycards";
-import {MdAccountBalance, MdBalance, MdForum, MdInventory2, MdPostAdd, MdReport, MdStore} from "react-icons/md";
+import {HomeCard} from "@/components/app/mycards";
+import {MdAccountBalance, MdForum, MdInventory2, MdPostAdd, MdReport, MdStore} from "react-icons/md";
 const basicReport = [
     {
         'title':"Multi-Store Management",
@@ -21,13 +21,13 @@ const basicReport = [
     },
     {
         "title": "Voucher Entry System",
-        "description": "Facilitates recording all financial transactions using vouchers such as cashsales, purchase, payment, and receipt entries.",
+        "description": "Facilitates recording all financial transactions using vouchers such as sales_list, purchase, payment, and receipt entries.",
         'icon': <MdForum/>,
     },
 
     {
         'title':"Inventory Management",
-        'description':"Manages stock levels, tracks purchases and cashsales, and provides real-time inventory reports for each store.",
+        'description':"Manages stock levels, tracks purchases and sales_list, and provides real-time inventory reports for each store.",
         'icon': <MdInventory2/>,
     },
     {

@@ -109,3 +109,7 @@ ORDER BY
         console.log(e);
     }
 }
+
+export async function getAllPurchases(storeid){
+    return [];
+}

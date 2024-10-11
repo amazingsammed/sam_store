@@ -31,6 +31,7 @@ GROUP BY
 
         return results;
     } catch (e) {
+        console.log(e);
         return [];
     }
 

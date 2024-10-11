@@ -1,22 +1,8 @@
 'use client'
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
-import {MdMoreVert} from "react-icons/md";
-import {HeaderListTileDialog} from "@/components/headerlisttile";
-import {AddUnitsDialog} from "@/app/stores/[storeid]/items/units/_component/unitsform";
-import {UnitColumns} from "@/app/stores/[storeid]/items/_components/units/units_columns";
-import {groupColumns} from "@/app/stores/[storeid]/items/_components/group/group_columns";
+import {HeaderListTileDialog} from "@/components/app/headerlisttile";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
 import React, {useEffect, useState} from "react";
-import {getStockGroup, getStockUnits} from "@/app/_actions/stock_item_options";
-import {useParams, usePathname} from "next/navigation";
+import {useParams, usePathname, useRouter} from "next/navigation";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {AddAnItem} from "@/app/stores/[storeid]/items/_components/item_form";
@@ -27,6 +13,7 @@ export  function ItemTableTab(prop) {
     const [tabledata,setTableData] = useState([]);
     const param = useParams();
     const path = usePathname();
+
     useEffect(() => {
         const fetchData = async () => {
             const data = await getAllProductsbyStoreid(param.storeid);
