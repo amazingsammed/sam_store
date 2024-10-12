@@ -8,11 +8,14 @@ import {Button} from "@/components/ui/button";
 import {AddAnItem} from "@/app/stores/[storeid]/items/_components/item_form";
 import {itemsColumns} from "@/app/stores/[storeid]/items/_components/item/item_columns";
 import {getAllProductsbyStoreid} from "@/app/_actions/stock_item";
+import {SetState} from "@/app/shared/localfunction";
 
 export  function ItemTableTab(prop) {
-    const [tabledata,setTableData] = useState([]);
+    const [tabledata, setTableData] = useState([]);
     const param = useParams();
     const path = usePathname();
+
+    const num =  SetState();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,7 +24,7 @@ export  function ItemTableTab(prop) {
             setTableData(data)
         }
         fetchData();
-    }, []);
+    }, [num]);
     return (
         <div className="">
             <HeaderListTileDialog title='Item List' subtitle='All items are listed here' buttonx={

@@ -25,6 +25,7 @@ import {cn} from "@/lib/utils";
 import {getStockGroup, getStockUnits} from "@/app/_actions/stock_item_options";
 import {toast} from "sonner";
 import {mapToJson} from "@/app/shared/sharedfunctions";
+import {SetState} from "@/app/shared/localfunction";
 
 function ItemActions({element}) {
     const param = useParams();
@@ -32,6 +33,7 @@ function ItemActions({element}) {
     const path = usePathname();
     async function handleDeleteStockItem() {
         await deleteStockItem(element,param.storeid);
+        SetState();
         await router.refresh();
     }
     return (
@@ -107,6 +109,7 @@ export default ItemActions;
     async function handleEditStockitem(state,datax) {
         console.log(data);
         await editStockItem(datax,path.storeid);
+        SetState();
         router.refresh();
     }
     const [state, action] = useFormState(handleEditStockitem, undefined);
