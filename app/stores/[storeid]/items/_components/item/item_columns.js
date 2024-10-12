@@ -36,8 +36,11 @@ export const itemsColumns = [
         header: "Name",
     },
     {
-        accessorKey: "groups",
+        accessorKey: "stock_item_group",
         header: "Group",
+        cell: ({ row }) => {
+            return row.original.stock_item_group['name'];
+        }
     },
 
     {

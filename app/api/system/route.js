@@ -30,32 +30,17 @@ export async function POST(request) {
         if (!tokens) {
             throw new Error('unauthenticated user');
         };
-
-        const results = await prisma.$queryRaw`
-        SELECT
-\tsystem_roles.role, 
-\tuser_store.createddate, 
-\tuser_store.createdby, 
-\tuser_store.user_uuid, 
-\tstore.storename, 
-\tstore.storeaddress, 
-\tstore.storephone, 
-\tstore.storeemail, 
-\t\`user\`.\`name\`, 
-\t\`user\`.email
-FROM
-\tsystem_roles,
-\tuser_store,
-\tstore,
-\t\`user\`
-WHERE
-\tsystem_roles.uuid = user_store.role_uuid AND
-\tuser_store.store_uuid = store.uuid AND
-\tuser_store.user_uuid = \`user\`.uuid AND
-\tuser_store.store_uuid = ${storeid} AND
-\tuser_store.user_uuid = ${tokens.user.uuid} AND
-\tuser_store.\`status\` = 1
-        `;
+        const results = await prisma.user_store.findMany({
+            where:{
+                user_uuid: tokens.user.uuid,
+                store_uuid: storeid
+            },
+            include:{
+                store : true,
+                system_roles: true,
+            }
+        });
+        console.log(results ,"system api");
         if(results.length === 0) {
             return NextResponse.json({message: "Fake user"}, {status: 400});
         }

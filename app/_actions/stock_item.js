@@ -10,19 +10,13 @@ export async function getProducts(storeid) {
     const results = [];
     try {
         const userid = await PrimeChecker(storeid);
-
-        const  data= await prisma.$queryRaw ` SELECT
-\tstock_item.\`name\`, 
-\tstock_item.uuid, 
-\tstock_item.salesprice, 
-\tstock_item.purchaseprice
-FROM
-\tstock_item
-WHERE
-\tstock_item.storeid = ${queryClean(storeid)} AND
-\tstock_item.\`status\` = 1
-        `;
-        console.log(data);
+        const  data = await prisma.stock_item.findMany({
+            where: {
+                storeid: storeid,
+                status: 1
+            }
+        });
+        console.log(data,"getProducts");
         return JSON.parse(JSON.stringify(data));
     } catch (e) {
         return [];
@@ -75,26 +69,16 @@ export async function getAllProductsbyStoreid(storeid) {
     const results = [];
     try {
         const userid = await PrimeChecker(storeid);
-
-        const  data= await prisma.$queryRaw ` 
-SELECT
-\tstock_item.\`name\`, 
-\tstock_item.salesprice, 
-\tstock_item.purchaseprice, 
-\tstock_item.uuid,
-\tstock_item.unit,
-\tstock_item.\`group\` ,
-\tstock_item.\`status\`, 
-\tstock_item_group.\`name\` AS \`groups\`
-FROM
-\tstock_item,
-\tstock_item_group,
-\tstock_item_unit
-WHERE
-\tstock_item.\`group\` = stock_item_group.id AND
-\tstock_item.unit = stock_item_unit.id AND
-\tstock_item.storeid = ${queryClean(storeid)} 
-        `;
+        const  data= await prisma.stock_item.findMany({
+            where: {
+                storeid: storeid,
+                status: 1
+            },
+            include:{
+                stock_item_group: true,
+                stock_item_unit: true,
+            }
+        });
         console.log(JSON.parse(JSON.stringify(data)),'all items');
         return JSON.parse(JSON.stringify(data));
     } catch (e) {

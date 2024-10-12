@@ -3,13 +3,22 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model business {
+  id          Int       @id
+  name        String?   @db.VarChar(255)
+  location    String?   @db.VarChar(255)
+  uuid        Int?
+  createdby   String?   @db.VarChar(255)
+  createddate DateTime? @db.Date
 }
 
 model chart_of_account {
   id              Int       @id @default(autoincrement())
-  uuid            String    @unique(map: "uuid") @db.VarChar(255)
+  uuid            String?   @unique @db.VarChar(255)
   account_code    Int?
   account_name    String?   @default("") @db.VarChar(1024)
   account_group   String?   @db.VarChar(255)
@@ -18,134 +27,133 @@ model chart_of_account {
   description     String?   @db.VarChar(255)
   storeid         String?   @db.VarChar(255)
   createdby       String?   @db.VarChar(255)
-  createddate     DateTime? @db.DateTime(0)
+  createddate     DateTime? @db.Timestamp(6)
   status          Int?      @default(1)
 }
 
 model chart_of_account_group {
   id          Int       @id @default(autoincrement())
-  uuid        String    @unique(map: "uuid") @db.VarChar(255)
+  uuid        String?   @unique @db.VarChar(255)
   name        String?   @db.VarChar(255)
   accountid   Int?
   createdby   String?   @db.VarChar(255)
   storeid     String?   @db.VarChar(255)
-  createddate DateTime? @db.DateTime(0)
+  createddate DateTime? @db.Timestamp(6)
   status      Int?      @default(1)
 }
 
 model customer {
   id         Int       @id @default(autoincrement())
-  coa_uuid   String    @unique(map: "coa_uuid") @db.VarChar(255)
+  coa_uuid   String?   @unique @db.VarChar(255)
   name       String?   @db.VarChar(255)
   email      String?   @db.VarChar(255)
   address    String?   @db.VarChar(255)
   phone      String?   @db.VarChar(255)
   type       Int?
-  date       DateTime? @db.DateTime(0)
+  date       DateTime? @db.Timestamp(6)
   createdby  String?   @db.VarChar(255)
   status     Int?      @default(1)
   storeid    String?   @db.VarChar(255)
   editedby   String?   @db.VarChar(255)
-  editeddate DateTime? @db.DateTime(0)
+  editeddate DateTime? @db.Timestamp(6)
 }
 
 model default_coa {
-  id              Int     @default(autoincrement())
-  uuid            String  @db.VarChar(255)
-  account_code    String  @default("") @db.VarChar(256)
-  account_name    String  @default("") @db.VarChar(1024)
-  account_group   String  @default("") @db.VarChar(1024)
-  account_type    Int     @db.TinyInt
-  opening_balance Decimal @default(0.00) @db.Decimal(17, 2)
-  description     String? @db.VarChar(4)
-  storeid         String? @db.VarChar(255)
-  createdby       String? @db.VarChar(255)
+  id              Int      @id @default(autoincrement())
+  uuid            String?  @db.VarChar(255)
+  account_code    String?  @default("") @db.VarChar(256)
+  account_name    String?  @default("") @db.VarChar(1024)
+  account_group   String?  @default("") @db.VarChar(1024)
+  account_type    Int?     @db.SmallInt
+  opening_balance Decimal? @default(0.00) @db.Decimal(17, 2)
+  description     String?  @db.VarChar(4)
+  storeid         String?  @db.VarChar(255)
+  createdby       String?  @db.VarChar(255)
 
-  @@id([id, uuid])
-  @@index([uuid], map: "uuid")
+  @@unique([id, uuid])
 }
 
 model stock_item {
-  id            Int       @default(autoincrement())
-  name          String?   @default("") @db.VarChar(1024)
-  group         Int       @default(1)
-  uuid          String    @unique(map: "uuidt") @db.VarChar(255)
-  shortname     String?   @default("") @db.VarChar(256)
-  part_number   String?   @default("") @db.VarChar(256)
-  unit          Int       @default(1)
-  description   String?   @db.VarChar(255)
-  status        Int?      @default(1)
-  createdby     String?   @db.VarChar(255)
-  storeid       String?   @db.VarChar(255)
-  createddate   DateTime? @db.DateTime(0)
-  is_active     Int?      @default(1)
-  salesprice    Decimal?  @db.Decimal(10, 2)
-  purchaseprice Decimal?  @db.Decimal(10, 2)
-  warninglimit  Int?
-  is_service    Int?      @default(0)
-
-  @@id([id, uuid])
+  id               Int               @id @unique(map: "stock_item_id_idx") @default(autoincrement())
+  name             String?           @default("") @db.VarChar(1024)
+  group            Int?              @default(1)
+  uuid             String?           @unique(map: "stock_item_uuid_idx") @db.VarChar(255)
+  shortname        String?           @default("") @db.VarChar(256)
+  part_number      String?           @default("") @db.VarChar(256)
+  unit             Int?              @default(1)
+  description      String?           @db.VarChar(255)
+  status           Int?              @default(1)
+  createdby        String?           @db.VarChar(255)
+  storeid          String?           @db.VarChar(255)
+  createddate      DateTime?         @db.Timestamp(6)
+  is_active        Int?              @default(1)
+  salesprice       Decimal?          @db.Decimal(10, 2)
+  purchaseprice    Decimal?          @db.Decimal(10, 2)
+  warninglimit     Int?
+  is_service       Int?              @default(0)
+  stock_item_group stock_item_group? @relation(fields: [group], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  stock_item_unit  stock_item_unit?  @relation(fields: [unit], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  trn_inventory    trn_inventory[]
 }
 
 model stock_item_category {
   id               Int                @id @default(autoincrement())
   name             String?            @db.VarChar(255)
   storeid          String?            @db.VarChar(255)
-  createddate      DateTime?          @db.DateTime(0)
+  createddate      DateTime?          @db.Timestamp(6)
   createdby        String?            @db.VarChar(255)
   status           Int?               @default(1)
   stock_item_group stock_item_group[]
 }
 
 model stock_item_group {
-  id                  Int                  @id @default(autoincrement())
-  name                String               @default("") @db.VarChar(1024)
+  id                  Int                  @id @unique(map: "stock_item_group_id_idx") @default(autoincrement())
+  name                String?              @default("") @db.VarChar(1024)
   category            Int?
   createdby           String?              @db.VarChar(255)
-  createddate         DateTime?            @db.DateTime(0)
+  createddate         DateTime?            @db.Timestamp(6)
   storeid             String?              @db.VarChar(255)
   status              Int?                 @default(1)
-  stock_item_category stock_item_category? @relation(fields: [category], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "stock_item_group_ibfk_1")
-
-  @@index([category], map: "category")
+  stock_item          stock_item[]
+  stock_item_category stock_item_category? @relation(fields: [category], references: [id], onDelete: Restrict, onUpdate: Restrict)
 }
 
 model stock_item_unit {
-  id          Int       @id @default(autoincrement())
-  name        String    @default("") @db.VarChar(1024)
-  description String?   @db.VarChar(255)
-  createdby   String?   @db.VarChar(255)
-  createddate DateTime? @db.DateTime(0)
-  storeid     String?   @db.VarChar(255)
-  status      Int?      @default(1)
+  id          Int          @id @default(autoincrement())
+  name        String?      @default("") @db.VarChar(1024)
+  description String?      @db.VarChar(255)
+  createdby   String?      @db.VarChar(255)
+  createddate DateTime?    @db.Timestamp(6)
+  storeid     String?      @db.VarChar(255)
+  status      Int?         @default(1)
+  stock_item  stock_item[]
 }
 
 model store {
-  id           Int       @id @default(autoincrement())
-  uuid         String    @db.VarChar(255)
-  storename    String?   @db.VarChar(255)
-  storeaddress String?   @db.VarChar(255)
-  storephone   String?   @db.VarChar(255)
-  storeemail   String?   @db.VarChar(255)
-  status       Int?      @default(1)
-  createddate  DateTime? @db.DateTime(0)
-  isactive     Int?      @default(1)
-  createdby    String?   @db.VarChar(255)
+  id           Int          @id @unique(map: "store_id_idx") @default(autoincrement())
+  uuid         String?      @unique(map: "store_uuid_idx") @db.VarChar(255)
+  storename    String?      @db.VarChar(255)
+  storeaddress String?      @db.VarChar(255)
+  storephone   String?      @db.VarChar(255)
+  storeemail   String?      @db.VarChar(255)
+  status       Int?         @default(1)
+  createddate  DateTime?    @db.Timestamp(6)
+  isactive     Int?         @default(1)
+  createdby    String?      @db.VarChar(255)
+  user_store   user_store[]
 }
 
 model suppliers {
-  id        Int       @id
-  coa_uuid  String    @db.VarChar(255)
+  id        Int       @id @default(autoincrement())
+  coa_uuid  String?   @db.VarChar(255)
   name      String?   @db.VarChar(255)
   email     String?   @db.VarChar(255)
   address   String?   @db.VarChar(255)
   phone     String?   @db.VarChar(255)
-  date      DateTime? @db.DateTime(0)
+  date      DateTime? @db.Timestamp(6)
   createdby String?   @db.VarChar(255)
   storeid   Int?
   status    Int?
-
-  @@index([coa_uuid], map: "uuid")
 }
 
 model system_account_category {
@@ -159,9 +167,7 @@ model system_account_group {
   name      String? @db.VarChar(255)
   accountid Int?
   status    Int?    @default(1)
-  uuid      String  @db.VarChar(255)
-
-  @@index([uuid], map: "uuid")
+  uuid      String? @db.VarChar(255)
 }
 
 model system_accounts {
@@ -170,96 +176,103 @@ model system_accounts {
 }
 
 model system_roles {
-  id          Int     @id @default(autoincrement())
-  role        String? @db.VarChar(255)
-  description String? @db.VarChar(255)
-  status      Int?    @default(1)
-  uuid        String? @db.VarChar(255)
+  id          Int          @id @unique(map: "system_roles_id_idx") @default(autoincrement())
+  role        String?      @db.VarChar(255)
+  description String?      @db.VarChar(255)
+  status      Int?         @default(1)
+  uuid        String?      @unique(map: "system_roles_uuid_idx") @db.VarChar(255)
+  user_store  user_store[]
 }
 
 model trn_accounting {
-  id           Int     @id @default(autoincrement())
-  voucher_uuid String? @db.VarChar(255)
-  vouchername  String  @default("") @db.VarChar(64)
-  account_uuid String  @db.VarChar(255)
-  amount       Decimal @default(0.00) @db.Decimal(17, 2)
-  status       Int?    @default(1)
-  is_active    Int?    @default(1)
-  is_system    Int?    @default(0)
-
-  @@index([account_uuid], map: "accountid")
-  @@index([voucher_uuid], map: "uuid")
+  id           Int      @id @unique(map: "trn_accounting_id_idx") @default(autoincrement())
+  voucher_uuid String?  @db.VarChar(255)
+  vouchername  String?  @default("") @db.VarChar(64)
+  account_uuid String?  @db.VarChar(255)
+  amount       Decimal? @default(0.00) @db.Decimal(17, 2)
+  status       Int?     @default(1)
+  is_active    Int?     @default(1)
+  is_system    Int?     @default(0)
+  voucher      voucher? @relation(fields: [voucher_uuid], references: [uuid], onDelete: Restrict, onUpdate: Restrict)
 }
 
 model trn_inventory {
-  id                Int      @id @default(autoincrement())
-  voucher_uuid      String?  @db.VarChar(255)
-  item_uuid         String?  @db.VarChar(255)
-  quantity          Decimal? @default(0.0000) @db.Decimal(15, 4)
-  rate              Decimal? @default(0.0000) @db.Decimal(15, 4)
-  amount            Decimal? @default(0.00) @db.Decimal(17, 2)
-  additional_amount Decimal? @default(0.00) @db.Decimal(17, 2)
-  discount_amount   Decimal? @default(0.00) @db.Decimal(17, 2)
+  id                Int         @id @unique(map: "trn_inventory_id_idx") @default(autoincrement())
+  voucher_uuid      String?     @db.VarChar(255)
+  item_uuid         String?     @db.VarChar(255)
+  quantity          Decimal?    @default(0.0000) @db.Decimal(15, 4)
+  rate              Decimal?    @default(0.0000) @db.Decimal(15, 4)
+  amount            Decimal?    @default(0.00) @db.Decimal(17, 2)
+  additional_amount Decimal?    @default(0.00) @db.Decimal(17, 2)
+  discount_amount   Decimal?    @default(0.00) @db.Decimal(17, 2)
   order_number      Int?
-  status            Int?     @default(1)
-
-  @@index([item_uuid], map: "itemid")
-  @@index([voucher_uuid], map: "voucherid")
+  status            Int?        @default(1)
+  stock_item        stock_item? @relation(fields: [item_uuid], references: [uuid], onDelete: Restrict, onUpdate: Restrict)
+  voucher           voucher?    @relation(fields: [voucher_uuid], references: [uuid], onDelete: Restrict, onUpdate: Restrict)
 }
 
 model user {
-  id          Int       @id @default(autoincrement())
-  uuid        String?   @db.VarChar(255)
-  name        String?   @db.VarChar(255)
-  email       String    @unique(map: "email") @db.VarChar(255)
-  imageurl    String?   @db.VarChar(255)
-  password    String?   @db.VarChar(255)
-  status      Int?      @default(1)
-  createddate DateTime? @db.DateTime(0)
-  isactive    Int?      @default(1)
+  id          Int          @unique(map: "user_id_idx") @default(autoincrement())
+  uuid        String       @unique(map: "user_uuid_idx") @db.VarChar(255)
+  name        String?      @db.VarChar(255)
+  email       String?      @unique(map: "users_email_key") @db.VarChar(255)
+  imageurl    String?      @db.VarChar(255)
+  password    String?      @db.VarChar(255)
+  status      Int?         @default(1)
+  createddate DateTime?    @db.Timestamp(6)
+  isactive    Int?         @default(1)
+  user_store  user_store[]
+
+  @@id([id, uuid], map: "users_pkey")
 }
 
 model user_store {
-  id          Int       @default(autoincrement())
-  user_uuid   String    @db.VarChar(255)
-  store_uuid  String    @db.VarChar(255)
-  role_uuid   String?   @db.VarChar(255)
-  createddate DateTime? @db.DateTime(0)
-  createdby   String?   @db.VarChar(255)
-  status      Int?      @default(1)
+  id           Int           @id @default(autoincrement())
+  user_uuid    String        @db.VarChar(255)
+  store_uuid   String        @db.VarChar(255)
+  role_uuid    String?       @db.VarChar(255)
+  createddate  DateTime?     @db.Timestamp(6)
+  createdby    String?       @db.VarChar(255)
+  status       Int?          @default(1)
+  system_roles system_roles? @relation(fields: [role_uuid], references: [uuid], onDelete: Restrict, onUpdate: Restrict)
+  store        store         @relation(fields: [store_uuid], references: [uuid], onUpdate: Restrict)
+  user         user          @relation(fields: [user_uuid], references: [uuid], onUpdate: Restrict)
 
-  @@id([id, user_uuid, store_uuid])
-  @@unique([user_uuid, store_uuid], map: "user_uuid")
+  @@unique([user_uuid, store_uuid])
 }
 
 model voucher {
-  id                    Int       @id @default(autoincrement())
-  uuid                  String?   @unique(map: "uuid") @db.VarChar(255)
-  date                  DateTime? @db.Date
-  voucher_type          Int?
-  voucher_number        String?   @default("") @db.VarChar(64)
-  reference_number      String?   @default("") @db.VarChar(64)
-  reference_date        DateTime? @db.Date
-  narration             String?   @default("") @db.VarChar(4000)
-  party_name            String?   @db.VarChar(256)
-  place_of_supply       String?   @db.VarChar(256)
-  is_invoice            Int?      @db.TinyInt
-  is_accounting_voucher Int?      @db.TinyInt
-  is_inventory_voucher  Int?      @db.TinyInt
-  is_order_voucher      Int?      @db.TinyInt
-  createdby             String?   @db.VarChar(255)
-  storeid               String?   @db.VarChar(255)
-  status                Int?      @default(1)
-  editedby              String?   @db.VarChar(255)
-  editeddate            DateTime? @db.DateTime(0)
-  editednarration       String?   @db.VarChar(255)
+  id                                              Int              @id @unique(map: "voucher_id_idx") @default(autoincrement())
+  uuid                                            String?          @unique @db.VarChar(255)
+  date                                            DateTime?        @db.Date
+  voucher_type                                    Int?
+  voucher_number                                  String?          @default("") @db.VarChar(64)
+  reference_number                                String?          @default("") @db.VarChar(64)
+  reference_date                                  DateTime?        @db.Date
+  narration                                       String?          @default("") @db.VarChar(4000)
+  party_name                                      String?          @db.VarChar(256)
+  place_of_supply                                 String?          @db.VarChar(256)
+  is_invoice                                      Int?             @db.SmallInt
+  is_accounting_voucher                           Int?             @db.SmallInt
+  is_inventory_voucher                            Int?             @db.SmallInt
+  is_order_voucher                                Int?             @db.SmallInt
+  createdby                                       String?          @db.VarChar(255)
+  storeid                                         String?          @db.VarChar(255)
+  status                                          Int?             @default(1)
+  editedby                                        String?          @db.VarChar(255)
+  editeddate                                      DateTime?        @db.Timestamp(6)
+  editednarration                                 String?          @db.VarChar(255)
+  trn_accounting                                  trn_accounting[]
+  trn_inventory                                   trn_inventory[]
+  voucher_type_voucher_voucher_typeTovoucher_type voucher_type?    @relation("voucher_voucher_typeTovoucher_type", fields: [voucher_type], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "voucher_type_ref")
 }
 
 model voucher_type {
-  id                Int    @id @default(autoincrement())
-  name              String @default("") @db.VarChar(1024)
-  parent            String @default("") @db.VarChar(1024)
-  numbering_method  String @default("") @db.VarChar(64)
-  is_deemedpositive Int?   @db.TinyInt
-  affects_stock     Int?   @db.TinyInt
+  id                                         Int       @id @default(autoincrement())
+  name                                       String?   @default("") @db.VarChar(1024)
+  parent                                     String?   @default("") @db.VarChar(1024)
+  numbering_method                           String?   @default("") @db.VarChar(64)
+  is_deemedpositive                          Int?      @db.SmallInt
+  affects_stock                              Int?      @db.SmallInt
+  voucher_voucher_voucher_typeTovoucher_type voucher[] @relation("voucher_voucher_typeTovoucher_type")
 }

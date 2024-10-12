@@ -1,0 +1,265 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model chart_of_account {
+  id              Int       @id @default(autoincrement())
+  uuid            String    @unique(map: "uuid") @db.VarChar(255)
+  account_code    Int?
+  account_name    String?   @default("") @db.VarChar(1024)
+  account_group   String?   @db.VarChar(255)
+  account_type    Int?
+  opening_balance Decimal?  @default(0.00) @db.Decimal(17, 2)
+  description     String?   @db.VarChar(255)
+  storeid         String?   @db.VarChar(255)
+  createdby       String?   @db.VarChar(255)
+  createddate     DateTime? @db.DateTime(0)
+  status          Int?      @default(1)
+}
+
+model chart_of_account_group {
+  id          Int       @id @default(autoincrement())
+  uuid        String    @unique(map: "uuid") @db.VarChar(255)
+  name        String?   @db.VarChar(255)
+  accountid   Int?
+  createdby   String?   @db.VarChar(255)
+  storeid     String?   @db.VarChar(255)
+  createddate DateTime? @db.DateTime(0)
+  status      Int?      @default(1)
+}
+
+model customer {
+  id         Int       @id @default(autoincrement())
+  coa_uuid   String    @unique(map: "coa_uuid") @db.VarChar(255)
+  name       String?   @db.VarChar(255)
+  email      String?   @db.VarChar(255)
+  address    String?   @db.VarChar(255)
+  phone      String?   @db.VarChar(255)
+  type       Int?
+  date       DateTime? @db.DateTime(0)
+  createdby  String?   @db.VarChar(255)
+  status     Int?      @default(1)
+  storeid    String?   @db.VarChar(255)
+  editedby   String?   @db.VarChar(255)
+  editeddate DateTime? @db.DateTime(0)
+}
+
+model default_coa {
+  id              Int     @default(autoincrement())
+  uuid            String  @db.VarChar(255)
+  account_code    String  @default("") @db.VarChar(256)
+  account_name    String  @default("") @db.VarChar(1024)
+  account_group   String  @default("") @db.VarChar(1024)
+  account_type    Int     @db.TinyInt
+  opening_balance Decimal @default(0.00) @db.Decimal(17, 2)
+  description     String? @db.VarChar(4)
+  storeid         String? @db.VarChar(255)
+  createdby       String? @db.VarChar(255)
+
+  @@id([id, uuid])
+  @@index([uuid], map: "uuid")
+}
+
+model stock_item {
+  id            Int       @default(autoincrement())
+  name          String?   @default("") @db.VarChar(1024)
+  group         Int       @default(1)
+  uuid          String    @unique(map: "uuidt") @db.VarChar(255)
+  shortname     String?   @default("") @db.VarChar(256)
+  part_number   String?   @default("") @db.VarChar(256)
+  unit          Int       @default(1)
+  description   String?   @db.VarChar(255)
+  status        Int?      @default(1)
+  createdby     String?   @db.VarChar(255)
+  storeid       String?   @db.VarChar(255)
+  createddate   DateTime? @db.DateTime(0)
+  is_active     Int?      @default(1)
+  salesprice    Decimal?  @db.Decimal(10, 2)
+  purchaseprice Decimal?  @db.Decimal(10, 2)
+  warninglimit  Int?
+  is_service    Int?      @default(0)
+
+  @@id([id, uuid])
+}
+
+model stock_item_category {
+  id               Int                @id @default(autoincrement())
+  name             String?            @db.VarChar(255)
+  storeid          String?            @db.VarChar(255)
+  createddate      DateTime?          @db.DateTime(0)
+  createdby        String?            @db.VarChar(255)
+  status           Int?               @default(1)
+  stock_item_group stock_item_group[]
+}
+
+model stock_item_group {
+  id                  Int                  @id @default(autoincrement())
+  name                String               @default("") @db.VarChar(1024)
+  category            Int?
+  createdby           String?              @db.VarChar(255)
+  createddate         DateTime?            @db.DateTime(0)
+  storeid             String?              @db.VarChar(255)
+  status              Int?                 @default(1)
+  stock_item_category stock_item_category? @relation(fields: [category], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "stock_item_group_ibfk_1")
+
+  @@index([category], map: "category")
+}
+
+model stock_item_unit {
+  id          Int       @id @default(autoincrement())
+  name        String    @default("") @db.VarChar(1024)
+  description String?   @db.VarChar(255)
+  createdby   String?   @db.VarChar(255)
+  createddate DateTime? @db.DateTime(0)
+  storeid     String?   @db.VarChar(255)
+  status      Int?      @default(1)
+}
+
+model store {
+  id           Int       @id @default(autoincrement())
+  uuid         String    @db.VarChar(255)
+  storename    String?   @db.VarChar(255)
+  storeaddress String?   @db.VarChar(255)
+  storephone   String?   @db.VarChar(255)
+  storeemail   String?   @db.VarChar(255)
+  status       Int?      @default(1)
+  createddate  DateTime? @db.DateTime(0)
+  isactive     Int?      @default(1)
+  createdby    String?   @db.VarChar(255)
+}
+
+model suppliers {
+  id        Int       @id
+  coa_uuid  String    @db.VarChar(255)
+  name      String?   @db.VarChar(255)
+  email     String?   @db.VarChar(255)
+  address   String?   @db.VarChar(255)
+  phone     String?   @db.VarChar(255)
+  date      DateTime? @db.DateTime(0)
+  createdby String?   @db.VarChar(255)
+  storeid   Int?
+  status    Int?
+
+  @@index([coa_uuid], map: "uuid")
+}
+
+model system_account_category {
+  id        Int     @id @default(autoincrement())
+  name      String? @db.VarChar(255)
+  accountid Int?
+}
+
+model system_account_group {
+  id        Int     @id @default(autoincrement())
+  name      String? @db.VarChar(255)
+  accountid Int?
+  status    Int?    @default(1)
+  uuid      String  @db.VarChar(255)
+
+  @@index([uuid], map: "uuid")
+}
+
+model system_accounts {
+  id   Int     @id @default(autoincrement())
+  name String? @db.VarChar(255)
+}
+
+model system_roles {
+  id          Int     @id @default(autoincrement())
+  role        String? @db.VarChar(255)
+  description String? @db.VarChar(255)
+  status      Int?    @default(1)
+  uuid        String? @db.VarChar(255)
+}
+
+model trn_accounting {
+  id           Int     @id @default(autoincrement())
+  voucher_uuid String? @db.VarChar(255)
+  vouchername  String  @default("") @db.VarChar(64)
+  account_uuid String  @db.VarChar(255)
+  amount       Decimal @default(0.00) @db.Decimal(17, 2)
+  status       Int?    @default(1)
+  is_active    Int?    @default(1)
+  is_system    Int?    @default(0)
+
+  @@index([account_uuid], map: "accountid")
+  @@index([voucher_uuid], map: "uuid")
+}
+
+model trn_inventory {
+  id                Int      @id @default(autoincrement())
+  voucher_uuid      String?  @db.VarChar(255)
+  item_uuid         String?  @db.VarChar(255)
+  quantity          Decimal? @default(0.0000) @db.Decimal(15, 4)
+  rate              Decimal? @default(0.0000) @db.Decimal(15, 4)
+  amount            Decimal? @default(0.00) @db.Decimal(17, 2)
+  additional_amount Decimal? @default(0.00) @db.Decimal(17, 2)
+  discount_amount   Decimal? @default(0.00) @db.Decimal(17, 2)
+  order_number      Int?
+  status            Int?     @default(1)
+
+  @@index([item_uuid], map: "itemid")
+  @@index([voucher_uuid], map: "voucherid")
+}
+
+model user {
+  id          Int       @id @default(autoincrement())
+  uuid        String?   @db.VarChar(255)
+  name        String?   @db.VarChar(255)
+  email       String    @unique(map: "email") @db.VarChar(255)
+  imageurl    String?   @db.VarChar(255)
+  password    String?   @db.VarChar(255)
+  status      Int?      @default(1)
+  createddate DateTime? @db.DateTime(0)
+  isactive    Int?      @default(1)
+}
+
+model user_store {
+  id          Int       @default(autoincrement())
+  user_uuid   String    @db.VarChar(255)
+  store_uuid  String    @db.VarChar(255)
+  role_uuid   String?   @db.VarChar(255)
+  createddate DateTime? @db.DateTime(0)
+  createdby   String?   @db.VarChar(255)
+  status      Int?      @default(1)
+
+  @@id([id, user_uuid, store_uuid])
+  @@unique([user_uuid, store_uuid], map: "user_uuid")
+}
+
+model voucher {
+  id                    Int       @id @default(autoincrement())
+  uuid                  String?   @unique(map: "uuid") @db.VarChar(255)
+  date                  DateTime? @db.Date
+  voucher_type          Int?
+  voucher_number        String?   @default("") @db.VarChar(64)
+  reference_number      String?   @default("") @db.VarChar(64)
+  reference_date        DateTime? @db.Date
+  narration             String?   @default("") @db.VarChar(4000)
+  party_name            String?   @db.VarChar(256)
+  place_of_supply       String?   @db.VarChar(256)
+  is_invoice            Int?      @db.TinyInt
+  is_accounting_voucher Int?      @db.TinyInt
+  is_inventory_voucher  Int?      @db.TinyInt
+  is_order_voucher      Int?      @db.TinyInt
+  createdby             String?   @db.VarChar(255)
+  storeid               String?   @db.VarChar(255)
+  status                Int?      @default(1)
+  editedby              String?   @db.VarChar(255)
+  editeddate            DateTime? @db.DateTime(0)
+  editednarration       String?   @db.VarChar(255)
+}
+
+model voucher_type {
+  id                Int    @id @default(autoincrement())
+  name              String @default("") @db.VarChar(1024)
+  parent            String @default("") @db.VarChar(1024)
+  numbering_method  String @default("") @db.VarChar(64)
+  is_deemedpositive Int?   @db.TinyInt
+  affects_stock     Int?   @db.TinyInt
+}

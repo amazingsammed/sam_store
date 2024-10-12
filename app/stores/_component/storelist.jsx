@@ -16,7 +16,7 @@ function Storelist(prop) {
             <Storeheader/>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 p-4">
                 {stores.map((store, i) => (
-                    <Link href={'/stores/'.concat(store['uuid'])} key={i}>
+                    <Link href={'/stores/'.concat(store['store_uuid'])} key={i}>
 
                         <Card key={i}>
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -25,8 +25,8 @@ function Storelist(prop) {
                                         <MdStore size="32"/>
                                         <div className="flex flex-col  gap-2">
 
-                                            <div className="text-2xl font-bold">{store['storename']}</div>
-                                            <div>{store['storeaddress']}</div>
+                                            <div className="text-2xl font-bold">{store.store['storename']}</div>
+                                            <div>{store.store['storeaddress']}</div>
 
                                         </div>
                                     </div>

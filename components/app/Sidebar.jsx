@@ -187,7 +187,7 @@ export default function SideBar() {
             }
             if(res.status === 200){
             let {results} = await res.json();
-            setRole(results['role'])
+            setRole(results.system_roles['role'])
             }else {
                 console.log(res, 'app sidebar');
                 await router.push('/stores');
@@ -209,7 +209,7 @@ export default function SideBar() {
 
                 {theSidemenu.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}
                 <div className="h-4"></div>
-                {role === 'admin' && <div>
+                {role === 'Admin' && <div>
 
                     <span className="text-xs uppercase pl-4  text-white mt-4 pt-4">Configuration</span>
                     {configurationlist.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}

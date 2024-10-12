@@ -23,8 +23,11 @@ export const groupColumns = [
         header: "Name",
     },
     {
-        accessorKey: "group",
+        accessorKey: "stock_item_category",
         header: "Group",
+        cell: ({ row }) => {
+            return row.original.stock_item_category['name'];
+        }
     },
 
     {

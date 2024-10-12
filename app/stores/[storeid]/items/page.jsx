@@ -6,7 +6,6 @@ import {getAllProductsbyStoreid} from "@/app/_actions/stock_item";
 
 
 export default async function Home({params: {storeid}}) {
-    const data = await getAllProductsbyStoreid (storeid)
   return (
     <Container >
       <ItemsPage />

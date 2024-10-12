@@ -49,22 +49,31 @@ export const allSalesColumns = [
     {
         accessorKey: "vouchertype",
         header: "Voucher Type",
+        cell: ({ row }) => {
+            return row.original.voucher_type_voucher_voucher_typeTovoucher_type['name'];
+        }
     },
     {
         accessorKey: "narration",
         header: "Narration",
     },
         {
-            accessorKey: "account",
+            accessorKey: "party_name",
             header: "Account Name",
         },
     {
         accessorKey: "amount",
         header: "Amount",
+        cell: ({ row }) => {
+            return row.original.trn_accounting[0].amount;
+        }
     },
         {
             accessorKey: "salesperson",
             header: "Salesperson",
+            cell: ({ row }) => {
+                return row.original.user.name;
+            }
         },
 
     {

@@ -9,26 +9,18 @@ export async function getStores() {
     try {
 
         const userid = await PrimeChecker('storeid');
-        console.log(queryClean(userid),'chexker');
-        const results = await prisma.$queryRaw`SELECT 
-\tstore.storename, 
-\tstore.storeaddress, 
-\tstore.storephone, 
-\tstore.storeemail, 
-\tsystem_roles.role, 
-\tstore.uuid
-FROM
-\tuser_store,
-\tsystem_roles,
-\tstore
-WHERE
-\tuser_store.store_uuid = store.uuid AND
-\tuser_store.role_uuid = user_store.role_uuid AND
-\tuser_store.user_uuid = ${queryClean(userid)}
-GROUP BY
-\tuser_store.id`;
-        console.log(results,'md');
-
+        const results = await prisma.user_store.findMany(
+            {
+                where: {
+                    user_uuid: userid,
+                },
+                include:{
+                    store : true,
+                    system_roles: true
+                }
+            }
+        );
+        console.log(results);
         return results;
     } catch (e) {
         console.log(e);
