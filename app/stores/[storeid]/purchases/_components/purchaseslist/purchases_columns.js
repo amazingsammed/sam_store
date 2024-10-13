@@ -31,24 +31,36 @@ export const purchasesColumns = [
         }
     },
     {
-        accessorKey: "shortname",
-        header: "Code",
-    },
-    {
         accessorKey: "itemname",
         header: "Item Name",
+        cell: ({ row }) => {
+            console.log(row.original.trn_inventory[0]);
+            return row.original.trn_inventory[0].stock_item.name;
+        }
     },
     {
         accessorKey: "quantity",
         header: "Quantity",
+        cell: ({ row }) => {
+            console.log(row.original.trn_inventory[0]);
+            return row.original.trn_inventory[0].quantity;
+        }
     },
     {
         accessorKey: "rate",
         header: "Rate",
+        cell: ({ row }) => {
+            console.log(row.original.trn_inventory[0]);
+            return row.original.trn_inventory[0].rate;
+        }
     },
     {
         accessorKey: "amount",
         header: "Amount",
+        cell: ({ row }) => {
+            console.log(row.original.trn_inventory[0]);
+            return row.original.trn_inventory[0].amount;
+        }
     },
     // {
     //     accessorKey: "party_name",

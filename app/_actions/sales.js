@@ -16,6 +16,9 @@ function listToInventory(data, guid, storeid, userid) {
             quantity: parseInt(item.quantity) * -1,
             rate: parseFloat(item.rate),
             amount: parseFloat(item.quantity) * parseFloat(item.rate),
+            date: Date.now(),
+            createdby: userid,
+            storeid: storeid,
         });
     })
     console.log(results);
@@ -112,6 +115,7 @@ export async function getAllSales(storeid){
         const userid = await PrimeChecker(storeid);
         const results = await prisma.voucher.findMany({
             where: {
+                voucher_type: 22,
                 storeid: storeid,
                 status: 1,
             },
@@ -122,33 +126,9 @@ export async function getAllSales(storeid){
             }
         })
 
-//         const results = await prisma.$queryRaw ` SELECT
-// \tvoucher.date AS date,
-// \tvoucher_type.\`name\` AS vouchertype,
-// \tvoucher.narration AS narration,
-// \tvoucher.party_name AS account,
-// \tvoucher.uuid,
-// \ttrn_accounting.amount,
-// \t\`user\`.\`name\` AS salesperson
-// FROM
-// \tvoucher,
-// \tvoucher_type,
-// \ttrn_accounting,
-// \t\`user\`
-// WHERE
-// \tvoucher.voucher_type = voucher_type.id AND
-// \tvoucher.voucher_type = 22 AND
-// \tvoucher.uuid = trn_accounting.voucher_uuid AND
-// \tvoucher.createdby = \`user\`.uuid AND
-// \tvoucher.\`status\` = 1 AND
-// \tvoucher.storeid = ${queryClean(storeid)}
-// GROUP BY
-// \tvoucher.uuid
-// `;
         return mapToJson(results);
     } catch (e) {
         return [];
-        console.log(e);
     }
 }
 

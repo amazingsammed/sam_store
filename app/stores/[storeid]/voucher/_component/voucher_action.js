@@ -33,7 +33,7 @@ function VoucherAction({element}) {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem >
                 <Link href={{
-                    pathname: path+'/edit',
+                    pathname: `/stores/${params.storeid}/voucher/edit`,
                     query: { uuid: element.uuid },// the data
                 }}>
 

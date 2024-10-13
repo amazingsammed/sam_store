@@ -18,7 +18,7 @@ function AllPurchases(props) {
         fetchData();
     }, []);
     return (
-        <Headerlisttile title='Sales List' subtitle='All Sales are listed here' bname="Create"
+        <Headerlisttile title='Purchases List' subtitle='All Purchases are listed here' bname="Create"
                         ontap="sales/cashsales">
             <DataTable columns={allPurchasesColumns} data={tabledata} filter={'itemname'}/>
         </Headerlisttile>

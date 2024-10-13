@@ -20,7 +20,7 @@ function AllSales(props) {
     return (
         <Headerlisttile title='Sales List' subtitle='All Sales are listed here' bname="Create"
                         ontap="sales/cashsales">
-            <DataTable columns={allSalesColumns} data={tabledata} filter={'itemname'}/>
+            <DataTable columns={allSalesColumns} data={tabledata} filter={'party_name'}/>
         </Headerlisttile>
     );
 }

@@ -5,7 +5,7 @@ import {v4 as uuidv4} from "uuid";
 import prisma from "@/lib/prisma";
 import {mapToJson, queryClean} from "@/app/shared/sharedfunctions";
 
-function listToPurchasesInventory(data, guid) {
+function listToPurchasesInventory(data, guid,userid,storeid) {
     const results = [];
     let total = 0.0
     data.forEach(item => {
@@ -16,6 +16,9 @@ function listToPurchasesInventory(data, guid) {
             quantity: parseInt(item.quantity),
             rate: parseFloat(item.rate),
             amount: parseFloat(item.quantity) * parseFloat(item.rate),
+            date: Date.now(),
+            createdby: userid,
+            storeid: storeid,
         });
     })
     console.log(results);
@@ -30,7 +33,7 @@ export async function createCashPurchases(data, storeid) {
         console.log(userid);
         // const element = toJson(data)
         const guid = uuidv4();
-        const [results, total ] = listToPurchasesInventory(data, guid);
+        const [results, total ] = listToPurchasesInventory(data, guid, userid, storeid);
         console.log(results,'results')
        const voucher = await prisma.voucher.create({
             data: {
@@ -57,12 +60,18 @@ export async function createCashPurchases(data, storeid) {
                     account_uuid: 'cash',
                     amount: parseFloat(total) * -1,
                     is_system: 1,
+                    date: Date.now(),
+                    createdby: userid,
+                    storeid: storeid,
                 },
                 {   voucher_uuid: guid,
                     vouchername: 'Purchases',
                     account_uuid: 'purchases',
                     amount: parseFloat(total),
                     is_system: 1,
+                    date: Date.now(),
+                    createdby: userid,
+                    storeid: storeid,
                 },
             ],
         });
@@ -77,39 +86,48 @@ export async function getPurchasesList(storeid) {
     try {
         const userid = await PrimeChecker(storeid);
 
+        const results = await prisma.voucher.findMany({
+            where: {
+                storeid: storeid,
+                status: 1,
+                voucher_type: 15
+            },
+            include: {
+                trn_inventory:{
 
-        const results = await prisma.$queryRaw `
-  SELECT
-\tvoucher.date, 
-\tstock_item.\`name\` AS itemname, 
-\ttrn_inventory.quantity, 
-\ttrn_inventory.rate, 
-\ttrn_inventory.amount, 
-\tvoucher.party_name, 
-\tstock_item.shortname, 
-\t\`user\`.\`name\` AS salesperson
-FROM
-\tvoucher,
-\ttrn_inventory,
-\tstock_item,
-\t\`user\`
-WHERE
-\tvoucher.uuid = trn_inventory.voucher_uuid AND
-\ttrn_inventory.item_uuid = stock_item.uuid AND
-\tvoucher.voucher_type = 15 AND
-\tvoucher.storeid = ${queryClean(storeid)} AND
-\tvoucher.\`status\` = 1 AND
-\tvoucher.createdby = \`user\`.uuid
-ORDER BY
-\ttrn_inventory.id ASC
-`;
+                    include:{
+                stock_item: true,
+
+                    }
+                }
+            }
+        })
+        console.log(results , 'purchases');
         return mapToJson(results);
     } catch (e) {
-
         console.log(e);
+        return [];
     }
 }
 
 export async function getAllPurchases(storeid){
-    return [];
+    try {
+        const userid = await PrimeChecker(storeid);
+        const results = await prisma.voucher.findMany({
+            where: {
+                voucher_type: 15,
+                storeid: storeid,
+                status: 1,
+            },
+            include: {
+                voucher_type_voucher_voucher_typeTovoucher_type:true,
+                trn_accounting:true,
+                user:true,
+            }
+        })
+
+        return mapToJson(results);
+    } catch (e) {
+        return [];
+    }
 }

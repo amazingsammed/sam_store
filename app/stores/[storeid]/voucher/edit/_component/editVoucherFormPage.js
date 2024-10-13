@@ -23,11 +23,16 @@ export default function EditVoucherFormPage(prop) {
         const fetcher = async () => {
             const voucher = await getSingleVoucherList(searchParams.get('uuid'),params.storeid);
             if (voucher) {
-                setAccount(voucher[0].accountname)
+                setAccount(voucher[0].voucher.voucher_type_voucher_voucher_typeTovoucher_type.name)
             }
             setList([]);
             voucher.forEach((item) => {
-                setList((prev) => [...prev, item]);
+                setList((prev) => [...prev, {
+                    "name": item.stock_item.name,
+                    'rate': item.rate,
+                    "uuid": item.item_uuid,
+                    'quantity': item.quantity
+                }]);
             })
         };
         fetcher();

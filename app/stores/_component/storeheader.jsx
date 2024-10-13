@@ -21,9 +21,9 @@ function Storeheader() {
     return (
 
         <nav className="bg-blue border-gray-200 border-b">
-            <div className=" flex flex-wrap items-center justify-between mx-auto p-4 container">
+            <div className="flex h-12 max-h-12 min-h-12 items-center justify-between py-2 px-5 bg-dash-sidebar border-b border-default">
                 <div className="items-center justify-between " >
-                   <h1 className="text-3xl font-bold">Store List</h1>
+                   <h1 className="text-xl font-bold">Store List</h1>
                 </div>
                 <div className="flex  space-x-3 md:space-x-0 rtl:space-x-reverse">
                        <Addform/>

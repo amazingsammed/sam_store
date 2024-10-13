@@ -61,28 +61,21 @@ export async function getSingleVoucherList(uuid ,storeid) {
     console.log(uuid ,"Voucher uuid")
     try {
         const userid = await PrimeChecker(storeid);
-        const results = await prisma.$queryRaw ` 
-  SELECT
-\ttrn_inventory.quantity, 
-\ttrn_inventory.rate, 
-\ttrn_inventory.amount, 
-\tvoucher_type.\`name\` AS accountname, 
-\tvoucher.narration, 
-\tstock_item.\`name\`, 
-\tstock_item.uuid
-FROM
-\ttrn_inventory,
-\tvoucher,
-\tvoucher_type,
-\tstock_item
-WHERE
-\ttrn_inventory.voucher_uuid = voucher.uuid AND
-\tvoucher.voucher_type = voucher_type.id AND
-\tvoucher.uuid = ${uuid} AND
-\tvoucher.storeid = ${queryClean(storeid)}
-AND
-\tstock_item.uuid = trn_inventory.item_uuid
-`;
+        const results = await prisma.trn_inventory.findMany({
+            where: {
+                storeid: storeid,
+                status: 1,
+                voucher_uuid:uuid,
+            },
+            include: {
+                stock_item: true,
+                voucher:{
+                    include:{
+                        voucher_type_voucher_voucher_typeTovoucher_type:true,
+                    }
+                }
+            }
+        });
         console.log(results, 'getSingleVoucherList');
         return mapToJson(results);
     } catch (e) {

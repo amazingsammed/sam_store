@@ -130,7 +130,6 @@ export async function addProduct(data, storeid) {
     try {
         const userid = await PrimeChecker(storeid);
         const element = formdataToJson(data)
-        console.log(element);
         const guid = uuidv4();
         const guidx = uuidv4();
         const total = parseFloat(element.purchaseprice)* parseInt(element.quantity)
@@ -192,6 +191,7 @@ export async function addProduct(data, storeid) {
                 ],
             });
         }
+        console.log(stock);
 return mapToJson(stock);
     } catch (e) {
         console.log(e);

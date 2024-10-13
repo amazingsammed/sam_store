@@ -25,15 +25,15 @@ export function PurchasesListPage(prop) {
                         <TabsTrigger value="supplier" className="hidden sm:flex">
                             Suppliers
                         </TabsTrigger>
-                        <TabsTrigger value="list">Purchases List</TabsTrigger>
+                        {/*<TabsTrigger value="list">Purchases List</TabsTrigger>*/}
                     </TabsList>
                 </div>
                 <TabsContent value="all">
                     <AllPurchases/>
                 </TabsContent>
-                <TabsContent value="list">
-                    <Purchaseslist/>
-                </TabsContent>
+                {/*<TabsContent value="list">*/}
+                {/*    <Purchaseslist/>*/}
+                {/*</TabsContent>*/}
                 <TabsContent value="porder"><Purchaseorder/></TabsContent>
                 <TabsContent value="payable">< Accountspayable/></TabsContent>
                 <TabsContent value="payment">< Payments/></TabsContent>

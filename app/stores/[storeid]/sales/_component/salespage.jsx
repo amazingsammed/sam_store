@@ -23,7 +23,7 @@ export function SalesPage() {
                         <TabsTrigger value="customers" className="hidden sm:flex">
                             Customers
                         </TabsTrigger>
-                        <TabsTrigger value="cashsales">Sales list</TabsTrigger>
+                        {/*<TabsTrigger value="cashsales">Sales list</TabsTrigger>*/}
                     </TabsList>
                 </div>
                 <TabsContent value="allsales">
@@ -34,9 +34,9 @@ export function SalesPage() {
                 <TabsContent value="quote">< Quote/></TabsContent>
                 <TabsContent value="salesorder">< SalesOrder/></TabsContent>
                 <TabsContent value="customers"><Customer/></TabsContent>
-                <TabsContent value="cashsales">
-                    <Sales/>
-                </TabsContent>
+                {/*<TabsContent value="cashsales">*/}
+                {/*    <Sales/>*/}
+                {/*</TabsContent>*/}
             </Tabs>
 
         </div>

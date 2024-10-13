@@ -89,7 +89,7 @@ model stock_item {
   is_active        Int?              @default(1)
   salesprice       Decimal?          @db.Decimal(10, 2)
   purchaseprice    Decimal?          @db.Decimal(10, 2)
-  warninglimit     Int?
+  warninglimit     Int?              @default(10)
   is_service       Int?              @default(0)
   stock_item_group stock_item_group? @relation(fields: [group], references: [id], onDelete: Restrict, onUpdate: Restrict)
   stock_item_unit  stock_item_unit?  @relation(fields: [unit], references: [id], onDelete: Restrict, onUpdate: Restrict)
@@ -130,17 +130,19 @@ model stock_item_unit {
 }
 
 model store {
-  id           Int          @id @unique(map: "store_id_idx") @default(autoincrement())
-  uuid         String?      @unique(map: "store_uuid_idx") @db.VarChar(255)
-  storename    String?      @db.VarChar(255)
-  storeaddress String?      @db.VarChar(255)
-  storephone   String?      @db.VarChar(255)
-  storeemail   String?      @db.VarChar(255)
-  status       Int?         @default(1)
-  createddate  DateTime?    @db.Timestamp(6)
-  isactive     Int?         @default(1)
-  createdby    String?      @db.VarChar(255)
-  user_store   user_store[]
+  id             Int              @id @unique(map: "store_id_idx") @default(autoincrement())
+  uuid           String?          @unique(map: "store_uuid_idx") @db.VarChar(255)
+  storename      String?          @db.VarChar(255)
+  storeaddress   String?          @db.VarChar(255)
+  storephone     String?          @db.VarChar(255)
+  storeemail     String?          @db.VarChar(255)
+  status         Int?             @default(1)
+  createddate    DateTime?        @db.Timestamp(6)
+  isactive       Int?             @default(1)
+  createdby      String?          @db.VarChar(255)
+  trn_accounting trn_accounting[]
+  trn_inventory  trn_inventory[]
+  user_store     user_store[]
 }
 
 model suppliers {
@@ -185,15 +187,19 @@ model system_roles {
 }
 
 model trn_accounting {
-  id           Int      @id @unique(map: "trn_accounting_id_idx") @default(autoincrement())
-  voucher_uuid String?  @db.VarChar(255)
-  vouchername  String?  @default("") @db.VarChar(64)
-  account_uuid String?  @db.VarChar(255)
-  amount       Decimal? @default(0.00) @db.Decimal(17, 2)
-  status       Int?     @default(1)
-  is_active    Int?     @default(1)
-  is_system    Int?     @default(0)
-  voucher      voucher? @relation(fields: [voucher_uuid], references: [uuid], onDelete: Restrict, onUpdate: Restrict)
+  id           Int       @id @unique(map: "trn_accounting_id_idx") @default(autoincrement())
+  voucher_uuid String?   @db.VarChar(255)
+  vouchername  String?   @default("") @db.VarChar(64)
+  account_uuid String?   @db.VarChar(255)
+  amount       Decimal?  @default(0.00) @db.Decimal(17, 2)
+  status       Int?      @default(1)
+  is_active    Int?      @default(1)
+  is_system    Int?      @default(0)
+  storeid      String?   @db.VarChar(255)
+  createdby    String?   @db.VarChar(255)
+  date         DateTime? @db.Date
+  store        store?    @relation(fields: [storeid], references: [uuid], onDelete: NoAction, onUpdate: NoAction)
+  voucher      voucher?  @relation(fields: [voucher_uuid], references: [uuid], onDelete: Restrict, onUpdate: Restrict)
 }
 
 model trn_inventory {
@@ -207,7 +213,11 @@ model trn_inventory {
   discount_amount   Decimal?    @default(0.00) @db.Decimal(17, 2)
   order_number      Int?
   status            Int?        @default(1)
+  storeid           String?     @db.VarChar(255)
+  createdby         String?     @db.VarChar(255)
+  date              DateTime?   @db.Date
   stock_item        stock_item? @relation(fields: [item_uuid], references: [uuid], onDelete: Restrict, onUpdate: Restrict)
+  store             store?      @relation(fields: [storeid], references: [uuid], onDelete: NoAction, onUpdate: NoAction)
   voucher           voucher?    @relation(fields: [voucher_uuid], references: [uuid], onDelete: Restrict, onUpdate: Restrict)
 }
 
@@ -222,6 +232,7 @@ model user {
   createddate DateTime?    @db.Timestamp(6)
   isactive    Int?         @default(1)
   user_store  user_store[]
+  voucher     voucher[]
 
   @@id([id, uuid], map: "users_pkey")
 }
@@ -264,6 +275,7 @@ model voucher {
   editednarration                                 String?          @db.VarChar(255)
   trn_accounting                                  trn_accounting[]
   trn_inventory                                   trn_inventory[]
+  user                                            user?            @relation(fields: [createdby], references: [uuid], onDelete: Restrict, onUpdate: Restrict)
   voucher_type_voucher_voucher_typeTovoucher_type voucher_type?    @relation("voucher_voucher_typeTovoucher_type", fields: [voucher_type], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "voucher_type_ref")
 }
 

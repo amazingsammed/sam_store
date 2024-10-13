@@ -136,10 +136,11 @@ export function AddAnItem() {
 
 
                         <DialogFooter >
-                            <MySubmitButton name="Add Item"/>
                             <DialogClose>
-                                <Button variant="outline" type="button">Close</Button>
-                            </DialogClose>
+                            <MySubmitButton name="Add Item"/></DialogClose>
+                            {/*<DialogClose>*/}
+                            {/*    <Button variant="outline" type="button">Close</Button>*/}
+                            {/*</DialogClose>*/}
                         </DialogFooter>
                 </form>
             </DialogContent>
