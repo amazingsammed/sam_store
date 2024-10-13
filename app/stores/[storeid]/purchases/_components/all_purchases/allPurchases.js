@@ -19,7 +19,7 @@ function AllPurchases(props) {
     }, []);
     return (
         <Headerlisttile title='Purchases List' subtitle='All Purchases are listed here' bname="Create"
-                        ontap="sales/cashsales">
+                        ontap="purchases/cashpurchases">
             <DataTable columns={allPurchasesColumns} data={tabledata} filter={'itemname'}/>
         </Headerlisttile>
     );

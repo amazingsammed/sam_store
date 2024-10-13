@@ -49,23 +49,40 @@ export const voucherColumns = [
     {
         accessorKey: "vouchertype",
         header: "Voucher Type",
+        cell: ({ row }) => {
+            return row.original.voucher_type_voucher_voucher_typeTovoucher_type['name'];
+        }
     },
     {
         accessorKey: "narration",
         header: "Narration",
     },
-        {
-            accessorKey: "account",
-            header: "Account Name",
-        },
+    {
+        accessorKey: "party_name",
+        header: "Account Name",
+    },
     {
         accessorKey: "amount",
         header: "Amount",
+        cell: ({ row }) => {
+            return row.original.trn_accounting[0].amount;
+        }
     },
-        {
-            accessorKey: "salesperson",
-            header: "Salesperson",
-        },
+    {
+        accessorKey: "salesperson",
+        header: "Salesperson",
+        cell: ({ row }) => {
+            return row.original.user.name;
+        }
+    },
+    {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+            const status = row.original.status;
+            return status ===1 ?"active":"inactive";
+        }
+    },
 
     {
         id: "actions",
@@ -73,7 +90,7 @@ export const voucherColumns = [
             const item = row.original
 
             return (
-               <VoucherAction element={item}/>
+                <VoucherAction element={item}/>
             )
         },
     },

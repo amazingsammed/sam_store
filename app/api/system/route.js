@@ -40,7 +40,6 @@ export async function POST(request) {
                 system_roles: true,
             }
         });
-        console.log(results ,"system api");
         if(results.length === 0) {
             return NextResponse.json({message: "Fake user"}, {status: 400});
         }

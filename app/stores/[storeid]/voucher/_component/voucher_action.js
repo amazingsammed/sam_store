@@ -31,16 +31,24 @@ function VoucherAction({element}) {
             <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem >
+                <DropdownMenuItem asChild>
                 <Link href={{
                     pathname: `/stores/${params.storeid}/voucher/edit`,
                     query: { uuid: element.uuid },// the data
                 }}>
 
                Edit Voucher
-                </Link></DropdownMenuItem>
-                <DropdownMenuItem onClick={handleDeleteVoucher}>Delete Voucher</DropdownMenuItem>
-                <DropdownMenuItem>View Voucher Details</DropdownMenuItem>
+                </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDeleteVoucher}>{element.status===1?'Delete Voucher':'Restore'}</DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <Link href={{
+                        pathname: `/stores/${params.storeid}/voucher/details`,
+                        query: { uuid: element.uuid },// the data
+                    }}>
+                        View Voucher Details
+                    </Link>
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     );
