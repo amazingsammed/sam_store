@@ -10,24 +10,15 @@ export async function createMember(data , storeid) {
         const userid = await PrimeChecker(storeid);
         const element = formdataToJson(data)
         const guid = uuidv4();
-        const userExisting = await prisma.$queryRaw`
-        SELECT
-\t\`user\`.email, 
-\t\`user\`.\`name\`, 
-\t\`user\`.uuid
-FROM
-\t\`user\`
-WHERE
-\t\`user\`.email = ${element.email}
- AND
-\t\`user\`.\`status\` = 1
-
-LIMIT 1
-        `;
-        console.log(userExisting, "create members");
-        if (userExisting ===undefined) {
-            throw new Error("User already exists");
+        const userExisting = await prisma.user.findUnique({
+            where: {
+                email: data.email,
+            }
+        })
+        if (userExisting === null) {
+            throw new Error("User does not exist");
         }
+        console.log(userExisting ,'bad user');
         const saveMember = await prisma.user_store.create({
             data: {
                 user_uuid: userExisting[0].uuid,
@@ -39,8 +30,10 @@ LIMIT 1
             }
         });
         console.log(saveMember ,'saved New User');
+        return saveMember;
     } catch (e) {
         console.log(e);
+        throw  Error(e);
     }
 
 }

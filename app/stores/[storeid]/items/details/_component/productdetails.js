@@ -1,12 +1,27 @@
 'use client'
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {HeaderListTileDialog} from "@/components/app/headerlisttile";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
 import {Button} from "@/components/ui/button";
-import {useRouter} from "next/navigation";
+import {useParams, useRouter, useSearchParams} from "next/navigation";
 import Container from "@/components/app/container";
-function Productdetails({element, product}) {
+import {getSingleVoucherList} from "@/app/_actions/voucher";
+import {getProductDetail} from "@/app/_actions/stock_item";
+function Productdetails() {
+    const [element ,setElement] = useState({'name':"",'trn_inventory':[]});
+    const searchParams = useSearchParams();
+    const params = useParams();
+    useEffect(() => {
+        const fetcher = async () => {
+            const details = await getProductDetail(searchParams.get('uuid'),params.storeid);
+            if(!details) return null;
+            setElement(details)
+
+        };
+        fetcher();
+
+    }, []);
     const router = useRouter();
     return (
         <Container>

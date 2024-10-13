@@ -15,48 +15,6 @@ export async function getProducts(storeid) {
                 status: 1
             }
         });
-        console.log(data,"getProducts");
-        return JSON.parse(JSON.stringify(data));
-    } catch (e) {
-        return [];
-    }
-
-    //return currentUserCounter.count;
-}
-export async function getAllProducts(storeid) {
-    const results = [];
-    try {
-        const userid = await PrimeChecker(storeid);
-
-        const  data= await prisma.$queryRaw ` 
-SELECT
-\tSUM(trn_inventory.quantity) AS quantity, 
-\tstock_item.\`name\`, 
-\tstock_item.salesprice, 
-\tstock_item.purchaseprice, 
-\tstock_item.\`status\`, 
-\tstock_item.shortname, 
-\tstock_item.uuid, 
-\tstock_item_unit.\`name\` AS unit, 
-\tstock_item_group.\`name\` AS \`group\`
-FROM
-\ttrn_inventory
-\tLEFT JOIN
-\tstock_item
-\tON 
-\t\ttrn_inventory.item_uuid = stock_item.uuid,
-\tstock_item_group,
-\tstock_item_unit,
-\tvoucher
-WHERE
-\ttrn_inventory.voucher_uuid = voucher.uuid AND
-\tvoucher.\`status\` = 1 AND
-\tstock_item.storeid = ${queryClean(storeid)} AND
-\tstock_item.unit = stock_item_unit.id AND
-\tstock_item.\`group\` = stock_item_group.id
-GROUP BY
-\ttrn_inventory.item_uuid
-        `;
         return JSON.parse(JSON.stringify(data));
     } catch (e) {
         return [];
@@ -86,11 +44,12 @@ export async function getAllProductsbyStoreid(storeid) {
 
     //return currentUserCounter.count;
 }
-export async function getProductDetail(productId) {
+export async function getProductDetail(productId ,storeid) {
     try {
         let data= await prisma.stock_item.findMany({
             where :{
                 uuid: productId,
+                storeid: storeid,
             },
             include:{
                 trn_inventory:{

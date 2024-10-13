@@ -26,18 +26,31 @@ export const membersColumns = [
     {
         accessorKey: "name",
         header: "Name",
+        cell: ({ row }) => {
+            return row.original.user.name;
+        }
     },
     {
         accessorKey: "email",
         header: "Email",
+        cell: ({ row }) => {
+            return row.original.user.email;
+        }
     },
     {
         accessorKey: "role",
         header: "Role",
+        cell: ({ row }) => {
+            return row.original.system_roles.role;
+        }
     },
     {
         accessorKey: "status",
         header: "Status",
+        cell: ({ row }) => {
+            const status = row.original.status;
+            return status ===1 ?"active":"inactive";
+        }
     },
     {
         id: "actions",

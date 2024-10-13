@@ -41,7 +41,7 @@ function MembersAction({element}) {
     return (
         <>
 
-            {data.user.uuid !== element.uuid && <DropdownMenu>
+            {data.user.uuid !== element.user_uuid && <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="h-8 w-8 p-0">
 

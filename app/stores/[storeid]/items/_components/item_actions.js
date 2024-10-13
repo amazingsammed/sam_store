@@ -54,7 +54,12 @@ function ItemActions({element}) {
                 {/*    View Item Details*/}
                 {/*</SheetSideBar>*/}
                 <DropdownMenuItem>
-                  <Link href={`${path}/${element.uuid}`}>
+                  <Link href={{
+                      pathname: `/stores/${param.storeid}/items/details`,
+                      query: { uuid: element.uuid },// the data
+                  }}
+
+                  >
                       View Item Details
                   </Link>
                 </DropdownMenuItem>

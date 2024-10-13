@@ -14,6 +14,7 @@ import {useFormState} from "react-dom";
 import React, {useEffect, useState} from "react";
 import {getStoreRoles} from "@/app/_actions/stores";
 import {createMember} from "@/app/_actions/store_members";
+import {toast} from "sonner";
 
 
 
@@ -30,8 +31,18 @@ export function AddMemberForm() {
     const path= useParams();
     const router = useRouter();
     async function handleAddMember(s,data) {
-        await createMember(data,path.storeid);
+        try {
+
+       const savedmember = await createMember(data,path.storeid);
+       if (savedmember) {
+           toast.success("Members added successfully.");
+       }else {
+           toast.error("Error Adding member");
+       }
         router.refresh();
+        }catch(err) {
+            toast.error(err.message);
+        }
     }
 
     const [state, action] = useFormState(handleAddMember, undefined);
