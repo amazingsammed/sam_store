@@ -136,7 +136,7 @@ export function AddAnItem() {
 
 
                         <DialogFooter >
-                            <DialogClose>
+                            <DialogClose asChild>
                             <MySubmitButton name="Add Item"/></DialogClose>
                             {/*<DialogClose>*/}
                             {/*    <Button variant="outline" type="button">Close</Button>*/}

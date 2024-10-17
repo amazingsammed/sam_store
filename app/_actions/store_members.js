@@ -7,7 +7,7 @@ import prisma from "@/lib/prisma";
 
 export async function createMember(data , storeid) {
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data)
         const guid = uuidv4();
         const userExisting = await prisma.user.findUnique({

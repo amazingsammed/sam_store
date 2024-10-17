@@ -2,6 +2,7 @@ import {Checkbox} from "@/components/ui/checkbox";
 import ItemActions from "@/app/stores/[storeid]/items/_components/item_actions";
 
 import React from "react";
+import StatusBtn from "@/components/app/status_btn";
 
 export const itemsColumns = [
     {
@@ -55,8 +56,7 @@ export const itemsColumns = [
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => {
-            const status = row.original.status;
-            return status ===1 ?"active":"inactive";
+            return <StatusBtn num={row.original.status} />
         }
     },
     {

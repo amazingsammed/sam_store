@@ -24,12 +24,13 @@ model chart_of_account {
   account_name    String?   @default("") @db.VarChar(1024)
   account_group   String?   @db.VarChar(255)
   account_type    Int?
-  opening_balance Decimal?  @default(0.00) @db.Decimal(17, 2)
+  opening_balance Float?    @default(0.00) @db.Real
   description     String?   @db.VarChar(255)
   storeid         String?   @db.VarChar(255)
   createdby       String?   @db.VarChar(255)
   createddate     DateTime? @db.Timestamp(6)
   status          Int?      @default(1)
+  is_active       Float?    @default(1) @db.Real
 }
 
 model chart_of_account_group {
@@ -41,6 +42,7 @@ model chart_of_account_group {
   storeid     String?   @db.VarChar(255)
   createddate DateTime? @db.Timestamp(6)
   status      Int?      @default(1)
+  is_active   Int?      @default(1)
 }
 
 model customer {
@@ -104,6 +106,7 @@ model stock_item_category {
   createddate      DateTime?          @db.Timestamp(6)
   createdby        String?            @db.VarChar(255)
   status           Int?               @default(1)
+  is_active        Int?               @default(1)
   stock_item_group stock_item_group[]
 }
 
@@ -115,6 +118,7 @@ model stock_item_group {
   createddate         DateTime?            @db.Timestamp(6)
   storeid             String?              @db.VarChar(255)
   status              Int?                 @default(1)
+  is_active           Int?                 @default(1)
   stock_item          stock_item[]
   stock_item_category stock_item_category? @relation(fields: [category], references: [id], onDelete: Restrict, onUpdate: Restrict)
 }
@@ -127,6 +131,7 @@ model stock_item_unit {
   createddate DateTime?    @db.Timestamp(6)
   storeid     String?      @db.VarChar(255)
   status      Int?         @default(1)
+  is_active   Int?         @default(1)
   stock_item  stock_item[]
 }
 
@@ -139,7 +144,7 @@ model store {
   storeemail     String?          @db.VarChar(255)
   status         Int?             @default(1)
   createddate    DateTime?        @db.Timestamp(6)
-  isactive       Int?             @default(1)
+  is_active      Int?             @default(1)
   createdby      String?          @db.VarChar(255)
   trn_accounting trn_accounting[]
   trn_inventory  trn_inventory[]
@@ -207,11 +212,11 @@ model trn_inventory {
   id                Int         @id @unique(map: "trn_inventory_id_idx") @default(autoincrement())
   voucher_uuid      String?     @db.VarChar(255)
   item_uuid         String?     @db.VarChar(255)
-  quantity          Decimal?    @default(0.0000) @db.Decimal(15, 4)
-  rate              Decimal?    @default(0.0000) @db.Decimal(15, 4)
-  amount            Decimal?    @default(0.00) @db.Decimal(17, 2)
-  additional_amount Decimal?    @default(0.00) @db.Decimal(17, 2)
-  discount_amount   Decimal?    @default(0.00) @db.Decimal(17, 2)
+  quantity          Int?        @default(dbgenerated("0.0000"))
+  rate              Float?      @default(0.0000) @db.Real
+  amount            Float?      @default(0.00) @db.Real
+  additional_amount Float?      @default(0.00) @db.Real
+  discount_amount   Float?      @default(0.00) @db.Real
   order_number      Int?
   status            Int?        @default(1)
   storeid           String?     @db.VarChar(255)
@@ -274,6 +279,7 @@ model voucher {
   editedby                                        String?          @db.VarChar(255)
   editeddate                                      DateTime?        @db.Timestamp(6)
   editednarration                                 String?          @db.VarChar(255)
+  is_active                                       Int?             @default(1)
   trn_accounting                                  trn_accounting[]
   trn_inventory                                   trn_inventory[]
   user                                            user?            @relation(fields: [createdby], references: [uuid], onDelete: Restrict, onUpdate: Restrict)

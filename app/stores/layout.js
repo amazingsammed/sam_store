@@ -1,11 +1,13 @@
-
-
-
+import Storesidebar from "@/app/stores/_component/storesidebar";
 
 
 export default function Layout({ children }) {
   return (
-          <div >{children}</div>
+
+
+          <div className="h-full">{children}</div>
+
+
   );
 }
 

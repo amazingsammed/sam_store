@@ -12,7 +12,7 @@ function Storelist(prop) {
     const stores = prop.datax;
     return (
 <div className="flex flex_row h-full">
-    <Storesidebar/>
+    {/*<Storesidebar/>*/}
         <div className="flex flex-col flex-1">
             <Storeheader/>
             <div className="flex-1 flex-grow overflow-y-auto">

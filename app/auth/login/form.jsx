@@ -11,6 +11,7 @@ import * as React from "react";
 import {LoginFormSchema} from "@/app/_zod-models/auth";
 import {signIn} from "next-auth/react";
 import {useRouter} from "next/navigation";
+import {toast} from "sonner";
 
 
 export function LoginForm() {
@@ -37,7 +38,7 @@ export function LoginForm() {
             console.log(signInData);
 
             if (signInData?.error) {
-
+                toast.error(signInData?.error);
                 console.log(signInData.error);
                 return {message: 'Something went wrong'}
             } else {
@@ -45,7 +46,7 @@ export function LoginForm() {
             }
         } catch (e) {
             console.log(e);
-            return {message: 'Invalid login credentials.'};
+            return {message: e};
         }
 
 

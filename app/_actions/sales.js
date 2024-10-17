@@ -28,7 +28,7 @@ function listToInventory(data, guid, storeid, userid) {
 export async function createCashSales(data, storeid) {
     try {
         console.log(data);
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         console.log(userid);
         // const element = toJson(data)
         const guid = uuidv4();
@@ -83,7 +83,7 @@ export async function createCashSales(data, storeid) {
 
 export async function getAllSales(storeid){
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const results = await prisma.voucher.findMany({
             where: {
                 voucher_type: 22,

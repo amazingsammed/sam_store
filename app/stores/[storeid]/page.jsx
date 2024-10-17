@@ -1,5 +1,6 @@
 import {DashBoardCard} from "@/components/app/mycards";
 import Container from "@/components/app/container";
+import {testRight} from "@/app/_actions/account";
 
 
 const dbT=[
@@ -9,7 +10,8 @@ const dbT=[
         "date": "today"
     }
 ];
-export default async function Page(params) {
+export default async function Page({params}) {
+  const test = await  testRight(params.storeid)
     // const result =await confirmStore(params.params.storeid);
     // if (!result) {
     //     redirect("/stores");

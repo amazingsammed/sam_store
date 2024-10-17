@@ -2,6 +2,9 @@
   "name": "sam_store",
   "version": "0.1.0",
   "private": true,
+  "prisma": {
+    "seed": "npx prisma/seed.js"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

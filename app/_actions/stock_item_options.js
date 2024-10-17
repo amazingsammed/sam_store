@@ -6,7 +6,7 @@ import {PrimeChecker} from "@/app/_actions/_checker";
 
 export async function createStockGroup(data, storeid) {
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         console.log(userid);
         const element = formdataToJson(data)
         return await prisma.stock_item_group.create({
@@ -24,7 +24,7 @@ export async function createStockGroup(data, storeid) {
 }
 export async function createStockUnits(data, storeid) {
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         console.log(userid);
         const element = formdataToJson(data)
         return await prisma.stock_item_unit.create({
@@ -41,7 +41,7 @@ export async function createStockUnits(data, storeid) {
 }
 export async function createStockCategory(data, storeid) {
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         console.log(userid);
         const element = formdataToJson(data)
         return await prisma.stock_item_category.create({
@@ -60,7 +60,7 @@ export async function createStockCategory(data, storeid) {
 
 export async function getStockGroup(storeid) {
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         console.log(storeid);
 
         return await prisma.stock_item_group.findMany({
@@ -78,7 +78,7 @@ export async function getStockGroup(storeid) {
 }
 export async function getStockCategory(storeid) {
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         console.log(storeid);
 
         return await prisma.stock_item_category.findMany({
@@ -93,7 +93,7 @@ export async function getStockCategory(storeid) {
 }
 export async function getStockUnits(storeid) {
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         console.log(storeid);
 
         return await prisma.stock_item_unit.findMany({

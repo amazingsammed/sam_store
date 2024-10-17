@@ -8,7 +8,7 @@ import {queryClean} from "@/app/shared/sharedfunctions";
 export async function getTrialBalance(storeid) {
     const results = [];
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
 
         const  data= await prisma.$queryRaw ` 
 SELECT

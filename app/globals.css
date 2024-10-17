@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/*html {*/
+/*    @apply h-full*/
+/*}*/
+/*body {*/
+/*    @apply h-full*/
+/*}*/
+/*div#__next {*/
+/*    @apply h-full*/
+/*}*/
+/*main {*/
+/*    @apply h-full*/
+/*}*/
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -64,6 +76,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground ;
   }
 }

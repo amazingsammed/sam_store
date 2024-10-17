@@ -4,11 +4,12 @@ import {formdataToJson, mapToJson, queryClean} from "@/app/shared/sharedfunction
 import prisma from "@/lib/prisma";
 import {PrimeChecker} from "@/app/_actions/_checker";
 import {v4 as uuidv4} from "uuid";
+import {revalidatePath} from "next/cache";
 
 export async function getProducts(storeid) {
     const results = [];
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const  data = await prisma.stock_item.findMany({
             where: {
                 storeid: storeid,
@@ -25,18 +26,16 @@ export async function getProducts(storeid) {
 export async function getAllProductsbyStoreid(storeid) {
     const results = [];
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const  data= await prisma.stock_item.findMany({
             where: {
-                storeid: storeid,
-                status: 1
+                storeid: storeid
             },
             include:{
                 stock_item_group: true,
                 stock_item_unit: true,
             }
         });
-
         return mapToJson(data);
     } catch (e) {
         return [];
@@ -72,7 +71,7 @@ export async function getProductDetail(productId ,storeid) {
 export async function addProduct(data, storeid) {
 
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data)
         const guid = uuidv4();
         const guidx = uuidv4();
@@ -152,7 +151,7 @@ return mapToJson(stock);
 }
 export async function editStockItem(data, storeid) {
     try{
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data);
         const savedElement = await prisma.stock_item.update({
             where: {
@@ -223,7 +222,7 @@ function listToItem(element) {
 export async function addManyProduct(data, storeid) {
 
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const items = listToItem(data,storeid,userid);
 
         const accounting = [];

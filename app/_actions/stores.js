@@ -1,6 +1,6 @@
 'use server'
 
-import {PrimeChecker} from "@/app/_actions/_checker";
+import {PrimeChecker, SimpleChecker} from "@/app/_actions/_checker";
 import prisma from "@/lib/prisma";
 import {queryClean, formdataToJson} from "@/app/shared/sharedfunctions";
 import {v4 as uuidv4} from "uuid";
@@ -8,7 +8,7 @@ import {v4 as uuidv4} from "uuid";
 export async function getStores() {
     try {
 
-        const userid = await PrimeChecker('storeid');
+        const [userid] = await SimpleChecker();
         const results = await prisma.user_store.findMany(
             {
                 where: {
@@ -21,6 +21,7 @@ export async function getStores() {
             }
         );
         console.log(results);
+
         return results;
     } catch (e) {
         console.log(e);
@@ -32,7 +33,7 @@ export async function getStores() {
 
 export async function createStore(data) {
     try {
-        const userid = await PrimeChecker('storeidx');
+        const [userid] = await SimpleChecker();
         const element = formdataToJson(data)
         const guid = uuidv4();
         const storeElement = await prisma.store.create({
@@ -68,7 +69,7 @@ export async function createStore(data) {
 
 export async function getStoreMembers(storeid){
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const results = await prisma.user_store.findMany({
             where: {
                 user_uuid: userid,
@@ -88,7 +89,7 @@ export async function getStoreMembers(storeid){
 
 export async function getStoreRoles(){
     try {
-       // const userid = await PrimeChecker('storeidx');
+       // const [userid] = await PrimeChecker('storeidx');
         const results = await prisma.system_roles.findMany();
         return results;
     }catch (e){

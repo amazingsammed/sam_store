@@ -29,7 +29,7 @@ export async function createCashPurchases(data, storeid) {
     try {
         console.log(data);
 
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         console.log(userid);
         // const element = toJson(data)
         const guid = uuidv4();
@@ -84,7 +84,7 @@ return [voucher ,accounting ,inventory];
 
 export async function getPurchasesList(storeid) {
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
 
         const results = await prisma.voucher.findMany({
             where: {
@@ -112,7 +112,7 @@ export async function getPurchasesList(storeid) {
 
 export async function getAllPurchases(storeid){
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const results = await prisma.voucher.findMany({
             where: {
                 voucher_type: 15,

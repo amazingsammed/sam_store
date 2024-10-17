@@ -56,7 +56,7 @@ try {
 
                 const passwordMarch = await compare(password, existingUser.password);
                 if (!passwordMarch) {
-                    throw new Error("Incorrect Password");
+                    return  Error("Incorrect Password");
                 }
                 return existingUser;
 }catch (e) {

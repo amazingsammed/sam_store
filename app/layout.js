@@ -24,7 +24,7 @@ export default function RootLayout({children }) {
       <SessionWrapper
       >
       <Toaster richColors/>
-          <div>{children}</div>
+         {children}
       </SessionWrapper>
 
 

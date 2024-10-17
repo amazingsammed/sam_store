@@ -7,7 +7,7 @@ import {v4 as uuidv4} from "uuid";
 export async function getCustomers(storeid) {
     const results = [];
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
 
         const  data = await prisma.customer.findMany({
             where: {
@@ -26,7 +26,7 @@ export async function getCustomers(storeid) {
 export async function addCustomer(data, storeid) {
 
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         console.log(data);
         console.log(storeid);
         const element = formdataToJson(data);
@@ -65,7 +65,7 @@ export async function addCustomer(data, storeid) {
 
 export async function deactivateCustomers(element,storeid) {
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const  results = await prisma.customer.update({
             where: {
                 storeid: storeid,
@@ -88,7 +88,7 @@ export async function deactivateCustomers(element,storeid) {
 export async function editCustomer(data, storeid) {
 
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data);
         const results = await prisma.customer.updateMany({
                 where: {

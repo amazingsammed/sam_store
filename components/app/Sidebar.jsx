@@ -165,6 +165,9 @@ export default function SideBar() {
     const pathName = usePathname();
     const router = useRouter();
     const [role, setRole] = useState(null)
+    const [expanded, setExpanded] = useState(false)
+    const [newx, setNewx] = useState(false)
+
     async function handleSignout() {
         await signOut('credential');
         router.refresh();
@@ -173,29 +176,56 @@ export default function SideBar() {
 
     useEffect(() => {
         async function fetchPosts() {
-            let res = await fetch( `http://localhost:3000/api/system`,
+            let res = await fetch(`http://localhost:3000/api/system`,
                 {
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json',
                     },
-                    body: JSON.stringify({ storeid: path.storeid }),}
+                    body: JSON.stringify({storeid: path.storeid}),
+                }
             )
 
-            if(res.status === 400){
+            if (res.status === 400) {
                 await router.push('/stores');
             }
-            if(res.status === 200){
-            let {results} = await res.json();
-            setRole(results.system_roles['role'])
-            }else {
+            if (res.status === 200) {
+                let {results} = await res.json();
+                setRole(results.system_roles['role'])
+            } else {
                 console.log(res, 'app sidebar');
                 await router.push('/stores');
             }
         }
+
         fetchPosts()
     }, [])
+    if (newx) return (<div className="w-14 h-full flex flex-col bg-slate-950">
+        <nav
+            onMouseEnter={() => setExpanded(true)}
+            onMouseLeave={() => setExpanded(false)}
+            className={`group py-2 z-10 h-full w-14 ${expanded && 'w-[13rem] shadow-xl bg-slate-950'} 
+            border-r bg-dash-sidebar border-default  
+            transition-width duration-200 hide-scrollbar 
+            flex flex-col justify-between overflow-y-auto `}
+        >
+            <ul className="flex flex-col gap-y-1 justify-start px-2 relative st-current text-white">
+                <div className="py-5 w-full items-center">
+                    MSK
+                </div>
+                {theSidemenu.map((item, index) => (<Link key={index} href="/" className={` text-white relative h-10 w-10 ${expanded && 'w-full justify-center -space-x-2 '}  transition-all duration-200 flex items-center rounded   hover:bg-surface-200 false`}>
 
+                    <span className="absolute left-0 top-0 flex rounded h-10 w-10 items-center justify-center text-foreground-lighter group-hover/item:text-foreground-light transition-colors">
+                    {item['icon']}
+                    </span>
+                    <span className={`min-w-[128px] text-sm text-foreground-light group-hover/item:text-foreground group-aria-current/item:text-foreground absolute left-15 ${expanded && 'left-12 opacity-100'} opacity-0 false transition-all`}>
+                    {item['title']}
+                    </span>
+                </Link>))}
+            </ul>
+
+        </nav>
+    </div>);
     return (
         <nav className="bg-slate-950 hidden fixed lg:flex flex-col top-0 left-0 h-dvh w-[18rem] border-r ">
 
@@ -207,21 +237,20 @@ export default function SideBar() {
             <ul className="p-4 mb-auto overflow-y-auto ">
                 <span className="text-xs uppercase pl-4 font-semibold  text-white ">Menu</span>
 
-                {theSidemenu.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}
+                {theSidemenu.map((a,i) => <SideBarItemExpanded item={a} keys={i} key={i}/>)}
                 <div className="h-4"></div>
                 {role === 'Admin' && <div>
-
                     <span className="text-xs uppercase pl-4  text-white mt-4 pt-4">Configuration</span>
-                    {configurationlist.map((a) => <SideBarItemExpanded item={a} key={a['title']}/>)}
+                    {configurationlist.map((a,i) => <SideBarItemExpanded item={a} keys={i} key={i}/>)}
                 </div>}
             </ul>
 
             <div className="flex flex-row items-center gap-4 p-4 justify-between">
                 <Link href={'/stores'}>
                     <Button variant="outline" className="gap-2">
-                       <div className="hidden lg:block">
-                        Change Store
-                       </div>
+                        <div className="hidden lg:block">
+                            Change Store
+                        </div>
                     </Button>
                 </Link>
                 <Button className="gap-2  " onClick={handleSignout}>
@@ -240,7 +269,7 @@ export default function SideBar() {
 }
 
 
-export function SideBarItemExpanded({item,}) {
+export function SideBarItemExpanded({item,keys}) {
     const [isopen, setidopened] = useState(false);
     const path = useParams();
     const pathName = usePathname();
@@ -251,7 +280,7 @@ export function SideBarItemExpanded({item,}) {
     }
 
     return (
-        <div className="flex flex-col py-2">
+        <div className="flex flex-col py-2" key={keys}>
             <div
                 className={pathName === '/stores/' + path.storeid + item['url'] ? "  rounded bg-purple-950 flex-row flex justify-between items-center" : " hover:bg-purple-950 rounded flex flex-row justify-between items-center"}>
                 <Link href={'/stores/' + path.storeid + item['url']}>
@@ -278,9 +307,9 @@ export function SideBarItemExpanded({item,}) {
             </div>
 
             <div className="ml-6 ">
-                {isopen && item['items'].map((a) => (
-                    <Link key={a['title']} href={'/stores/' + path.storeid + a['url']}>
-                        <div className="p-2 hover:bg-purple-800 rounded flex justify-between items-center text-white">
+                {isopen && item['items'].map((a,i) => (
+                    <Link key={i} href={'/stores/' + path.storeid + a['url']}>
+                        <div key={i} className="p-2 hover:bg-purple-800 rounded flex justify-between items-center text-white">
                             <h1 className=" flex"> {a['name']}</h1>
                             <MdChevronRight/>
                         </div>
@@ -331,9 +360,9 @@ export function SideBarItemExpandedx({item,}) {
         <div className="flex flex-col py-2 ">
             <div
                 className={pathName === '/stores/' + path.storeid + item['url'] ? "  rounded bg-purple-950 flex-row flex justify-between items-center" : " hover:bg-purple-950 rounded flex flex-row justify-between items-center"}>
-            <SheetClose>
-                <Link href={'/stores/' + path.storeid + item['url']}>
-                    <div className="w-[12rem] ">
+                <SheetClose>
+                    <Link href={'/stores/' + path.storeid + item['url']}>
+                        <div className="w-[12rem] ">
 
                             <div>
                                 <div className="flex justify-between items-center py-3 px-1.5">
@@ -344,9 +373,9 @@ export function SideBarItemExpandedx({item,}) {
                                 </div>
                             </div>
 
-                    </div>
-                </Link>
-            </SheetClose>
+                        </div>
+                    </Link>
+                </SheetClose>
                 {item['hasItems'] &&
                     <div onClick={toggleDrop} className=" text-white hover:bg-purple-800 rounded-lg p-2 mr-2">{isopen ?
                         <MdArrowDownward/> : <MdChevronRight/>}</div>}

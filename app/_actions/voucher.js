@@ -6,7 +6,7 @@ import {mapToJson, queryClean} from "@/app/shared/sharedfunctions";
 
 export async function getVoucherList(storeid) {
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const results = await prisma.voucher.findMany({
             where: {
                 storeid: storeid,
@@ -48,7 +48,7 @@ export async function deactivateVoucher(data) {
 export async function getSingleVoucherList(uuid ,storeid) {
     console.log(uuid ,"Voucher uuid")
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const results = await prisma.trn_inventory.findMany({
             where: {
                 storeid: storeid,

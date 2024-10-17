@@ -1,15 +1,22 @@
 'use server'
 
 
-import {PrimeChecker} from "@/app/_actions/_checker";
+import {checkPermission, PrimeChecker} from "@/app/_actions/_checker";
 import prisma from "@/lib/prisma";
 import {v4 as uuidv4} from "uuid";
 import {formdataToJson} from "@/app/shared/sharedfunctions";
+import {systemRight} from "@/components/app/constant";
 
+export async function testRight(storeid){
+    const [userid,results] = await PrimeChecker(storeid);
+    console.log(results);
+    await checkPermission(userid,results,systemRight.testRight)
+    console.log(userid,'from test right');
+}
 export async function getChartOfAccount(storeid) {
     const results = [];
     try{
-        const userid = PrimeChecker(storeid);
+        const [userid] = PrimeChecker(storeid);
         const results= await prisma.chart_of_account.findMany({
             where: {
                 storeid: storeid,
@@ -26,7 +33,7 @@ export async function getChartOfAccount(storeid) {
 
 export async function createChartofAccounts(data , storeid) {
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data);
         const guid = uuidv4();
         console.log(element);
@@ -81,7 +88,7 @@ export async function getChartOfAccountGroup(storeid) {
 
 export async function createChartofAccountsGroup(data , storeid) {
     try {
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data);
         const guid = uuidv4();
         console.log(element);
@@ -137,7 +144,7 @@ export async function deactivateCOA(data) {
 export async function editCOAG(data, storeid) {
 
     try{
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data);
         console.log(element);
         const savedElement = await prisma.chart_of_account_group.update({
@@ -156,7 +163,7 @@ export async function editCOAG(data, storeid) {
 export async function editCOA(data, storeid) {
 
     try{
-        const userid = await PrimeChecker(storeid);
+        const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data);
         console.log(element);
         const savedElement = await prisma.chart_of_account.update({
