@@ -3,7 +3,7 @@
 import {PrimeChecker} from "@/app/_actions/_checker";
 import {v4 as uuidv4} from "uuid";
 import prisma from "@/lib/prisma";
-import {mapToJson, queryClean} from "@/app/shared/sharedfunctions";
+import {mapToJson} from "@/app/shared/sharedfunctions";
 
 function listToPurchasesInventory(data, guid,userid,storeid) {
     const results = [];

@@ -61,7 +61,7 @@ export async function createStockCategory(data, storeid) {
 export async function getStockGroup(storeid) {
     try {
         const [userid] = await PrimeChecker(storeid);
-        console.log(storeid);
+        console.log(storeid,'sgp');
 
         return await prisma.stock_item_group.findMany({
             where: {
@@ -72,7 +72,7 @@ export async function getStockGroup(storeid) {
             }
         });
     } catch (e) {
-        console.log(e);
+        console.log(e,'stock group not found');
         return [];
     }
 }

@@ -1,7 +1,7 @@
 'use server';
 import {getServerSession} from "next-auth";
 import prisma from "@/lib/prisma";
-import {permission, systemRight} from "@/components/app/constant";
+import {permission} from "@/components/app/constant";
 
 
 const secret = process.env.NEXTAUTH_SECRET;
@@ -43,7 +43,7 @@ export async function PrimeChecker(storeid){
                 system_roles: true,
             }
         });
-        console.log(results);
+        // console.log(results);
         if(results.length === 0) {
             throw new  Error('Unauthenticated User')
         }

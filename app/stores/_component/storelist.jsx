@@ -6,7 +6,6 @@ import {Card, CardDescription, CardHeader, CardTitle} from "@/components/ui/card
 
 import Storeheader from "@/app/stores/_component/storeheader";
 import {MdStore} from "react-icons/md";
-import Storesidebar from "@/app/stores/_component/storesidebar";
 
 function Storelist(prop) {
     const stores = prop.datax;

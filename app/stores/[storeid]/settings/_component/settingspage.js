@@ -2,9 +2,9 @@
 
 import React from 'react';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import MembersTable from "@/app/stores/[storeid]/settings/_component/members/members_table";
-import {Cartofaccount} from "@/app/stores/[storeid]/settings/_component/chartofaccount/coa_table";
-import {GroupTablePage} from "@/app/stores/[storeid]/settings/_component/accountgroups/group_table";
+import MembersTable from "@/app/stores/[storeid]/settings/members/_component/members_table";
+import {Cartofaccount} from "@/app/stores/[storeid]/settings/chartofaccount/_component/coa_table";
+import {GroupTablePage} from "@/app/stores/[storeid]/settings/accountgroups/_component/group_table";
 
 
 export function Settingspage(props) {

@@ -5,10 +5,11 @@ import {getAllProductsbyStoreid} from "@/app/_actions/stock_item";
 
 
 
-export default async function Home({params: {storeid}}) {
+export default async function Home({params}) {
+    const data = await getAllProductsbyStoreid(params.storeid);
   return (
     <Container >
-      <ItemsPage />
+      <ItemsPage data={data}/>
     </Container>
   );
 }

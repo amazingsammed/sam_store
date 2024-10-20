@@ -7,6 +7,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
+import StatusBtn from "@/components/app/status_btn";
+import React from "react";
 
 export const UnitColumns = [
     {
@@ -16,6 +18,9 @@ export const UnitColumns = [
     {
         accessorKey: "status",
         header: "Status",
+        cell: ({ row }) => {
+            return <StatusBtn num={row.original.status} />
+        }
     },
 
     {

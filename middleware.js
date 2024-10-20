@@ -5,8 +5,6 @@ import {NextResponse} from "next/server";
 export default withAuth(
     async function middleware(req) {
         const token = await req.nextauth.token;
-        console.log(token['uuid'] ,'middleware');
-
         if (token['jti'] !== undefined) {
             return NextResponse.next();
         }

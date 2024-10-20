@@ -1,6 +1,3 @@
-import Storesidebar from "@/app/stores/_component/storesidebar";
-
-
 export default function Layout({ children }) {
   return (
 

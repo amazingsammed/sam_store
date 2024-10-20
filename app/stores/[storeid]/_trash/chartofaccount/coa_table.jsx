@@ -1,8 +1,8 @@
 'use client'
 import {HeaderListTileDialog} from "@/components/app/headerlisttile";
-import {AddChartofAccount} from "@/app/stores/[storeid]/settings/_component/chartofaccount/coa_form";
+import {AddChartofAccount} from "@/app/stores/[storeid]/settings/chartofaccount/_component/coa_form";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
-import {coaColumns} from "@/app/stores/[storeid]/settings/_component/chartofaccount/coa_columns";
+import {coaColumns} from "@/app/stores/[storeid]/settings/chartofaccount/_component/coa_columns";
 
 
 export  function Cartofaccount(prop) {

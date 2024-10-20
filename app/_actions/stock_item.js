@@ -1,10 +1,9 @@
 'use server'
 
-import {formdataToJson, mapToJson, queryClean} from "@/app/shared/sharedfunctions";
+import {formdataToJson, mapToJson} from "@/app/shared/sharedfunctions";
 import prisma from "@/lib/prisma";
 import {PrimeChecker} from "@/app/_actions/_checker";
 import {v4 as uuidv4} from "uuid";
-import {revalidatePath} from "next/cache";
 
 export async function getProducts(storeid) {
     const results = [];

@@ -7,6 +7,8 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import {MoreHorizontal} from "lucide-react";
+import StatusBtn from "@/components/app/status_btn";
+import React from "react";
 
 export const CategoryColumns = [
 
@@ -17,6 +19,9 @@ export const CategoryColumns = [
     {
         accessorKey: "status",
         header: "Status",
+        cell: ({ row }) => {
+            return <StatusBtn num={row.original.status} />
+        }
     },
 
     {

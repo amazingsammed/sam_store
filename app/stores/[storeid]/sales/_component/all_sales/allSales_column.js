@@ -15,6 +15,7 @@ import React from "react";
 import {deactivateVoucher} from "@/app/_actions/voucher";
 import VoucherAction from "@/app/stores/[storeid]/voucher/_component/voucher_action";
 import {DateFormat} from "@/app/shared/sharedfunctions";
+import StatusBtn from "@/components/app/status_btn";
 
 export const allSalesColumns = [
     {
@@ -75,6 +76,13 @@ export const allSalesColumns = [
                 return row.original.user.name;
             }
         },
+    {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+            return <StatusBtn num={row.original.status} />
+        }
+    },
 
     {
         id: "actions",

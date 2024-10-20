@@ -1,11 +1,12 @@
-import React from 'react';
 
-function Page(props) {
+import {getStoreMembers} from "@/app/_actions/stores";
+import Members_table from "@/app/stores/[storeid]/settings/members/_component/members_table";
+
+async function Page({params}) {
+    const data = await getStoreMembers(params.storeid);
     return (
         <div>
-      <h1>Members</h1>
-
-
+            <Members_table data={data} />
         </div>
     );
 }

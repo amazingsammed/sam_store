@@ -2,7 +2,7 @@
 
 import {PrimeChecker} from "@/app/_actions/_checker";
 import prisma from "@/lib/prisma";
-import {mapToJson, queryClean} from "@/app/shared/sharedfunctions";
+import {mapToJson} from "@/app/shared/sharedfunctions";
 
 export async function getVoucherList(storeid) {
     try {

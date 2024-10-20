@@ -2,7 +2,7 @@
 
 import {PrimeChecker, SimpleChecker} from "@/app/_actions/_checker";
 import prisma from "@/lib/prisma";
-import {queryClean, formdataToJson} from "@/app/shared/sharedfunctions";
+import {formdataToJson} from "@/app/shared/sharedfunctions";
 import {v4 as uuidv4} from "uuid";
 
 export async function getStores() {
@@ -20,11 +20,11 @@ export async function getStores() {
                 }
             }
         );
-        console.log(results);
+        // console.log(results);
 
         return results;
     } catch (e) {
-        console.log(e);
+        console.log(e,'get stores');
         return [];
     }
 
@@ -80,7 +80,6 @@ export async function getStoreMembers(storeid){
                 system_roles: true
             }
         })
-        console.log(results);
         return results;
     } catch (e) {
         console.log(e);
