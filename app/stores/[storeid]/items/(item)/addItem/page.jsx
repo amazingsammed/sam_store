@@ -1,5 +1,5 @@
 
-import AddItemForm from '@/app/stores/[storeid]/items/item/addItem/_component/addItemForm'
+import AddItemForm from '@/app/stores/[storeid]/items/(item)/addItem/_component/addItemForm'
 
 
 export default function page  ()  {

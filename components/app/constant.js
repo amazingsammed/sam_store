@@ -211,10 +211,10 @@ export const theSidemenu2 = [
             {
                 'title': "forms", 'items': [
                     {
-                        'title': "Create Item", 'url': "/items/item/addItem",
+                        'title': "Create Item", 'url': "/items/addItem",
                     },
                     {
-                        'title': "Multi-Create Item", 'url': "/items/item/multicreate",
+                        'title': "Multi-Create Item", 'url': "/items/multicreate",
                     },
 
                 ]

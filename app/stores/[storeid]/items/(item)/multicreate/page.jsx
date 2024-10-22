@@ -1,4 +1,4 @@
-import MultiCreatePage from "@/app/stores/[storeid]/items/item/multicreate/_component/multiCreatePage";
+import MultiCreatePage from "@/app/stores/[storeid]/items/(item)/multicreate/_component/multiCreatePage";
 import Container from "@/components/app/container";
 
 
