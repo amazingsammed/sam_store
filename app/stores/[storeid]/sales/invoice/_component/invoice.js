@@ -8,7 +8,7 @@ function Invoice(props) {
     const  tabledata = []
     return (
         <Headerlisttile title='Invoices' subtitle='All Invoices are listed here' bname="Create invoice"
-                        ontap="sales/createinvoice">
+                        ontap="invoice/createinvoice">
             <DataTable columns={InvoiceColumns} data={tabledata} filter={'itemname'}/>
         </Headerlisttile>
     );

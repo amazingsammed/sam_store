@@ -9,19 +9,20 @@ export async function createMember(data , storeid) {
     try {
         const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data)
+        console.log(element,'\n \n \n email heree');
         const guid = uuidv4();
         const userExisting = await prisma.user.findUnique({
             where: {
-                email: data.email,
+                email: element.email,
             }
         })
         if (userExisting === null) {
             throw new Error("User does not exist");
         }
-        console.log(userExisting ,'bad user');
+        console.log(userExisting ,'adding new user');
         const saveMember = await prisma.user_store.create({
             data: {
-                user_uuid: userExisting[0].uuid,
+                user_uuid: userExisting.uuid,
                 store_uuid: storeid,
                 role_uuid: element.role,
                 createdby: userid,

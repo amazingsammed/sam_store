@@ -22,6 +22,23 @@ export async function getProducts(storeid) {
 
     //return currentUserCounter.count;
 }
+export async function getProductComboBox(storeid) {
+    const results = [];
+    try {
+        const [userid] = await PrimeChecker(storeid);
+        const  data = await prisma.stock_item.findMany({
+            where: {
+                storeid: storeid,
+                status: 1
+            }
+        });
+        return JSON.parse(JSON.stringify(data));
+    } catch (e) {
+        return [];
+    }
+
+    //return currentUserCounter.count;
+}
 export async function getAllProductsbyStoreid(storeid) {
     const results = [];
     try {

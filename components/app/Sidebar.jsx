@@ -69,9 +69,9 @@ export default function SideBar() {
 
         fetchPosts()
     }, [])
-    if (newx) return (<div className="flex flex-row justify-between">
+    if (newx) return (<div className="md:flex flex-row justify-between hidden">
 
-            <div className="flex h-full w-14 flex-col bg-slate-950">
+            <div className="flex h-full w-14 flex-col bg-slate-950 ">
                 <nav
                     onMouseEnter={() => setExpanded(true)}
                     onMouseLeave={() => setExpanded(false)}

@@ -3,7 +3,7 @@ import {PrismaClient} from "@prisma/client";
 
 const prisma = new PrismaClient()
 const seeder = {
-    "system account group": [
+    "system_account_group": [
         {
             "id": 1,
             "name": "Bank Accounts",
@@ -313,15 +313,23 @@ const seeder = {
             "createdby": null
         }
     ],
+    "stock_item_category": [
+        {
+            "id": 1,
+            "name": "others",
+            "status": 1,
+            "createdby": "system",
+            "storeid": "system",
+        }
+    ],
     "stock_item_group": [
         {
             "id": 1,
             "name": "others",
-            "category": 3,
-            "createdby": "hD3zOVzHKMfjjGueNpjLSp4vtbH2",
-            "createddate": "2024-09-08 21:49:02",
-            "storeid": "8XDZHJhxKtzSaNlHsJNx",
-            "status": 1
+            "category": 1,
+            "status": 1,
+            "createdby": "system",
+            "storeid": "system",
         }
     ],
     "system_account_category": [
@@ -343,7 +351,7 @@ const seeder = {
         {"id": 4, "name": "Income"},
         {"id": 5, "name": "Expense"}
     ],
-    "voucher type": [
+    "voucher_type": [
         {
             "id": 1,
             "name": "Attendance",
@@ -543,7 +551,6 @@ const seeder = {
             "name": "pcs",
             "description": "piece",
             "createdby": "system",
-            "createddate": "14/9/2024 13:01:55",
             "storeid": "system",
             "status": 1
         },
@@ -552,7 +559,6 @@ const seeder = {
             "name": "box ",
             "description": "box",
             "createdby": "system",
-            "createddate": "14/9/2024 13:02:02",
             "storeid": "system",
             "status": 1
         },
@@ -561,7 +567,6 @@ const seeder = {
             "name": "bag",
             "description": "bag",
             "createdby": "system",
-            "createddate": "17/9/2024 12:25:20",
             "storeid": "system",
             "status": 1
         },
@@ -570,7 +575,6 @@ const seeder = {
             "name": "pack",
             "description": "pack",
             "createdby": "system",
-            "createddate": "17/9/2024 12:25:30",
             "storeid": "system",
             "status": 1
         },
@@ -579,7 +583,6 @@ const seeder = {
             "name": "gram",
             "description": "gram",
             "createdby": "system",
-            "createddate": "15/10/2024 18:14:30",
             "storeid": "system",
             "status": 1
         },
@@ -588,7 +591,6 @@ const seeder = {
             "name": "glass",
             "description": "room",
             "createdby": "system",
-            "createddate": "15/10/2024 18:14:37",
             "storeid": "system",
             "status": 1
         },
@@ -597,7 +599,6 @@ const seeder = {
             "name": "others",
             "description": null,
             "createdby": "system",
-            "createddate": "15/10/2024 18:14:41",
             "storeid": "system",
             "status": 1
         }
@@ -605,12 +606,32 @@ const seeder = {
 }
 
 async function main() {
-    const defcoa = await prisma.default_coa.createMany({
+    const [category,group,coa,accountgroup,accounts,vouchertype,units]= await prisma.$transaction([
+
+     prisma.stock_item_category.createMany({
+        data:seeder.stock_item_category
+    }),
+     prisma.stock_item_group.createMany({
+        data:seeder.stock_item_group
+    }),
+      prisma.default_coa.createMany({
         data: seeder.chart_of_account
-    })
-    const sys_acc_grp = await prisma.system_account_group.createMany({
-        data: seeder["system account group"]
-    })
+    }),
+         prisma.system_account_group.createMany({
+        data: seeder.system_account_group
+    }),
+     prisma.system_accounts.createMany({
+        data: seeder.system_accounts
+    }),
+     prisma.voucher_type.createMany({
+        data: seeder.voucher_type
+    }),
+     prisma.stock_item_unit.createMany(
+        {
+            data: seeder.system_units
+        }
+    ),
+    ]);
 }
 
 main()

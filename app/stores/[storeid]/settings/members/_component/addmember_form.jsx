@@ -31,18 +31,16 @@ export function AddMemberForm() {
     const path= useParams();
     const router = useRouter();
     async function handleAddMember(s,data) {
-        try {
+
 
        const savedmember = await createMember(data,path.storeid);
        if (savedmember) {
            toast.success("Members added successfully.");
+        await router.refresh();
        }else {
            toast.error("Error Adding member");
        }
-        router.refresh();
-        }catch(err) {
-            toast.error(err.message);
-        }
+
     }
 
     const [state, action] = useFormState(handleAddMember, undefined);

@@ -3,9 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model business {
@@ -231,7 +230,7 @@ model user {
   id          Int          @unique(map: "user_id_idx") @default(autoincrement())
   uuid        String       @unique(map: "user_uuid_idx") @db.VarChar(255)
   name        String?      @db.VarChar(255)
-  email       String?      @unique(map: "users_email_key") @db.VarChar(255)
+  email       String?      @unique(map: "user_email_idx") @db.VarChar(255)
   imageurl    String?      @db.VarChar(255)
   password    String?      @db.VarChar(255)
   status      Int?         @default(1)
@@ -294,4 +293,15 @@ model voucher_type {
   is_deemedpositive                          Int?      @db.SmallInt
   affects_stock                              Int?      @db.SmallInt
   voucher_voucher_voucher_typeTovoucher_type voucher[] @relation("voucher_voucher_typeTovoucher_type")
+}
+
+model tax {
+  id        Int       @id
+  name      String?   @db.VarChar(255)
+  value     Int?
+  status    Int?      @default(1)
+  is_active Int?      @default(1)
+  storeid   String?   @db.VarChar(255)
+  createdby String?   @db.VarChar(255)
+  date      DateTime? @db.Date
 }

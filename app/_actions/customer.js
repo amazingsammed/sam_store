@@ -21,6 +21,30 @@ export async function getCustomers(storeid) {
 
     //return currentUserCounter.count;
 }
+export async function getCustomersComboBox(storeid) {
+    const results = [];
+    try {
+        const [userid] = await PrimeChecker(storeid);
+
+        const  data = await prisma.customer.findMany({
+            select:{
+              name: true, coa_uuid:true
+            },
+            where: {
+                storeid: storeid,
+            }
+        });
+        if(data.length===0)return [];
+        console.log(data);
+        return mapToJson(data.map(user=>({
+            ...user,uuid: user.coa_uuid
+        })));
+    } catch (e) {
+        return [];
+    }
+
+    //return currentUserCounter.count;
+}
 
 
 export async function addCustomer(data, storeid) {

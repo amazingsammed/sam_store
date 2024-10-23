@@ -1,4 +1,12 @@
-import {MdDashboard, MdInventory, MdNote, MdReport, MdSettings} from "react-icons/md";
+import {
+    MdDashboard, MdDashboardCustomize, MdEditDocument,
+    MdInventory, MdInventory2,
+    MdNote, MdReceipt,
+    MdReport,
+    MdSettings,
+    MdShoppingCartCheckout,
+    MdTrendingUp
+} from "react-icons/md";
 import React from "react";
 
 const backgroudcolor = "100dd28"
@@ -105,13 +113,13 @@ export const theSidemenu2 = [
 
     {
         'title': "Dashboard",
-        'icon': <MdDashboard size={size}/>,
+        'icon': <MdDashboardCustomize size={size}/>,
         'hasItems': false,
         'url': ""
     },
     {
         'title': "Sales",
-        'icon': <MdNote size={size}/>,
+        'icon': <MdTrendingUp size={size}/>,
         'hasItems': true,
         'url': "/sales",
         'items': [
@@ -176,7 +184,7 @@ export const theSidemenu2 = [
         ]
     },
     {
-        'title': "Purchases", 'icon': <MdReport size={size}/>, 'hasItems': true, 'url': "/purchases", 'items': [{
+        'title': "Purchases", 'icon': <MdShoppingCartCheckout size={size}/>, 'hasItems': true, 'url': "/purchases", 'items': [{
             'title': "Main", 'items': [
                 {
                     'title': "Purchases List", 'url': "/purchases"
@@ -192,8 +200,9 @@ export const theSidemenu2 = [
             },
             ]
         },]
-    }, {
-        'title': "Items", 'icon': <MdInventory size={size}/>, 'hasItems': true, 'url': "/items",
+    },
+    {
+        'title': "Items", 'icon': <MdInventory2 size={size}/>, 'hasItems': true, 'url': "/items",
         'items': [
             {
                 'title': "basic", 'items': [
@@ -223,7 +232,7 @@ export const theSidemenu2 = [
         ]
     }, // ,
     {
-        'title': "Reports", 'icon': <MdReport size={size}/>,
+        'title': "Reports", 'icon': <MdReceipt size={size}/>,
         'hasItems': true,
         'url': "/report",
         'items': [
@@ -270,7 +279,7 @@ export const theSidemenu2 = [
 
     {
         'title': "Voucher",
-        'icon': <MdNote size={size}/>,
+        'icon': <MdEditDocument size={size}/>,
         'hasItems': true,
         'url': '/voucher',
         'items': [

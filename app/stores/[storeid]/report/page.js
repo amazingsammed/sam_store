@@ -1,12 +1,12 @@
 import React from 'react';
 import Reportspage from "@/app/stores/[storeid]/report/_components/reportspage";
-import Container from "@/components/app/container";
+import MainContainer from "@/components/app/mainContainer";
 
 function Page({params}) {
     return (
-        <Container >
+        <MainContainer >
             <Reportspage/>
-        </Container>
+        </MainContainer>
     );
 }
 

@@ -17,7 +17,9 @@ export default async function Layout({children}) {
             {/*    </div>*/}
             {/*</div>*/}
             <div className="flex h-full">
+
                 <SideBar/>
+
                 <div className="w-full data-[panel-group-direction=vertical]:flex-col flex h-full">
                     <div className="h-full w-full lg:pt-8  p-4">
                         <main className='pl-9 h-full flex flex-col flex-1 w-full overflow-x-hidden'>

@@ -1,15 +1,15 @@
 import React from 'react';
 import {getChartOfAccount} from "@/app/_actions/account";
 
-import Container from "@/components/app/container";
+import MainContainer from "@/components/app/mainContainer";
 import {Cartofaccount} from "@/app/stores/[storeid]/_trash/chartofaccount/coa_table";
 
 async function Page(params) {
     const data = await getChartOfAccount(params.params.storeid);
     return (
-        <Container>
+        <MainContainer>
             <Cartofaccount data={data}/>
-        </Container>
+        </MainContainer>
     );
 }
 

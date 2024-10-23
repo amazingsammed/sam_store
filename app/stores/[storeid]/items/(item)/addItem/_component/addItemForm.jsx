@@ -13,27 +13,20 @@ export default function AddItemForm() {
     const [hasopenbalance ,setHasopenbalance] = useState(false);
     const [isService ,setisService] = useState(false);
 
-    // useEffect(() => {
-    //         const fetcher = async () => {
-    //             const a = await getStockGroup(path.storeid);
-    //             const b = await getStockUnits(path.storeid);
-    //             if (a.length === 0) {
-    //
-    //             } else {
-    //
-    //                 setGroups(...groups,a);
-    //             }
-    //             if (b.length === 0) {
-    //
-    //             } else {
-    //
-    //                 setUnits(...units,b);
-    //             }
-    //         };
-    //         fetcher();
-    //
-    //     },
-    //     []);
+    useEffect(() => {
+            const fetcher = async () => {
+                const a = await getStockGroup(path.storeid);
+                const b = await getStockUnits(path.storeid);
+                if (a.length === 0)return;
+                    setGroups(a);
+                if (b.length === 0)return;
+                    setUnits(b);
+
+            };
+            fetcher();
+
+        },
+        []);
 
 
 

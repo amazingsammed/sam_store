@@ -5,13 +5,42 @@ import {Card, CardContent, CardHeader} from "@/components/ui/card";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {Button} from "@/components/ui/button";
 import {Textarea} from "@/components/ui/textarea";
-import {MdCompareArrows, MdMoreVert} from "react-icons/md";
+import {MdCheck, MdCompareArrows, MdDeleteOutline, MdMoreVert} from "react-icons/md";
 import {Input} from "@/components/ui/input";
+import {CustomerListCombo} from "@/app/stores/[storeid]/sales/invoice/createinvoice/_component/customerlistcombo";
+import Statuscombo from "@/app/stores/[storeid]/sales/invoice/createinvoice/_component/statuscombo";
+import {ItemListCombo} from "@/app/stores/[storeid]/sales/invoice/createinvoice/_component/itemlistcombo";
+import MainContainer from "@/components/app/mainContainer";
 
+const singleLine ={
+    "quantity":0,
+    "item":"",
+    "discount":0,
+    "rate":0,
+}
 function Invoiceform(props) {
-    const [items, setItems] = useState([1]);
+    const [customer, setCustomer] = useState();
+    const [status, setStatus] = useState("");
+    const [items, setItems] = useState([]);
+    const [rows, setRows] = useState(singleLine);
+
+    function onItemChange(item){
+        setRows({...rows, item: item.name,uuid: item.uuid,rate: item.salesprice});
+    }
+    function allChange(e){
+            const { name, value } = e.target;
+            setRows({...rows,   [name]: name === 'quantity' || name === 'rate' ? Number(value) : value});
+    }
+    function removeitem(num) {
+        setItems(items.filter((_, index) => index !== num));
+    }
+    function handleSubmit(e){
+        e.preventDefault();
+        setItems([...items, rows]);
+        setRows(singleLine);
+    }
     return (
-        <div className="max-w-screen-xl">
+        <MainContainer >
             <Card>
                 <CardHeader className="text-xl font-bold flex flex-row justify-between w-full">
                     New Invoice
@@ -24,58 +53,68 @@ function Invoiceform(props) {
                     <div className="grid gap-4">
                         <div className="flex-row flex items-center justify-between gap-4 py-3">
                         <div className="flex justify-between flex-row w-full gap-4 ">
-                                <Card className="p-4 w-2/3">
-                                    <CTextfieldR label="Customer Name" value='' name="name"/>
-                                    <CTextfieldR label="Customer Name" value='' name="name"/>
+                                <Card className='p-4 flex flex-col gap-4'>
+
+                                    <CustomerListCombo/>
+                                    <Statuscombo/>
                                 </Card>
-                                <Card className="p-4 w-1/3">
-                                    <CTextfieldR label="Date" value='' name="date"/>
-                                    <CTextfieldR label="Deposit Account" value='' name="da"/>
-                                </Card>
+
                             </div>
                         </div>
-                        <Card className="max-h-[300px] overflow-y-auto">
+                        <Card>
+<form onSubmit={handleSubmit}>
 
                             <Table>
                                 <TableHeader>
                                     <TableRow>
+                                        <TableHead className="text-right w-[50px]"></TableHead>
                                         <TableHead className="text-right w-[100px]">Quantity</TableHead>
                                         <TableHead>Item</TableHead>
-                                        <TableHead className=" w-[100px]">Discount</TableHead>
-                                        <TableHead className=" w-[100px]">Tax</TableHead>
-                                        <TableHead className="text-right w-[100px]">Unit price</TableHead>
-                                        <TableHead className="text-right w-[100px]">Total</TableHead>
-                                        <TableHead className="text-right w-[100px]"></TableHead>
+                                        <TableHead className=" w-[120px]">Discount %</TableHead>
+                                        <TableHead className="text-right w-[120px]">Unit price</TableHead>
+                                        <TableHead className="text-right w-[120px]">Total</TableHead>
+                                        <TableHead className="text-right w-[120px]"></TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {
                                         items.map((element, index) => (
                                             <TableRow key={index}>
-                                                <TableCell className="text-right w-[100px]">12</TableCell>
-                                                <TableCell>Mango</TableCell>
-                                                <TableCell className=" w-[100px]">12%</TableCell>
-                                                <TableCell className=" w-[100px]">Default</TableCell>
-                                                <TableCell className="text-right w-[100px]">2.5</TableCell>
-                                                <TableCell className="text-right w-[100px]">36</TableCell>
-                                                <TableCell className="text-right w-[100px]"><MdMoreVert/></TableCell>
+                                                <TableCell className="text-right w-[100px]">{index+1}</TableCell>
+                                                <TableCell className="text-right w-[100px]">{element.quantity}</TableCell>
+                                                <TableCell>{element.item}</TableCell>
+                                                <TableCell className=" w-[100px]">{element.discount}</TableCell>
+                                                <TableCell className="text-right w-[100px]">{element.rate}</TableCell>
+                                                <TableCell className="text-right w-[100px]">{((element.quantity*element.rate)*(1-element.discount/100)).toFixed(2)}</TableCell>
+                                                <TableCell className="text-right w-[100px]">
+                                                    <Button onClick={() => removeitem(index)}>
+
+                                                        <MdDeleteOutline size="20"/>
+                                                    </Button>
+                                                </TableCell>
                                             </TableRow>
                                         ))
                                     }
 
                                     <TableRow >
-                                        <TableCell className="text-right w-[100px]"><Input type="number"/></TableCell>
-                                        <TableCell><Input type="text"/></TableCell>
-                                        <TableCell className=" w-[100px]"><Input type="number"/></TableCell>
-                                        <TableCell className=" w-[100px]"><Input type="number"/></TableCell>
-                                        <TableCell className="text-right w-[100px]"><Input type="number"/></TableCell>
-                                        <TableCell className="text-right w-[100px]"><Input type="number"/></TableCell>
-                                        <TableCell className="text-right w-[100px]"><MdCompareArrows/></TableCell>
+                                        <TableCell></TableCell>
+                                        <TableCell className="text-right w-[100px]"><Input type="number" value={rows.quantity} name='quantity' required onChange={allChange}/></TableCell>
+                                        <TableCell><ItemListCombo onChange={onItemChange}/></TableCell>
+                                        <TableCell className=" w-[100px]"><Input type="number" value={rows.discount} name='discount' onChange={allChange}/></TableCell>
+                                        <TableCell className="text-right w-[100px]"><Input type="number" value={rows.rate} name='rate' required onChange={allChange}/></TableCell>
+                                        <TableCell className="text-right w-[100px]">{((rows.quantity*rows.rate)*(1-rows.discount/100)).toFixed(2)}</TableCell>
+                                        <TableCell className="text-right w-[100px]">
+                                            <Button type="submit" variant='outline'>
+
+                                            <MdCheck size="20"/>
+                                            </Button>
+                                        </TableCell>
                                     </TableRow>
 
 
                                 </TableBody>
                             </Table>
+</form>
                         </Card>
 
                         <div className="flex items-center gap-2 flex-row">
@@ -92,7 +131,7 @@ function Invoiceform(props) {
 
                 </CardContent>
             </Card>
-        </div>
+        </MainContainer>
     );
 }
 

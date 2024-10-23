@@ -1,14 +1,14 @@
 import React from 'react';
 import {Settingspage} from "@/app/stores/[storeid]/settings/_component/settingspage";
-import Container from "@/components/app/container";
+import MainContainer from "@/components/app/mainContainer";
 
 
 
 function Page() {
     return (
-        <Container >
+        <MainContainer >
             <Settingspage/>
-        </Container>
+        </MainContainer>
     );
 }
 

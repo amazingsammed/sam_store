@@ -72,7 +72,6 @@ export async function getStoreMembers(storeid){
         const [userid] = await PrimeChecker(storeid);
         const results = await prisma.user_store.findMany({
             where: {
-                user_uuid: userid,
                 store_uuid: storeid,
             },
             include: {
@@ -80,6 +79,7 @@ export async function getStoreMembers(storeid){
                 system_roles: true
             }
         })
+        console.log(results)
         return results;
     } catch (e) {
         console.log(e);

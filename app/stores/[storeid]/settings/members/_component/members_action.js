@@ -35,13 +35,12 @@ function MembersAction({element}) {
      async function handleDeactivate() {
          await deactivateMember(element, param.storeid);
          router.refresh();
-         router.refresh();
      }
-
+console.log(data);
     return (
-        <>
+        <div>
 
-            {data.user.uuid !== element.user_uuid && <DropdownMenu>
+            { data.user.uuid !== element.user_uuid && <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="h-8 w-8 p-0">
 
@@ -61,7 +60,7 @@ function MembersAction({element}) {
             }
 
 
-        </>
+        </div>
 
     );
 }

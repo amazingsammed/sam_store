@@ -1,12 +1,12 @@
 import MultiCreatePage from "@/app/stores/[storeid]/items/(item)/multicreate/_component/multiCreatePage";
-import Container from "@/components/app/container";
+import MainContainer from "@/components/app/mainContainer";
 
 
 async function Page(props) {
     return (
-        <Container className="">
+        <MainContainer className="">
         <MultiCreatePage />
-        </Container>
+        </MainContainer>
     );
 }
 

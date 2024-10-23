@@ -69,7 +69,7 @@ export default function VoucherDetailsPage() {
 
 
     return (
-        <div className="grid grid-cols-12">
+        <div >
             <div className='h-[80dvh]  justify-between col-span-10'>
                 <HeaderWithButton title='Voucher Details' subtitle={`Voucher type : ${account.name}`} bname="Print" ontap={handlePrint}>
                     <div>

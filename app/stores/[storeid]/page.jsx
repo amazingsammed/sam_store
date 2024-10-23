@@ -1,5 +1,5 @@
 import {DashBoardCard} from "@/components/app/mycards";
-import Container from "@/components/app/container";
+import MainContainer from "@/components/app/mainContainer";
 import {testRight} from "@/app/_actions/account";
 
 
@@ -16,7 +16,7 @@ export default async function Page({params}) {
     // if (!result) {
     //     redirect("/stores");
     // }
-    return <Container >
+    return <MainContainer >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">{
             dbT.map((item, index)=>{
                 return (
@@ -25,5 +25,5 @@ export default async function Page({params}) {
         })
         }
         </div>
-    </Container>;
+    </MainContainer>;
 }

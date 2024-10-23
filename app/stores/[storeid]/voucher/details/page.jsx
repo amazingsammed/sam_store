@@ -1,10 +1,11 @@
 import VoucherDetailsPage from "@/app/stores/[storeid]/voucher/details/_component/voucherdetails";
+import MainContainer from "@/components/app/mainContainer";
 
 async function Page(props) {
     return (
-        <div className="max-w-screen-xl mx-auto">
+        <MainContainer>
         <VoucherDetailsPage element ={props.element}/>
-        </div>
+        </MainContainer>
     );
 }
 

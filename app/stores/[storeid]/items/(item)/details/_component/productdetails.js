@@ -5,7 +5,7 @@ import {HeaderListTileDialog} from "@/components/app/headerlisttile";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
 import {Button} from "@/components/ui/button";
 import {useParams, useRouter, useSearchParams} from "next/navigation";
-import Container from "@/components/app/container";
+import MainContainer from "@/components/app/mainContainer";
 import {getProductDetail} from "@/app/_actions/stock_item";
 function Productdetails() {
     const [element ,setElement] = useState({'name':"",'trn_inventory':[]});
@@ -23,7 +23,7 @@ function Productdetails() {
     }, []);
     const router = useRouter();
     return (
-        <Container>
+        <MainContainer>
             <Button onClick={() => {
                 router.back()
             }} className="mb-3">
@@ -32,7 +32,7 @@ function Productdetails() {
             <HeaderListTileDialog title={element.name + " Details"} subtitle='Detailed transactions of a specific product'>
                 <DataTable columns={productdetailColumns} data={element.trn_inventory} filter={'name'}/>
             </HeaderListTileDialog>
-        </Container>
+        </MainContainer>
 
     );
 }

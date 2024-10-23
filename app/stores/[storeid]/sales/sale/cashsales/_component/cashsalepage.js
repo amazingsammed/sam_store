@@ -10,6 +10,7 @@ import {useParams, useRouter} from "next/navigation";
 import {toast} from "sonner";
 import {z} from "zod";
 import {CashPurchasesSchema} from "@/app/_zod-models/auth";
+import {Button} from "@/components/ui/button";
 
 function Cashsalepage(prop) {
     const path = useParams();
@@ -113,10 +114,10 @@ const    router = useRouter();
                                         <TableCell>{element['quantity']}</TableCell>
                                         <TableCell>{element['quantity'] * element['rate']}</TableCell>
                                         <TableCell>
-                                            <button onClick={() => removeitem(index)}>
+                                            <Button onClick={() => removeitem(index)}>
 
                                                 <MdDeleteOutline size="20"/>
-                                            </button>
+                                            </Button>
                                         </TableCell>
 
 
@@ -133,9 +134,9 @@ const    router = useRouter();
                                                                                    onchange={handlechange}/></TableCell>
                                         <TableCell className="w-[30]">{newitem.quantity * newitem.rate}</TableCell>
                                         <TableCell>
-                                            <button type='submit'>
+                                            <Button type='submit' variant={`outline`}>
                                                 <MdCheck size="20"/>
-                                            </button>
+                                            </Button>
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
