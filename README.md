@@ -4,7 +4,6 @@ An All-in-one accounting software for small and medium size businesses
 # How to run project
 
 * To begin with, run `npm install ` in the terminal
-  * it will download necessary file for the project
 * You may need a postgres sql database
 * You need to change the db url to your postgresdb
 * Run `npx prisma db push` to use the schema to generate a database structure for you

@@ -150,6 +150,8 @@ export default ItemActions;
                         <CTextfieldR label="Item name" value={data.name} onchange={onChange} name="name"/>
                         <CTextfield label="Item description" value={data.description} onchange={onChange}
                                     name="description"/>
+                        <div className="flex flex-row w-full justify-between items-start">
+
                         <CDropDown
                             label="Group"
                             name='group'
@@ -164,7 +166,8 @@ export default ItemActions;
                             items={units}
                             value={data.unit}
                         />
-                        <CTextfieldNum label="Accountspayable Price" value={data.salesprice} onchange={onChange}
+                        </div>
+                        <CTextfieldNum label="Sales Price" value={data.salesprice} onchange={onChange}
                                        name="salesprice"/>
                         <CTextfieldNum label="Purchase Price" value={data.purchaseprice} onchange={onChange}
                                        name="purchaseprice"/>

@@ -602,6 +602,36 @@ const seeder = {
             "storeid": "system",
             "status": 1
         }
+    ],
+    "roles": [
+        {
+            "id": 1,
+            "role": "owner",
+            "description": "owner",
+            "status": 1,
+            "uuid": "owner_xd"
+        },
+        {
+            "id": 2,
+            "role": "admin",
+            "description": "admin",
+            "status": 1,
+            "uuid": "admin_xd"
+        },
+        {
+            "id": 3,
+            "role": "manager",
+            "description": "manager",
+            "status": 1,
+            "uuid": "manager_xd"
+        },
+        {
+            "id": 5,
+            "role": "salesperson",
+            "description": "salesperson",
+            "status": 1,
+            "uuid": "salesperson_xd"
+        }
     ]
 }
 
@@ -631,6 +661,11 @@ async function main() {
             data: seeder.system_units
         }
     ),
+        prisma.system_roles.createMany(
+            {
+                data: seeder.roles
+            }
+        ),
     ]);
 }
 

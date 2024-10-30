@@ -30,7 +30,6 @@ export async function createCashSales(data, storeid) {
         console.log(data);
         const [userid] = await PrimeChecker(storeid);
         console.log(userid);
-        // const element = toJson(data)
         const guid = uuidv4();
         const [results, total ] = listToInventory(data, guid, storeid, userid);
         const [voucher,inventory,accounting]= await prisma.$transaction([
@@ -39,7 +38,7 @@ export async function createCashSales(data, storeid) {
                 uuid: guid,
                 date: new Date(),
                 voucher_type: 22,
-                narration: "Cash",
+                narration: "Cash Sales",
                 party_name: 'Sales',
                 is_invoice: 0,
                 is_inventory_voucher: 1,

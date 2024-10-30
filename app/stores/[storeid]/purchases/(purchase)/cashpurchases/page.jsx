@@ -1,5 +1,5 @@
 import {getProducts} from "@/app/_actions/stock_item";
-import CashPurchasesFormPage from "@/app/stores/[storeid]/purchases/cashpurchases/_component/cashpurchasesformpage";
+import CashPurchasesFormPage from "@/app/stores/[storeid]/purchases/(purchase)/cashpurchases/_component/cashpurchasesformpage";
 import MainContainer from "@/components/app/mainContainer";
 
 

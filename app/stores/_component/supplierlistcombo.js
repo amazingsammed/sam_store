@@ -19,13 +19,30 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-
-
-
-export function ItemListCombo(props) {
+import {useEffect} from "react";
+import {getCustomers, getCustomersComboBox} from "@/app/_actions/customer";
+import {useParams} from "next/navigation";
+import {Label} from "@/components/ui/label";
+import {getSupplierComboBox} from "@/app/_actions/supplier";
+export function SupplierListCombo({onChange,onPressed}) {
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")
+    const [list, setList] = React.useState([])
+    const param = useParams();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const results = await getSupplierComboBox(param.storeid);
+            if (results.length === 0) return;
+            setList(results);
+        }
+        fetchData()
+    },[])
     return (
+        <div className="flex flex-col gap-3">
+            <Label>Supplier</Label>
+            <div className="flex flex-row gap-2">
+
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
                 <Button
@@ -35,24 +52,24 @@ export function ItemListCombo(props) {
                     className="w-[200px] justify-between"
                 >
                     {value
-                        ? props.list.find((item) => item.uuid === value)?.name
-                        : "Select an item..."}
+                        ? list.find((item) => item.uuid === value)?.name
+                        : "Select a Supplier..."}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0">
                 <Command>
-                    <CommandInput placeholder="Search item" />
+                    <CommandInput placeholder="Search supplier" />
                     <CommandList>
-                        <CommandEmpty>No item found.</CommandEmpty>
+                        <CommandEmpty>No Supplier found.</CommandEmpty>
                         <CommandGroup>
-                            {props.list.map((element,i) => (
+                            {list.map((element,i) => (
                                 <CommandItem
                                     key={i}
                                     value={element.uuid}
                                     onSelect={(currentValue) => {
                                         setValue(currentValue === value ? "" : currentValue)
-                                        props.onChangeValue(element)
+                                        onChange(element)
                                         setOpen(false)
                                     }}
                                 >
@@ -70,6 +87,11 @@ export function ItemListCombo(props) {
                 </Command>
             </PopoverContent>
         </Popover>
+
+                <Button onClick={onPressed} variant='outline'>+</Button>
+            </div>
+        </div>
     )
 }
+
 

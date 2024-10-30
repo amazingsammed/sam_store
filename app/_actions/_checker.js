@@ -59,7 +59,6 @@ const userid = tokens.user.uuid;
 }
 export async function checkPermission(userid,results,right){
     try{
-console.log(results,'permission');
         const data=  permission.findLast((result) => {return result.role === results[0].system_roles.role.toString().toLowerCase()})
         if(!data){
             throw new  Error('Unauthenticated User')

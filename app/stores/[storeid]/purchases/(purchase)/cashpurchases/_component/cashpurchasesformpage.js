@@ -4,13 +4,14 @@ import React, {useState} from 'react';
 import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {MdCheck, MdDeleteOutline} from "react-icons/md";
 import {HeaderWithButton} from "@/components/app/headerlisttile";
-import {ItemListCombo} from "@/app/stores/[storeid]/sales/(sale)/cashsales/_component/itemlistcombo";
+
 import {useParams, useRouter} from "next/navigation";
 import {useFormState} from "react-dom";
 import {CashPurchasesSchema} from "@/app/_zod-models/auth";
 import {z} from "zod";
 import {createCashPurchases} from "@/app/_actions/purchases";
 import {toast} from "sonner";
+import {ItemListCombo} from "@/app/stores/_component/itemlistcombo";
 
 
 export default function CashPurchasesFormPage(prop) {
@@ -89,7 +90,7 @@ export default function CashPurchasesFormPage(prop) {
 
             <div className='h-[80dvh]  justify-between col-span-10'>
                 <HeaderWithButton title='Cash Purchases Form'
-                                  subtitle='This for is used to record purchases made with cash only'
+                                  subtitle='Used to record purchases made with cash only'
                                   bname="Save"
                                   ontap={action}>
                     <div className="p-4 mb-auto overflow-y-auto ">
@@ -124,8 +125,8 @@ export default function CashPurchasesFormPage(prop) {
                                         <TableRow>
                                             <TableCell className="font-medium w-[10]">index </TableCell>
                                             <TableCell>
-                                                <ItemListCombo list={prop.cacheditems}
-                                                               onChangeValue={handlelistclicked}/>
+                                                <ItemListCombo
+                                                               onChange={handlelistclicked}/>
                                             </TableCell>
                                             {/*<TableCell className="w-[30]">{newitem.rate}</TableCell>*/}
                                             <TableCell className="w-[30]"><TableInputn name='rate' value={newitem.rate}

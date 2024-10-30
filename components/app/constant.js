@@ -35,8 +35,13 @@ export const systemRight = {
 }
 
 export const permission = [{
-    "role": "admin", "right": [systemRight.testRight, systemRight.readSettings, systemRight.createItem]
-}]
+    "role": "admin", "right": [systemRight.testRight, systemRight.readSettings, systemRight.createItem],
+
+},
+    {
+        "role": "owner", "right": [systemRight.testRight, systemRight.readSettings, systemRight.createItem],
+
+    }]
 
 export const theSidemenu = [// {
     //     'title': "Home",

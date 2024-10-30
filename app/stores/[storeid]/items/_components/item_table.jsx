@@ -18,7 +18,7 @@ export  function ItemsPage({data}) {
 
             <HeaderListTileDialog title='Item List' subtitle='All items are listed here' buttonx={
                 <div className="flex gap-2">
-                    <Link href={path + "/item/multicreate"}>
+                    <Link href={path + "/multicreate"}>
                         <Button variant="outline"> Multi-Create</Button>
                     </Link>
                     <AddAnItem/>

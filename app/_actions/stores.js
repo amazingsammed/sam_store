@@ -9,26 +9,21 @@ export async function getStores() {
     try {
 
         const [userid] = await SimpleChecker();
-        const results = await prisma.user_store.findMany(
+        return await prisma.user_store.findMany(
             {
                 where: {
                     user_uuid: userid,
                 },
-                include:{
-                    store : true,
+                include: {
+                    store: true,
                     system_roles: true
                 }
             }
         );
-        // console.log(results);
-
-        return results;
     } catch (e) {
-        console.log(e,'get stores');
+
         return [];
     }
-
-    //return currentUserCounter.count;
 }
 
 export async function createStore(data) {
@@ -36,7 +31,9 @@ export async function createStore(data) {
         const [userid] = await SimpleChecker();
         const element = formdataToJson(data)
         const guid = uuidv4();
-        const storeElement = await prisma.store.create({
+        const [store,userstore]= await prisma.$transaction([
+
+         prisma.store.create({
             data: {
                 storename: element.storename,
                 uuid: guid,
@@ -47,19 +44,19 @@ export async function createStore(data) {
                 createddate: new Date(),
 
             }
-        });
-        const userElement = await prisma.user_store.create({
+        }),  prisma.user_store.create({
             data: {
                 user_uuid: userid,
                 store_uuid: guid,
-                role_uuid: 'admin_xd',
+                role_uuid: 'owner_xd',
                 createdby: userid,
                 createddate: new Date(),
                 status: 1
             }
-        });
+        })
+        ])
 
-        console.log('saved Store');
+        return [userstore,store];
     } catch (e) {
         console.log(e);
     }
@@ -89,8 +86,7 @@ export async function getStoreMembers(storeid){
 export async function getStoreRoles(){
     try {
        // const [userid] = await PrimeChecker('storeidx');
-        const results = await prisma.system_roles.findMany();
-        return results;
+        return await prisma.system_roles.findMany();
     }catch (e){
         console.log(e);
     }

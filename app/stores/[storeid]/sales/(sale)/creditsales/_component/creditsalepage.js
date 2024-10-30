@@ -87,10 +87,10 @@ const    router = useRouter();
             router.refresh();
         }, 500);
         }else {
-            toast.error('Something went wrong : CSFp');
+            toast.error('Something went wrong : credit sales');
         }
         }catch (e) {
-            toast.error('Something went wrong : CSFp');
+            toast.error('Something went wrong : credit sales');
         }
     }
 
