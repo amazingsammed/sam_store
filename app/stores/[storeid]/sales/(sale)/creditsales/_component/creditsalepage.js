@@ -4,17 +4,19 @@ import React, {useState} from 'react';
 import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {MdCheck, MdDeleteOutline} from "react-icons/md";
 import {HeaderWithButton} from "@/components/app/headerlisttile";
-import {ItemListCombo} from "@/app/stores/[storeid]/sales/sale/cashsales/_component/itemlistcombo";
-import {createCashSales} from "@/app/_actions/sales";
+import {createCashSales, createCreditSales} from "@/app/_actions/sales";
 import {useParams, useRouter} from "next/navigation";
 import {toast} from "sonner";
 import {z} from "zod";
 import {CashPurchasesSchema} from "@/app/_zod-models/auth";
 import {Button} from "@/components/ui/button";
+import {ItemListCombo} from "@/app/stores/_component/itemlistcombo";
+import {CustomerListCombo} from "@/app/stores/_component/customerlistcombo";
 
-function Cashsalepage(prop) {
+function Creditsalepage() {
     const path = useParams();
     const [success, setSuccess] = useState(false);
+    const [customer, setCustomer] = useState();
     const [list, setList] = useState([]);
     const [errorMessages, setErrorMessages] = useState([]);
 const    router = useRouter();
@@ -29,6 +31,10 @@ const    router = useRouter();
         setnewitem({
             "name": '', 'quantity': 0, 'amount': '', 'rate': 0
         })
+    }
+    function handleCustomerChange(e){
+        setCustomer(e);
+        console.log(e);
     }
 
     function handlechange(e) {
@@ -69,7 +75,11 @@ const    router = useRouter();
                 return [];
             }
             setErrorMessages([]);
-       const [voucher, accounting,inventory]= await createCashSales(list , path.storeid);
+            if (!customer) {
+                toast.error('customer is not selected')
+                return [];
+            }
+       const [voucher, accounting,inventory]= await createCreditSales(list ,customer, path.storeid);
         if(voucher&& accounting&&inventory){
         toast.success('Cash sales success');
         await router.back();
@@ -88,13 +98,14 @@ const    router = useRouter();
     return (
         <div className="grid grid-cols-12">
             <div className='h-[80dvh]  justify-between col-span-10'>
-                <HeaderWithButton title='Cash Sales' subtitle='Account Name : Cash Account' bname="Save" ontap={handleSave}>
+                <HeaderWithButton title='Credit Sales' subtitle='Used to record item of credit sales' bname="Save" ontap={handleSave}>
+                    <div>
 
 
+                    <CustomerListCombo onChange={handleCustomerChange} onPressed={(e)=>console.log(e)}> </CustomerListCombo>
                 <div className="p-4 mb-auto overflow-y-auto ">
                     <form action={handlesubmit}>
                         <div className="overflow-y-auto ">
-
                             <Table>
                                 <TableHeader>
                                     <TableRow>
@@ -125,7 +136,7 @@ const    router = useRouter();
                                     <TableRow>
                                         <TableCell className="font-medium w-[10]">index </TableCell>
                                         <TableCell>
-                                            <ItemListCombo list={prop.cacheditems} onChangeValue={handlelistclicked}/>
+                                            <ItemListCombo onChange={handlelistclicked}/>
                                         </TableCell>
                                         {/*<TableCell className="w-[30]">{newitem.rate}</TableCell>*/}
                                         <TableCell className="w-[30]"><TableInputn name='rate' value={newitem.rate}
@@ -164,6 +175,7 @@ const    router = useRouter();
                     </form>
 
                 </div>
+                    </div>
                 </HeaderWithButton>
 
             </div>
@@ -171,7 +183,7 @@ const    router = useRouter();
     );
 }
 
-export default Cashsalepage;
+export default Creditsalepage;
 
 const inputdecoration = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded p-3"
 

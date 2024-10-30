@@ -2,7 +2,7 @@
 import {HeaderListTileDialog} from "@/components/app/headerlisttile";
 import {AddCategoryDialog} from "@/app/stores/[storeid]/items/category/_component/category_form";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
-import {CategoryColumns} from "@/app/stores/[storeid]/items/_components/category/category_columns";
+import {CategoryColumns} from "@/app/stores/[storeid]/items/category/_component/category_columns";
 import React from "react";
 
 export  function CategoryTable(prop) {

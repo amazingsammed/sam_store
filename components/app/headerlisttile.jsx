@@ -76,7 +76,7 @@ export function HeaderWithButton  (prop)  {
 
 export function HeaderListTileDialog (prop)  {
     return (
-        <Card>
+        <Card id = {prop.id}>
             <CardHeader>
                 <CardTitle>
                     <div className="flex flex-row justify-between items-center">

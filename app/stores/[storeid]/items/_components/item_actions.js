@@ -11,7 +11,7 @@ import {
 import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
 import {useParams, usePathname, useRouter} from "next/navigation";
-import {deleteStockItem, editStockItem} from "@/app/_actions/stock_item";
+import {deactivateStockItem, deleteStockItem, editStockItem} from "@/app/_actions/stock_item";
 import {useFormState} from "react-dom";
 import {
     Dialog, DialogClose,
@@ -31,9 +31,12 @@ function ItemActions({element}) {
     const param = useParams();
     const router = useRouter();
     const path = usePathname();
+    async function handleDeactivate() {
+        await deactivateStockItem(element,param.storeid);
+        await router.refresh();
+    }
     async function handleDeleteStockItem() {
         await deleteStockItem(element,param.storeid);
-        SetState();
         await router.refresh();
     }
     return (
@@ -48,8 +51,9 @@ function ItemActions({element}) {
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <EditItemForm prop ={element} />
-                <DropdownMenuItem onClick={handleDeleteStockItem}>
-                    {element.status ===0?'Activate':'Deactivate'} </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDeactivate}>
+                    {element.is_active ===0?'Activate':'Deactivate'} </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDeleteStockItem}>Delete </DropdownMenuItem>
                 {/*<SheetSideBar element = {element}>*/}
                 {/*    View Item Details*/}
                 {/*</SheetSideBar>*/}

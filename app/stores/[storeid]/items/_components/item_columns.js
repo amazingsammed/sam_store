@@ -56,7 +56,7 @@ export const itemsColumns = [
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => {
-            return <StatusBtn num={row.original.status} />
+            return <StatusBtn num={row.original.is_active} />
         }
     },
     {

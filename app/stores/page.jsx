@@ -6,9 +6,9 @@ export default async function Page() {
 
    const list= await getStores();
     return(
-        <MainContainer className="h-full">
+        <main className="h-full w-full">
            <Storelist datax={list}/>
-        </MainContainer>
+        </main>
         );
 
 }

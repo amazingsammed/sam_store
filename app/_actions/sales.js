@@ -33,8 +33,8 @@ export async function createCashSales(data, storeid) {
         // const element = toJson(data)
         const guid = uuidv4();
         const [results, total ] = listToInventory(data, guid, storeid, userid);
-        console.log(results,'results')
-       const voucher = await prisma.voucher.create({
+        const [voucher,inventory,accounting]= await prisma.$transaction([
+         prisma.voucher.create({
             data: {
                 uuid: guid,
                 date: new Date(),
@@ -47,12 +47,12 @@ export async function createCashSales(data, storeid) {
                 createdby: userid,
                 storeid: storeid,
             }
-        });
-       const inventory = await prisma.trn_inventory.createMany({
+        }),
+         prisma.trn_inventory.createMany({
                 data: results
             }
-        )
-       const accounting = await prisma.trn_accounting.createMany({
+        ),
+        prisma.trn_accounting.createMany({
            data: [
                {   voucher_uuid: guid,
                    vouchername: 'Sales Account',
@@ -73,8 +73,65 @@ export async function createCashSales(data, storeid) {
                    storeid: storeid,
                },
            ],
-        });
+        })
+        ])
        return [voucher, accounting,inventory];
+    } catch (e) {
+
+        console.log(e);
+    }
+}
+
+export async function createCreditSales(data,customer, storeid) {
+    try {
+        const [userid] = await PrimeChecker(storeid);
+        const guid = uuidv4();
+        const [results, total ] = listToInventory(data, guid, storeid, userid);
+        const [voucher,inventory,accounting]= await prisma.$transaction([
+            prisma.voucher.create({
+                data: {
+                    uuid: guid,
+                    date: new Date(),
+                    voucher_type: 22,
+                    narration: "Credit Sales",
+                    party_name: 'Sales',
+                    is_invoice: 0,
+                    is_inventory_voucher: 1,
+                    is_accounting_voucher: 1,
+                    createdby: userid,
+                    storeid: storeid,
+                }
+            }),
+            prisma.trn_inventory.createMany({
+                    data: results
+                }
+            ),
+            prisma.trn_accounting.createMany({
+                data: [
+                    {
+                        voucher_uuid: guid,
+                        vouchername: 'Sales Account',
+                        account_uuid: 'Sales',
+                        amount: parseFloat(total) * -1,
+                        is_system: 1,
+                        date: new Date(),
+                        createdby: userid,
+                        storeid: storeid,
+                    },
+                    {
+                        voucher_uuid: guid,
+                        vouchername: customer.name,
+                        account_uuid: customer.coa_uuid,
+                        amount: parseFloat(total),
+                        is_system: 1,
+                        date: new Date(),
+                        createdby: userid,
+                        storeid: storeid,
+                    },
+                ],
+            })
+        ])
+        return [voucher, accounting,inventory];
     } catch (e) {
 
         console.log(e);

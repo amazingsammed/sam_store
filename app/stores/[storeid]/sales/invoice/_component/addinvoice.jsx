@@ -60,8 +60,7 @@ export function InvoiceForm() {
                                 <CTextfieldR label="Deposit Account" value='' name="da"/>
                             </div>
                         </div>
-<Card className="max-h-[300px]">
-
+            <Card className="max-h-[300px]">
                         <Table >
                             <TableHeader>
                                 <TableRow>

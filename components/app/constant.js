@@ -238,10 +238,13 @@ export const theSidemenu2 = [
         'items': [
             {
                 'title': "Basic", 'items': [
-
+                    {
+                        'title': "Items", 'url': "/report/items"
+                    },
                     {
                         'title': "Sales", 'url': "/settings/general"
-                    }, {
+                    },
+                    {
                         'title': "Purchases", 'url': "/settings/storedetails"
                     },
                     {

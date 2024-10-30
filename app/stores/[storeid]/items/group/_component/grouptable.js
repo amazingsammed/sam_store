@@ -3,7 +3,7 @@
 import {HeaderListTileDialog} from "@/components/app/headerlisttile";
 import {AddGroupDialog} from "@/app/stores/[storeid]/items/group/_component/groupform";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
-import {groupColumns} from "@/app/stores/[storeid]/items/_components/group/group_columns";
+import {groupColumns} from "@/app/stores/[storeid]/items/group/_component/group_columns";
 import React from "react";
 
 export  function GroupTable(prop) {

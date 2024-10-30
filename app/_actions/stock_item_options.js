@@ -66,6 +66,7 @@ export async function getStockGroup(storeid) {
         return await prisma.stock_item_group.findMany({
             where: {
                 storeid: storeid,
+                status: 1
             },
             include: {
                 stock_item_category: true,
@@ -84,6 +85,7 @@ export async function getStockCategory(storeid) {
         return await prisma.stock_item_category.findMany({
             where: {
                 storeid: storeid,
+                status: 1
             }
         });
     } catch (e) {
@@ -99,10 +101,108 @@ export async function getStockUnits(storeid) {
         return await prisma.stock_item_unit.findMany({
             where: {
                 storeid: storeid,
+                status: 1
             }
         });
     } catch (e) {
         console.log(e);
         return [];
+    }
+}
+
+export async function deleteCategory(data) {
+    try{
+        const element = data;
+        console.log(element);
+        const savedElement = await prisma.stock_item_category.updateMany({
+            where: {
+                uuid: element.uuid,
+            },
+            data: {
+                status: element.status===1?0:1,
+            }
+        });
+    }catch (e) {
+        console.log(e);
+    }
+}
+export async function deactivateCategory(data) {
+    try{
+        const element = data;
+        console.log(element);
+        const savedElement = await prisma.stock_item_category.updateMany({
+            where: {
+                id: element.id,
+            },
+            data: {
+                is_active: element.is_active===1?0:1,
+            }
+        });
+    }catch (e) {
+        console.log(e);
+    }
+}
+export async function deleteStockGroup(data) {
+    try{
+        const element = data;
+        console.log(element);
+        const savedElement = await prisma.stock_item_group.updateMany({
+            where: {
+                id: element.id,
+            },
+            data: {
+                status: element.status===1?0:1,
+            }
+        });
+    }catch (e) {
+        console.log(e);
+    }
+}
+export async function deactivateStockGroup(data) {
+    try{
+        const element = data;
+        console.log(element);
+        const savedElement = await prisma.stock_item_group.updateMany({
+            where: {
+                id: element.id,
+            },
+            data: {
+                is_active: element.is_active===1?0:1,
+            }
+        });
+    }catch (e) {
+        console.log(e);
+    }
+}
+export async function deleteUnit(data) {
+    try{
+        const element = data;
+        console.log(element);
+        const savedElement = await prisma.stock_item_unit.updateMany({
+            where: {
+                id: element.id,
+            },
+            data: {
+                status: element.status===1?0:1,
+            }
+        });
+    }catch (e) {
+        console.log(e);
+    }
+}
+export async function deactivateUnit(data) {
+    try{
+        const element = data;
+        console.log(element);
+        const savedElement = await prisma.stock_item_unit.updateMany({
+            where: {
+                id: element.id,
+            },
+            data: {
+                is_active: element.is_active===1?0:1,
+            }
+        });
+    }catch (e) {
+        console.log(e);
     }
 }

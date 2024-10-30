@@ -5,10 +5,25 @@ import {testRight} from "@/app/_actions/account";
 
 const dbT=[
     {
-        'title':'Total Accountspayable',
+        'title':'Sales',
         "value": "1000",
         "date": "today"
-    }
+    },
+    {
+        'title':'Purchases',
+        "value": "1000",
+        "date": "today"
+    },
+    {
+        'title':'Items',
+        "value": "1000",
+        "date": "today"
+    },
+    {
+        'title':'Alert',
+        "value": "1000",
+        "date": "today"
+    },
 ];
 export default async function Page({params}) {
   const test = await  testRight(params.storeid)

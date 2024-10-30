@@ -1,5 +1,7 @@
-import {format} from "date-fns";
+//import {format} from "date-fns";
 
+
+import {format} from "date-fns";
 
 export function formdataToJson(formData){
 
@@ -57,7 +59,8 @@ export function prismatoJson(data,nestedKeys){
 }
 
 export function DateFormat(data){
-    return format( Date(data), 'dd MMM yy');
+    //return data;
+   return format( Date(data), 'dd MMM yy');
 }
 
 

@@ -22,6 +22,28 @@ export async function getProducts(storeid) {
 
     //return currentUserCounter.count;
 }
+export async function getProductsWithQuantity(storeid) {
+    const results = [];
+    try {
+        const [userid] = await PrimeChecker(storeid);
+        const  data = await prisma.stock_item.findMany({
+            where: {
+                storeid: storeid,
+                status: 1
+            },
+            include:{
+                stock_item_group: true,
+                stock_item_unit: true,
+                trn_inventory: true,
+            }
+        });
+        return JSON.parse(JSON.stringify(data));
+    } catch (e) {
+        return [];
+    }
+
+    //return currentUserCounter.count;
+}
 export async function getProductComboBox(storeid) {
     const results = [];
     try {
@@ -45,7 +67,11 @@ export async function getAllProductsbyStoreid(storeid) {
         const [userid] = await PrimeChecker(storeid);
         const  data= await prisma.stock_item.findMany({
             where: {
-                storeid: storeid
+                storeid: storeid,
+                status: 1
+            },
+            orderBy:{
+                id: 'asc'
             },
             include:{
                 stock_item_group: true,
@@ -198,6 +224,22 @@ export async function deleteStockItem(data) {
             },
             data: {
                 status: element.status===1?0:1,
+            }
+        });
+    }catch (e) {
+        console.log(e);
+    }
+}
+export async function deactivateStockItem(data) {
+    try{
+        const element = data;
+        console.log(element);
+        const savedElement = await prisma.stock_item.updateMany({
+            where: {
+                uuid: element.uuid,
+            },
+            data: {
+                is_active: element.is_active===1?0:1,
             }
         });
     }catch (e) {

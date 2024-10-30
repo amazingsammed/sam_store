@@ -19,8 +19,8 @@ const menus = [
         'title': "Account",
         'Children': [
             {
-                'title': "Preferences",
-                'url': "/preferences"
+                'title': "My Account",
+                'url': "/myaccount"
             },
         ]
     },

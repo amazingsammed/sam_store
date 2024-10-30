@@ -68,7 +68,7 @@ export function CustomerListCombo({onChange,onPressed}) {
                                     value={element.uuid}
                                     onSelect={(currentValue) => {
                                         setValue(currentValue === value ? "" : currentValue)
-
+                                        onChange(element)
                                         setOpen(false)
                                     }}
                                 >

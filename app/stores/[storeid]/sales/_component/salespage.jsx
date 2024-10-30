@@ -1,9 +1,14 @@
 'use client'
 
 
-import Headerlisttile from "@/components/app/headerlisttile";
+import Headerlisttile, {HeaderListTileDialog} from "@/components/app/headerlisttile";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
-import {allSalesColumns} from "@/app/stores/[storeid]/sales/_component/all_sales/allSales_column";
+import {allSalesColumns} from "@/app/stores/[storeid]/sales/_component/allSales_column";
+import Link from "next/link";
+import {Button} from "@/components/ui/button";
+import {AddAnItem} from "@/app/stores/[storeid]/items/_components/item_form";
+import React from "react";
+import {usePathname} from "next/navigation";
 
 // export function SalesPage() {
 //     return (
@@ -42,12 +47,22 @@ import {allSalesColumns} from "@/app/stores/[storeid]/sales/_component/all_sales
 // }
 
 export function SalesPage({data}) {
+    const path = usePathname();
     const tabledata= data;
     return (
-        <Headerlisttile title='Sales List' subtitle='All Sales are listed here' bname="Create"
-                        ontap="sales/sale/cashsales">
+        <HeaderListTileDialog title='Sales List' subtitle='All Sales are listed here' buttonx={
+           <div className={`flex flex-row gap-3`}>
+            <Link href={path + "/creditsales"}>
+            <Button variant="outline">Credit Sales</Button>
+            </Link>
+            <Link href={path + "/cashsales"}>
+            <Button >Cash Sales</Button>
+            </Link>
+               </div>
+}>
+
             <DataTable columns={allSalesColumns} data={tabledata} filter={'party_name'}/>
-        </Headerlisttile>
+        </HeaderListTileDialog>
     );
 }
 

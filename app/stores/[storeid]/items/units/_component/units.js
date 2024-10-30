@@ -2,7 +2,7 @@
 import {HeaderListTileDialog} from "@/components/app/headerlisttile";
 import {AddUnitsDialog} from "@/app/stores/[storeid]/items/units/_component/unitsform";
 import {DataTable} from "@/app/stores/[storeid]/items/_components/datatable";
-import {UnitColumns} from "@/app/stores/[storeid]/items/_components/units/units_columns";
+import {UnitColumns} from "@/app/stores/[storeid]/items/units/_component/units_columns";
 import React from "react";
 
 export  function UnitsTable(prop) {

@@ -66,7 +66,7 @@ export const allSalesColumns = [
         accessorKey: "amount",
         header: "Amount",
         cell: ({ row }) => {
-            return row.original.trn_accounting[0].amount??"f";
+            return row.original.trn_accounting[row.original.trn_accounting.length-1].amount??"f";
         }
     },
         {

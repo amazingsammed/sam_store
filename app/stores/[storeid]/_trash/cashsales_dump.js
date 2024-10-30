@@ -10,7 +10,7 @@
 // import {cn} from "@/lib/utils";
 // import {Button} from "@/components/ui/button";
 //
-// function Cashsalepage(prop) {
+// function Creditsalepage(prop) {
 //     const showlists = true;
 //     const [list, setList] = useState([]);
 //     const [showlist, setShowList] = useState(false);
@@ -168,7 +168,7 @@
 //     );
 // }
 //
-// export default Cashsalepage;
+// export default Creditsalepage;
 //
 // const inputdecoration = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded p-3"
 //
