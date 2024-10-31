@@ -4,11 +4,12 @@ import React, {useEffect, useState} from 'react';
 import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {MdCheck, MdDeleteOutline} from "react-icons/md";
 import {HeaderWithButton} from "@/components/app/headerlisttile";
-import {ItemListCombo} from "@/app/stores/[storeid]/sales/(sale)/cashsales/_component/itemlistcombo";
+
 
 import {useParams, useRouter, useSearchParams} from "next/navigation";
 
 import {editSalesVoucher, getSingleVoucherList} from "@/app/_actions/voucher";
+import {ItemListCombo} from "@/app/stores/_component/itemlistcombo";
 
 export default function EditVoucherFormPage(prop) {
     const params = useParams();
@@ -126,7 +127,7 @@ export default function EditVoucherFormPage(prop) {
                                     <TableCell className="font-medium w-[10]">index </TableCell>
                                     <TableCell>
                                         <ItemListCombo list={prop.cacheditems}
-                                                       onChangeValue={handlelistclicked}/>
+                                                       onChange={handlelistclicked}/>
                                     </TableCell>
                                     <TableCell className="w-[30]">{newitem.rate}</TableCell>
                                     <TableCell className="w-[30]"><TableInputn name='quantity'
