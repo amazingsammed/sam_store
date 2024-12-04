@@ -81,3 +81,30 @@ export const coaColumns = [
         },
     },
 ]
+export const defaultColumns = [
+    {
+        accessorKey: "account_code",
+        header: "Code",
+    },
+    {
+        accessorKey: "account_name",
+        header: "Account Name",
+    },
+    {
+        accessorKey: "account_type",
+        header: "Account Type",
+        cell: ({ row }) => {
+            const account_type = row.original.account_type;
+            return accounts[account_type-1].name;
+        }
+    },
+    // {
+    //     accessorKey: "party_name",
+    //     header: "Account",
+    // },
+    // {
+    //     accessorKey: "salesperson",
+    //     header: "Accountspayable Person",
+    // },
+
+]

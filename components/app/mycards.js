@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 
@@ -70,20 +70,23 @@ export function HomeCard({element}) {
     );
 }
 
-export function DashBoardCard({title,value,date}) {
+export function DashBoardCard({title,value,date,count}) {
     return (
         <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
+                <CardTitle className="text-xl">
                     {title?title:'Total'}
                 </CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="text-2xl font-bold">{value?value:"0.00"}</div>
-                <p className="text-xs text-muted-foreground">
-                    {date?date:'today'}
-                </p>
             </CardContent>
+            <CardFooter className='flex flex-row justify-between '>
+               <div>{count}</div>
+               <div>
+                {date?date:'This Month'}
+               </div>
+            </CardFooter>
         </Card>
     );
 }

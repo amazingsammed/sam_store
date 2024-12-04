@@ -32,7 +32,7 @@ export function GetAccountGroup({uuid}) {
     useEffect(()=>{
         const fetcher = async () => {
             const a = await getChartOfAccountGroupbyuuid(uuid,param.storeid);
-            setGroup(a[0].name);
+            setGroup(a[0].account_name);
         };
         fetcher();
     },[])

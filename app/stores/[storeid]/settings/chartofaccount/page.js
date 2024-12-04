@@ -3,6 +3,7 @@ import {Cartofaccount} from "@/app/stores/[storeid]/settings/chartofaccount/_com
 
 async function Page({params}) {
     const data = await getChartOfAccount(params.storeid);
+
     return (
         <div><Cartofaccount data ={data}/></div>
     );

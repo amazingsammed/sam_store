@@ -2,36 +2,43 @@
 
 
 import {checkPermission, PrimeChecker} from "@/app/_actions/_checker";
-import prisma from "@/lib/prisma";
 import {v4 as uuidv4} from "uuid";
-import {formdataToJson} from "@/app/shared/sharedfunctions";
+import {formdataToJson, mapToJson} from "@/app/shared/sharedfunctions";
 import {systemRight} from "@/components/app/constant";
-
-export async function testRight(storeid){
-    const [userid,results] = await PrimeChecker(storeid);
+import prisma from "@/lib/prisma";
+export async function testRight(storeid) {
+    const [userid, results] = await PrimeChecker(storeid);
     console.log(results);
-    await checkPermission(userid,results,systemRight.testRight)
-    console.log(userid,'from test right');
+    await checkPermission(userid, results, systemRight.testRight)
+    console.log(userid, 'from test right');
 }
+
 export async function getChartOfAccount(storeid) {
-    const results = [];
-    try{
-        const [userid] = PrimeChecker(storeid);
-        const results= await prisma.chart_of_account.findMany({
-            where: {
-                storeid: storeid,
-            }
-        });
-        console.log(results);
-        return [...JSON.parse(JSON.stringify(results))];
-    }catch (e) {
+    try {
+
+        const [userid] = await PrimeChecker(storeid);
+
+        const [storemap, systemmap] = await prisma.$transaction([
+             prisma.chart_of_account.findMany({
+                where: {
+                    storeid: storeid,
+                }
+            }),
+            prisma.default_coa.findMany(),
+        ]);
+        const store = mapToJson(storemap);
+        const system = mapToJson(systemmap);
+
+        return [store, system];
+    } catch (e) {
+        console.log(e);
         return [];
     }
 
     //return currentUserCounter.count;
 }
 
-export async function createChartofAccounts(data , storeid) {
+export async function createChartofAccounts(data, storeid) {
     try {
         const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data);
@@ -50,14 +57,14 @@ export async function createChartofAccounts(data , storeid) {
                 createddate: new Date(),
             }
         });
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 }
 
 export async function getChartOfAccountGroup(storeid) {
     const allresults = [];
-    try{
+    try {
 
         const userid = PrimeChecker(storeid);
         const results = await prisma.chart_of_account_group.findMany({
@@ -66,7 +73,7 @@ export async function getChartOfAccountGroup(storeid) {
             }
         });
         results.forEach(result => {
-            allresults.push({...result,'system':0} ) ;
+            allresults.push({...result, 'system': 0});
         })
         const system = await prisma.system_account_group.findMany(
             {
@@ -76,17 +83,17 @@ export async function getChartOfAccountGroup(storeid) {
             }
         )
         system.forEach((item) => {
-            allresults.push({...item,'system':1});
+            allresults.push({...item, 'system': 1});
         })
         return [...JSON.parse(JSON.stringify(allresults))];
-    }catch (e) {
+    } catch (e) {
         return [];
     }
 
     //return currentUserCounter.count;
 }
 
-export async function createChartofAccountsGroup(data , storeid) {
+export async function createChartofAccountsGroup(data, storeid) {
     try {
         const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data);
@@ -103,13 +110,13 @@ export async function createChartofAccountsGroup(data , storeid) {
             }
         });
         console.log(savedElement);
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 }
 
 export async function deactivateCOAG(data) {
-    try{
+    try {
         const element = data;
         console.log(element);
         const savedElement = await prisma.chart_of_account_group.update({
@@ -117,15 +124,16 @@ export async function deactivateCOAG(data) {
                 uuid: element.uuid,
             },
             data: {
-                status: element.status===1?0:1,
+                status: element.status === 1 ? 0 : 1,
             }
         });
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 }
+
 export async function deactivateCOA(data) {
-    try{
+    try {
         const element = data;
         console.log(element);
         const savedElement = await prisma.chart_of_account.update({
@@ -133,17 +141,17 @@ export async function deactivateCOA(data) {
                 uuid: element.uuid,
             },
             data: {
-                status: element.status===1?0:1,
+                status: element.status === 1 ? 0 : 1,
             }
         });
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 }
 
 export async function editCOAG(data, storeid) {
 
-    try{
+    try {
         const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data);
         console.log(element);
@@ -156,13 +164,14 @@ export async function editCOAG(data, storeid) {
                 accountid: parseInt(element.accountid),
             }
         });
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 }
+
 export async function editCOA(data, storeid) {
 
-    try{
+    try {
         const [userid] = await PrimeChecker(storeid);
         const element = formdataToJson(data);
         console.log(element);
@@ -177,16 +186,16 @@ export async function editCOA(data, storeid) {
                 description: element.description,
             }
         });
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 }
 
 export async function getChartOfAccountGroupbyAccountid(accountid, storeid) {
     const allresults = [];
-    try{
+    try {
 
-        const userid = PrimeChecker(storeid);
+        const [userid] =await PrimeChecker(storeid);
         const results = await prisma.chart_of_account_group.findMany({
             where: {
                 accountid: parseInt(accountid),
@@ -195,7 +204,7 @@ export async function getChartOfAccountGroupbyAccountid(accountid, storeid) {
             }
         });
         results.forEach(result => {
-            allresults.push({...result,'system':0} ) ;
+            allresults.push({...result, 'system': 0});
         })
         const system = await prisma.system_account_group.findMany(
             {
@@ -206,23 +215,24 @@ export async function getChartOfAccountGroupbyAccountid(accountid, storeid) {
             }
         )
         system.forEach((item) => {
-            allresults.push({...item,'system':1});
+            allresults.push({...item, 'system': 1});
         })
-        console.log(allresults,'all results');
+        console.log(allresults, 'all results');
         return [...JSON.parse(JSON.stringify(allresults))];
-    }catch (e) {
+    } catch (e) {
         console.log(e)
         return [];
     }
 
     //return currentUserCounter.count;
 }
-export async function getChartOfAccountGroupbyuuid(uuid,storeid) {
+
+export async function getChartOfAccountGroupbyuuid(uuid, storeid) {
 
     const allresults = [];
-    try{
+    try {
 
-        const userid = PrimeChecker(storeid);
+        const userid = await PrimeChecker(storeid);
         const results = await prisma.chart_of_account_group.findMany({
             where: {
                 uuid: uuid,
@@ -230,7 +240,7 @@ export async function getChartOfAccountGroupbyuuid(uuid,storeid) {
             }
         });
         results.forEach(result => {
-            allresults.push({...result,'system':0} ) ;
+            allresults.push({...result, 'system': 0});
         })
         const system = await prisma.system_account_group.findMany(
             {
@@ -240,10 +250,10 @@ export async function getChartOfAccountGroupbyuuid(uuid,storeid) {
             }
         )
         system.forEach((item) => {
-            allresults.push({...item,'system':1});
+            allresults.push({...item, 'system': 1});
         })
         return [...JSON.parse(JSON.stringify(allresults))];
-    }catch (e) {
+    } catch (e) {
         console.log(e)
         return [];
     }

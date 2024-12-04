@@ -170,41 +170,68 @@ export const theSidemenu2 = [
 
                     {
                         'title': 'Create Qoute',
-                        'url': "/sales/quote"
+                        'url': "/sales/quote/create"
                     },
                     {
                         'title': 'Create Invoice',
-                        'url': "/sales/invoice"
+                        'url': "/sales/invoice/create"
                     },
+
                     {
                         'title': 'Create Sales Orders',
-                        'url': "/sales/salesorder"
+                        'url': "/sales/salesorder/create"
                     },
                     {
                         'title': 'Create Credit Sales',
-                        'url': "/sales/cashsales"
+                        'url': "/sales/creditsales"
+                    },
+                    {
+                        'title': 'Create Receipt',
+                        'url': "/sales/receipt"
                     },
                 ]
             }
         ]
     },
     {
-        'title': "Purchases", 'icon': <MdShoppingCartCheckout size={size}/>, 'hasItems': true, 'url': "/purchases", 'items': [{
+        'title': "Purchases",
+        'icon': <MdShoppingCartCheckout size={size}/>,
+        'hasItems': true,
+        'url': "/purchases",
+        'items': [
+            {
             'title': "Main", 'items': [
                 {
                     'title': "Purchases List", 'url': "/purchases"
                 },
                 {
-                'title': "Purchases order", 'url': "/purchases/purchaseorder"
-            },
+                    'title': "Purchases order", 'url': "/purchases/purchaseorder"
+                },
                 {
-                'title': "Accounts Payables", 'url': "/purchases/accountspayables"
-            },
+                    'title': "Accounts Payables", 'url': "/purchases/accountspayables"
+                },
                 {
-                'title': "Payments", 'url': "/purchases/payments"
-            },
+                    'title': "Payments", 'url': "/purchases/payments"
+                },
             ]
-        },]
+        },
+            {
+                'title': "Forms", 'items': [
+                    {
+                        'title': "Cash Purchases", 'url': "/purchases/cashpurchases"
+                    },
+                    {
+                        'title': "Credit Purchases", 'url': "/purchases/creditpurchases"
+                    },
+                    {
+                        'title': "Create Purchases order", 'url': "/purchases/purchaseorder/create"
+                    },
+                    {
+                        'title': "Record Payments", 'url': "/purchases/payments/create"
+                    },
+                ]
+            },
+        ]
     },
     {
         'title': "Items", 'icon': <MdInventory2 size={size}/>, 'hasItems': true, 'url': "/items",
@@ -283,8 +310,6 @@ export const theSidemenu2 = [
 
         ]
     },
-
-
     {
         'title': "Voucher",
         'icon': <MdEditDocument size={size}/>,
@@ -297,31 +322,31 @@ export const theSidemenu2 = [
                         'title': "Voucher List", 'url': "/voucher"
                     },
                     {
-                        'title': "Sales", 'url': "/settings/general"
+                        'title': "Sales", 'url': "/voucher/sales"
                     }, {
-                        'title': "Purchases", 'url': "/settings/storedetails"
+                        'title': "Purchases", 'url': "/voucher/purchases"
                     },
                     {
-                        'title': "Payments", 'url': "/settings/accountgroup",
+                        'title': "Payments", 'url': "/voucher/payment",
                     },
                     {
-                        'title': "Receipt", 'url': "/settings/accountgroup",
+                        'title': "Receipt", 'url': "/voucher/receipt",
                     },
                 ]
             },
             {
                 'title': "accounting - forms", 'items': [
                     {
-                        'title': "Contra", 'url': "/settings/defaultAccounts",
+                        'title': "Contra", 'url': "/voucher/contra",
                     },
                     {
-                        'title': "Journal", 'url': "/settings/chartofaccounts",
+                        'title': "Journal", 'url': "/voucher/journal",
                     },
                     {
-                        'title': "Credit Note", 'url': "/settings/chartofaccounts",
+                        'title': "Credit Note", 'url': "/voucher/creditnote",
                     },
                     {
-                        'title': "Debit Note", 'url': "/settings/chartofaccounts",
+                        'title': "Debit Note", 'url': "/voucher/debitnote",
                     },
 
                 ]
@@ -350,9 +375,6 @@ export const configurationlist = [
             },
             {
                 'title': "configuration", 'items': [
-                    {
-                        'title': "Default Accounts", 'url': "/settings/defaultAccounts",
-                    },
                     {
                         'title': "Transfers", 'url': "/settings/transfers",
                     },
