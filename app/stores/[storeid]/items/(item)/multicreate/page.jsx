@@ -4,7 +4,7 @@ import MainContainer from "@/components/app/mainContainer";
 
 async function Page(props) {
     return (
-        <MainContainer className="">
+        <MainContainer>
         <MultiCreatePage />
         </MainContainer>
     );

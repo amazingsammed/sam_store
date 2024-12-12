@@ -9,10 +9,10 @@ const menus = [
                 'title': "All Stores",
                 'url': "/"
             },
-            {
-                'title': "All Business",
-                'url': "/business"
-            },
+            // {
+            //     'title': "All Business",
+            //     'url': "/business"
+            // },
         ]
     },
     {
