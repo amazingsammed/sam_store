@@ -29,6 +29,7 @@ export async function getChartOfAccount(storeid) {
         const store = mapToJson(storemap);
         const system = mapToJson(systemmap);
 
+        // return [store, system];
         return [store, system];
     } catch (e) {
         console.log(e);

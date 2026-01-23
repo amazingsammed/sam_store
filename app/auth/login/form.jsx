@@ -8,10 +8,10 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {Icons} from "@/app/auth/_component/icons";
 import * as React from "react";
-import {LoginFormSchema} from "@/app/_zod-models/auth";
 import {signIn} from "next-auth/react";
 import {useRouter} from "next/navigation";
 import {toast} from "sonner";
+import {LoginFormSchema} from "@/app/_zod-models/auth";
 
 
 export function LoginForm() {

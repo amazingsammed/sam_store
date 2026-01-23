@@ -60,7 +60,7 @@ export function prismatoJson(data,nestedKeys){
 
 export function DateFormat(data){
     //return data;
-   return format( Date(data), 'dd MMM yy');
+   return format( Date(data), 'yy');
 }
 
 
